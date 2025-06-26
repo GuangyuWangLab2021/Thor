@@ -74,7 +74,7 @@ To install COMMOT for cell-cell communication analysis, please follow the instru
 
 Usage
 ========================================================
-- Visit `Thor Website <www.github.com>`_ [*will be launched soon*] for APIs and tutorials.
+- Visit `Thor Website <https://wanglab.tech/thor>`_ for APIs and tutorials.
 
 - To reproduce the results in our paper, please refer to the tutorials and the parameters can be found in the directory `parameters/ <./parameters_for_reproducing/>`_.
 
