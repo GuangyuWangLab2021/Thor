@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <h1>Mouse olfactory bulb<a class="headerlink" href="#Mouse-olfactory-bulb" title="Link to this heading"></a></h1>
 <p>Thor reveals cell-resolution mouse olfactory bulb structure.</p>
 <p>In this tutorial, we show inference of cell-level spatial gene expression from the Visium spot-level spatial transcriptome and a whole slide image (H&amp;E staining) using Thor.</p>
-<p>The spatial transcriptome dataset is the Adult Mouse Olfactory Bulb. The input data can be downloaded from our <a class="reference external" href="https://drive.google.com/drive/folders/1L5PUHhG-BsF8_qJdjfVNpbeqVH5e44wE?usp=drive_link">google drive</a> or 10x Genomics <a class="reference external" href="https://www.10xgenomics.com/resources/datasets/adult-mouse-olfactory-bulb-1-standard-1">website</a>.</p>
+<p>The spatial transcriptome dataset is the Adult Mouse Olfactory Bulb. The input data can be downloaded from our <a class="reference external" href="https://drive.google.com/drive/folders/1CaUHMRUcKT-qGY2_lMkOcVVu_7OW50S-?usp=sharing">google drive</a> or 10x Genomics <a class="reference external" href="https://www.10xgenomics.com/resources/datasets/adult-mouse-olfactory-bulb-1-standard-1">website</a>.</p>
 <p>For installation of Thor, please refer to <a class="reference internal" href="../installation.html"><span class="doc">this installation guide</span></a>.</p>
 <section id="Import-the-packages">
 <h2>Import the packages<a class="headerlink" href="#Import-the-packages" title="Link to this heading"></a></h2>
@@ -220,7 +220,7 @@ numexpr.utils - INFO - NumExpr defaulting to 8 threads.
 <h2>Preprocessing<a class="headerlink" href="#Preprocessing" title="Link to this heading"></a></h2>
 <section id="Preprocessing-the-whole-slide-image,-including-cell-segmentation-and-morphological-feature-extraction.-If-not-specified,-the-segmentation-data-will-be-saved-in-a-directory-(created-by-Thor)-WSI_{sn}.">
 <h3>Preprocessing the whole slide image, including cell segmentation and morphological feature extraction. If not specified, the segmentation data will be saved in a directory (created by Thor) WSI_{sn}.<a class="headerlink" href="#Preprocessing-the-whole-slide-image,-including-cell-segmentation-and-morphological-feature-extraction.-If-not-specified,-the-segmentation-data-will-be-saved-in-a-directory-(created-by-Thor)-WSI_{sn}." title="Link to this heading"></a></h3>
-<p>The WSI can be downloaded directly from <a class="reference external" href="https://drive.google.com/file/d/1tD3WumW5-ffAbSC4XuJh0geYlJBnYH7B/view?usp=sharing">google drive</a>.</p>
+<p>The WSI can be downloaded directly from <a class="reference external" href="https://drive.google.com/drive/folders/1CaUHMRUcKT-qGY2_lMkOcVVu_7OW50S-?usp=sharing">google drive</a>.</p>
 <p>The outcomes of image preprocessing are two files: - cell mask - cell features</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -233,7 +233,7 @@ numexpr.utils - INFO - NumExpr defaulting to 8 threads.
 </pre></div>
 </div>
 </div>
-<p>Here we use Cellpose to segment the nuclei. Notice the segmentation can take a long time without GPU. The output file is a <code class="docutils literal notranslate"><span class="pre">n_pixel_row</span></code> x <code class="docutils literal notranslate"><span class="pre">n_pixel_col</span></code> matrix. We’ll skip this step and load the pre-computed segmentation results from <a class="reference external" href="https://drive.google.com/drive/folders/1hSJatxitAudNglb2VF_Xdlly-nlv61Lc?usp=sharing">here</a>. In the downloaded folder, both the cell segmentation and cell features files are included.</p>
+<p>Here we use Cellpose to segment the nuclei. Notice the segmentation can take a long time without GPU. The output file is a <code class="docutils literal notranslate"><span class="pre">n_pixel_row</span></code> x <code class="docutils literal notranslate"><span class="pre">n_pixel_col</span></code> matrix. We’ll skip this step and load the pre-computed segmentation results from <a class="reference external" href="https://drive.google.com/drive/folders/1CaUHMRUcKT-qGY2_lMkOcVVu_7OW50S-?usp=sharing">here</a>. In the downloaded folder, both the cell segmentation and cell features files are included.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -256,7 +256,7 @@ Skip cell segmentation
 <section id="Preprocessing-spatial-transcriptome.-We-used-SCANPY-to-generate-an-adata-for-the-spots-including-QC.">
 <h3>Preprocessing spatial transcriptome. We used SCANPY to generate an adata for the spots including QC.<a class="headerlink" href="#Preprocessing-spatial-transcriptome.-We-used-SCANPY-to-generate-an-adata-for-the-spots-including-QC." title="Link to this heading"></a></h3>
 <p>We follow the standarized steps used by SCANPY to create the spot adata from the space ranger output directory (<code class="docutils literal notranslate"><span class="pre">visium_dir</span></code>). The spot adata contains the expression matrix, the location of the spots as pixel positions on the WSI, and the hires, lowres images with scalefactors. - spot.h5ad</p>
-<p>You can skip this step and download the files <a class="reference external" href="https://drive.google.com/drive/folders/1L5PUHhG-BsF8_qJdjfVNpbeqVH5e44wE?usp=drive_link">here</a></p>
+<p>You can skip this step and download the files <a class="reference external" href="https://drive.google.com/drive/folders/1CaUHMRUcKT-qGY2_lMkOcVVu_7OW50S-?usp=sharing">here</a></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
