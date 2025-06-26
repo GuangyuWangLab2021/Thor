@@ -1,4 +1,4 @@
-Thor - integrated analysis platform of tissue histology and spatial transcriptomics
+Thor - integrated analysis platform of tissue histology and spatial transcriptomics at **cell level**
 ========================================================
 
 
@@ -20,9 +20,6 @@ Thor's key modules
   :alt: function
 
 
-Visit `Thor Website <www.github.com>`_ [*will be launched soon*] for APIs and tutorials.
-
-
 What's new
 ========================================================
 - Thor now supports Visium HD data 
@@ -32,9 +29,7 @@ Installation
 ========================================================
 Thor is a Python-based tool designed for data analysis. Installation requires Python version 3.9+. The installation steps below have been tested on MacOS and Linux.
 
-The source code of Thor is available at https://github.com/GuangyuWangLab2021/Thor.
-
-Step 1: Create a Virtual Environment (Optional but Recommended)
+Step 1: Create a Virtual Environment (Optional, strongly recommended)
 
 - Using `conda <https://docs.conda.io/en/latest/>`_ , you can create a new environment named "Thor" with Python version 3.9 or later: 
 
@@ -65,17 +60,24 @@ Step 3: Install Thor
   ``pip install ".[vis, analysis]"``
 
 
-**Currently the cell-cell communication module only includes COMMOT, a SOTA model for spatial data. The module is under active development due to the potential limitation of read coverage in single-cell spatial transcriptomics data. We are welcome for any suggestions and feedbacks.** 
+**Currently the cell-cell communication module only includes COMMOT, a SOTA model for spatial data.** The module is under active development due to the potential limitation of read coverage in single-cell spatial transcriptomics data. We are welcome for any suggestions and feedback. 
 
 To install COMMOT for cell-cell communication analysis, please follow the instructions: 
   
-  - It requires R. Version 4.2.2 has been tested.
+  - R is required. Version 4.2.2 has been tested.
 
   - For Python dependencies,
 
   ``pip install --no-deps commot@git+https://github.com/biopzhang/COMMOT.git``
   
   ``pip install karateclub@git+https://github.com/benedekrozemberczki/karateclub.git POT libpysal rpy2==3.5.11 anndata2ri==1.2``
+
+Usage
+========================================================
+- Visit `Thor Website <www.github.com>`_ [*will be launched soon*] for APIs and tutorials.
+
+- To reproduce the results in our paper, please refer to the tutorials and the parameters can be found in the directory `parameters/ <./parameters_for_reproducing/>`_.
+
 
 Frequently asked questions
 ==========================
