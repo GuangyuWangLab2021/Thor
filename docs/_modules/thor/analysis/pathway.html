@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.analysis.pathway &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.analysis.pathway</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.analysis.pathway</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">anndata</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">spatial_smooth</span>
+
+
+<div class="viewcode-block" id="get_pathway_score">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.get_pathway_score.html#thor.analy.get_pathway_score">[docs]</a>
+<span class="k">def</span> <span class="nf">get_pathway_score</span><span class="p">(</span>
+        <span class="n">adata</span><span class="p">:</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">,</span> 
+        <span class="n">layer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+        <span class="n">net_df</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+        <span class="n">smooth_radius</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate pathway score for each cell using over-representation analysis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : AnnData</span>
+<span class="sd">        Annotated data matrix</span>
+<span class="sd">    layer : str, optional</span>
+<span class="sd">        Layer to use for the calculation</span>
+<span class="sd">    net_df : pd.DataFrame, optional</span>
+<span class="sd">        Dataframe with the network information. It should contain the following columns:</span>
+<span class="sd">        - geneset: name of the geneset</span>
+<span class="sd">        - genesymbol: name of the gene</span>
+<span class="sd">        - weight: weight of the gene in the geneset (optional)</span>
+<span class="sd">    smooth_radius : float, optional</span>
+<span class="sd">        Radius for the smoothing. Default is 200.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    AnnData</span>
+<span class="sd">        Annotated data matrix with the pathway as the var_names and the pathway score as the X</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function calculates the pathway score for each cell using over-representation analysis. It uses the `dc.run_ora` function to perform the analysis and stores the results in the `adata.obsm` attribute. The pathway score is stored in the `adata.X` attribute and the pathway names are stored in the `adata.var_names` attribute.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; import scanpy as sc</span>
+<span class="sd">    &gt;&gt;&gt; import anndata as ad</span>
+<span class="sd">    &gt;&gt;&gt; from thor.analysis import get_pathway_score</span>
+<span class="sd">    &gt;&gt;&gt; adata = sc.datasets.pbmc3k_processed()</span>
+<span class="sd">    &gt;&gt;&gt; net_df = pd.read_csv(&#39;path/to/network.csv&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; adata = get_pathway_score(adata, layer=&#39;counts&#39;, net_df=net_df)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">decoupler</span> <span class="k">as</span> <span class="nn">dc</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;adata must be an instance of anndata.AnnData&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">net_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;net_df must be an instance of pandas.DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;layer must be a string or None&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+
+    <span class="n">dc</span><span class="o">.</span><span class="n">run_ora</span><span class="p">(</span>
+        <span class="n">mat</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+        <span class="n">net</span><span class="o">=</span><span class="n">net_df</span><span class="p">,</span>
+        <span class="n">source</span><span class="o">=</span><span class="s1">&#39;geneset&#39;</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s1">&#39;genesymbol&#39;</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Store in a different key</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;msigdb_ora_estimate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;ora_estimate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;msigdb_ora_pvals&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;ora_pvals&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">acts</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">get_acts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">obsm_key</span><span class="o">=</span><span class="s1">&#39;msigdb_ora_estimate&#39;</span><span class="p">)</span>
+
+    <span class="c1"># We need to remove inf and set them to the maximum value observed</span>
+    <span class="n">acts_v</span> <span class="o">=</span> <span class="n">acts</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">max_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">acts_v</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">acts_v</span><span class="p">)])</span>
+    <span class="n">acts</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">acts</span><span class="o">.</span><span class="n">X</span><span class="p">)]</span> <span class="o">=</span> <span class="n">max_e</span>
+
+    <span class="k">if</span> <span class="n">smooth_radius</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x_smooth</span> <span class="o">=</span> <span class="n">spatial_smooth</span><span class="p">(</span><span class="n">acts</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">],</span> <span class="n">acts</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">smooth_radius</span><span class="p">)</span>
+        <span class="n">acts</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;smoothed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_smooth</span>
+
+    <span class="k">return</span> <span class="n">acts</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">get_celltype_specific_pathways</span><span class="p">(</span><span class="n">msigdb</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">adata</span><span class="p">:</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">,</span> <span class="n">kw_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">smooth_radius</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get cell-type specific pathways from a given gene set database.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    msigdb : pandas.DataFrame</span>
+<span class="sd">        A pandas dataframe containing gene set collections and their corresponding gene symbols.</span>
+<span class="sd">    adata : AnnData object</span>
+<span class="sd">        An annotated data matrix containing gene expression data.</span>
+<span class="sd">    kw_list : list</span>
+<span class="sd">        A list of keywords to search for in the gene set collections.</span>
+<span class="sd">    smooth_radius : float, optional</span>
+<span class="sd">        Radius for the smoothing. Default is 200 in the spatial unit.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    acts_bp_sel : AnnData object</span>
+<span class="sd">        An annotated data matrix containing the pathway scores for each cell type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bp</span> <span class="o">=</span> <span class="n">msigdb</span><span class="p">[</span><span class="n">msigdb</span><span class="p">[</span><span class="s1">&#39;collection&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;go_biological_process&#39;</span><span class="p">]</span>
+    <span class="n">bp_sel</span> <span class="o">=</span> <span class="n">bp</span><span class="p">[</span><span class="n">bp</span><span class="p">[</span><span class="s1">&#39;geneset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">p</span><span class="p">,</span> <span class="n">kw_list</span><span class="p">))))]</span>
+
+    <span class="n">bp_sel</span> <span class="o">=</span> <span class="n">bp_sel</span><span class="p">[</span><span class="o">~</span><span class="n">bp_sel</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s1">&#39;geneset&#39;</span><span class="p">,</span> <span class="s1">&#39;genesymbol&#39;</span><span class="p">])]</span>
+    <span class="n">bp_sel</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;geneset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;GOBP_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">bp_sel</span><span class="p">[</span><span class="s1">&#39;geneset&#39;</span><span class="p">]]</span>
+
+    <span class="n">acts_bp_sel</span> <span class="o">=</span> <span class="n">get_pathway_score</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">net_df</span><span class="o">=</span><span class="n">bp_sel</span><span class="p">,</span> <span class="n">smooth_radius</span><span class="o">=</span><span class="n">smooth_radius</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">acts_bp_sel</span>
+
+
+<span class="k">def</span> <span class="nf">get_collection_pathways</span><span class="p">(</span><span class="n">msigdb</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">adata</span><span class="p">:</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">,</span> <span class="n">coll</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hallmark&#39;</span><span class="p">,</span> <span class="n">smooth_radius</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get pathway scores for a specific gene set collection.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    msigdb : pandas.DataFrame</span>
+<span class="sd">        A pandas dataframe containing gene set collections.</span>
+<span class="sd">    adata : anndata.AnnData</span>
+<span class="sd">        An AnnData object containing gene expression data.</span>
+<span class="sd">    coll : str, optional</span>
+<span class="sd">        The name of the gene set collection to use. Default is &#39;hallmark&#39;.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    anndata.AnnData</span>
+<span class="sd">        An AnnData object containing pathway scores for the specified gene set collection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bp_sel</span> <span class="o">=</span> <span class="n">msigdb</span><span class="p">[</span><span class="n">msigdb</span><span class="p">[</span><span class="s1">&#39;collection&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">coll</span><span class="p">]</span>
+    <span class="n">bp_sel</span> <span class="o">=</span> <span class="n">bp_sel</span><span class="p">[</span><span class="o">~</span><span class="n">bp_sel</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s1">&#39;geneset&#39;</span><span class="p">,</span> <span class="s1">&#39;genesymbol&#39;</span><span class="p">])]</span>
+    <span class="n">bp_sel</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;geneset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">bp_sel</span><span class="p">[</span><span class="s1">&#39;geneset&#39;</span><span class="p">]]</span>
+    <span class="n">acts_bp_sel</span> <span class="o">=</span> <span class="n">get_pathway_score</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">net_df</span><span class="o">=</span><span class="n">bp_sel</span><span class="p">,</span> <span class="n">smooth_radius</span><span class="o">=</span><span class="n">smooth_radius</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">acts_bp_sel</span>
+
+
+<div class="viewcode-block" id="get_tf_activity">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.get_tf_activity.html#thor.analy.get_tf_activity">[docs]</a>
+<span class="k">def</span> <span class="nf">get_tf_activity</span><span class="p">(</span><span class="n">adata</span><span class="p">:</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">net_df</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">smooth_radius</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer TF activity using the CollecTRI database. This function calculates the pathway score for each cell using Univariate Linear Model. </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : AnnData</span>
+<span class="sd">        Annotated data matrix</span>
+<span class="sd">    layer : str, optional</span>
+<span class="sd">        Layer to use for the calculation</span>
+<span class="sd">    net_df : pd.DataFrame, optional</span>
+<span class="sd">        Dataframe with the network information. It should contain the following columns:</span>
+<span class="sd">        - source: name of the TF</span>
+<span class="sd">        - target: name of the regulated gene</span>
+<span class="sd">        - weight: weight of the gene </span>
+<span class="sd">    smooth_radius : float, optional</span>
+<span class="sd">        Radius for the smoothing. Default is 200.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    AnnData</span>
+<span class="sd">        Annotated data matrix with the TF as the var_names and the score as the X</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">decoupler</span> <span class="k">as</span> <span class="nn">dc</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;adata must be an instance of anndata.AnnData&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">net_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;net_df must be an instance of pandas.DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;layer must be a string or None&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+
+    <span class="n">dc</span><span class="o">.</span><span class="n">run_ulm</span><span class="p">(</span>
+        <span class="n">mat</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+        <span class="n">net</span><span class="o">=</span><span class="n">net_df</span><span class="p">,</span>
+        <span class="n">source</span><span class="o">=</span><span class="s1">&#39;source&#39;</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target&#39;</span><span class="p">,</span>
+        <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Store in a different key</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;msigdb_ulm_estimate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;ulm_estimate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;msigdb_ulm_pvals&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;ulm_pvals&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">acts</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">get_acts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">obsm_key</span><span class="o">=</span><span class="s1">&#39;msigdb_ulm_estimate&#39;</span><span class="p">)</span>
+
+    <span class="c1"># We need to remove inf and set them to the maximum value observed</span>
+    <span class="n">acts_v</span> <span class="o">=</span> <span class="n">acts</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">max_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">acts_v</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">acts_v</span><span class="p">)])</span>
+    <span class="n">acts</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">acts</span><span class="o">.</span><span class="n">X</span><span class="p">)]</span> <span class="o">=</span> <span class="n">max_e</span>
+
+    <span class="k">if</span> <span class="n">smooth_radius</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x_smooth</span> <span class="o">=</span> <span class="n">spatial_smooth</span><span class="p">(</span><span class="n">acts</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">],</span> <span class="n">acts</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">smooth_radius</span><span class="p">)</span>
+        <span class="n">acts</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;smoothed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_smooth</span>
+
+    <span class="k">return</span> <span class="n">acts</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

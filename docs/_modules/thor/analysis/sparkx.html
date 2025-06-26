@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.analysis.sparkx &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.analysis.sparkx</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.analysis.sparkx</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">AgglomerativeClustering</span><span class="p">,</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+
+<div class="viewcode-block" id="SPARKX">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.SPARKX.html#thor.analy.SPARKX">[docs]</a>
+<span class="k">class</span> <span class="nc">SPARKX</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for running `SPARK-X &lt;https://doi.org/10.1186/s13059-021-02404-0&gt;`_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rscript_path: :py:class:`str`, default: &quot;R/run_SPARKX.R&quot;</span>
+<span class="sd">        Path to the R script for running SPARKX.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">rscript_path</span><span class="o">=</span><span class="s2">&quot;R/run_SPARKX.R&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sparkscript</span> <span class="o">=</span> <span class="n">rscript_path</span>
+
+<div class="viewcode-block" id="SPARKX.RUN_SPARKX_R">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.SPARKX.html#thor.analy.SPARKX.RUN_SPARKX_R">[docs]</a>
+    <span class="k">def</span> <span class="nf">RUN_SPARKX_R</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adata_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run SPARK-X with provided R script.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        adata_path: :py:class:`str`</span>
+<span class="sd">            Path to the AnnData object.</span>
+<span class="sd">        layer: :py:class:`str`, default: :py:obj:`None`</span>
+<span class="sd">            Layer of the AnnData object to use.</span>
+<span class="sd">        out_path: :py:class:`str`, default: :py:obj:`None`</span>
+<span class="sd">            Path to the output directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Rscript </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sparkscript</span><span class="si">}</span><span class="s2"> -f </span><span class="si">{</span><span class="n">adata_path</span><span class="si">}</span><span class="s2"> -s </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Rscript </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sparkscript</span><span class="si">}</span><span class="s2"> -f </span><span class="si">{</span><span class="n">adata_path</span><span class="si">}</span><span class="s2"> -p </span><span class="si">{</span><span class="n">layer</span><span class="si">}</span><span class="s2"> -s </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adata_path</span> <span class="o">=</span> <span class="n">adata_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="n">layer</span></div>
+
+
+<div class="viewcode-block" id="SPARKX.load_result">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.SPARKX.html#thor.analy.SPARKX.load_result">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the result of SPARK-X.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">residual_filename</span> <span class="o">=</span> <span class="s2">&quot;res_matrix.csv&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">residual</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_directory</span><span class="p">,</span> <span class="n">residual_filename</span><span class="p">),</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">,</span>
+            <span class="n">na_filter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+        <span class="n">svg_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">residual</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;adata_path&quot;</span><span class="p">):</span>
+            <span class="n">ad</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adata_path</span><span class="p">)</span>
+            <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;spatially_variable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">svg_list</span><span class="p">)</span>
+            <span class="n">ad</span><span class="o">.</span><span class="n">write_h5ad</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adata_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">ad</span></div>
+
+
+<div class="viewcode-block" id="SPARKX.load_gene_modules">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.SPARKX.html#thor.analy.SPARKX.load_gene_modules">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_gene_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern_prefix</span><span class="o">=</span><span class="s2">&quot;SP&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the gene modules of SPARK-X.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pattern_prefix: :py:class:`str`, default: &quot;SP&quot;</span>
+<span class="sd">            Prefix of the gene modules.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">),</span> <span class="s2">&quot;Run clustering first!&quot;</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">residual</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="o">~</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;adata&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adata_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_pattern_mean</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">residual</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">pattern_prefix</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SPARKX.hierarchy_clustering">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.SPARKX.html#thor.analy.SPARKX.hierarchy_clustering">[docs]</a>
+    <span class="k">def</span> <span class="nf">hierarchy_clustering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">hc_kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run hierarchical clustering with sklearn&#39;s AgglomerativeClustering on the residual matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        hc_kwargs: :py:class:`dict`</span>
+<span class="sd">            Keyword arguments for AgglomerativeClustering.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        labels: :py:class:`numpy.ndarray` (n_cells,)</span>
+<span class="sd">            Cluster labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hierarchical_cluster</span> <span class="o">=</span> <span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="o">**</span><span class="n">hc_kwargs</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">hierarchical_cluster</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">residual</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span></div>
+
+
+<div class="viewcode-block" id="SPARKX.kmeans_clustering">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.SPARKX.html#thor.analy.SPARKX.kmeans_clustering">[docs]</a>
+    <span class="k">def</span> <span class="nf">kmeans_clustering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_patterns</span><span class="p">,</span> <span class="o">**</span><span class="n">kmeans_kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run k-means clustering with sklearn&#39;s KMeans on the residual matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_patterns: :py:class:`int`</span>
+<span class="sd">            Number of clusters.</span>
+<span class="sd">        kmeans_kwargs: :py:class:`dict`</span>
+<span class="sd">            Keyword arguments for KMeans.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        labels: :py:class:`numpy.ndarray` (n_cells,)</span>
+<span class="sd">            Cluster labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">kmeans_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;n_clusters&quot;</span><span class="p">:</span> <span class="n">n_patterns</span><span class="p">})</span>
+        <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="o">**</span><span class="n">kmeans_kwargs</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">residual</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span></div>
+
+
+<div class="viewcode-block" id="SPARKX.compute_pattern_mean">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.SPARKX.html#thor.analy.SPARKX.compute_pattern_mean">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">compute_pattern_mean</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">obskey_prefix</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the mean expression of each gene module.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        adata: :py:class:`anndata.AnnData`</span>
+<span class="sd">            AnnData object.</span>
+<span class="sd">        data: :py:class:`pandas.DataFrame` (n_sig_genes x n_cells)</span>
+<span class="sd">            Residual matrix of SPARK-X.</span>
+<span class="sd">        pattern: :py:class:`pandas.DataFrame` (n_sig_genes x 1), column is cluster, index is gene</span>
+<span class="sd">        obskey_prefix: :py:class:`str`</span>
+<span class="sd">            Prefix of the observation key.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        adata: :py:class:`anndata.AnnData`</span>
+<span class="sd">            AnnData object with the computed pattern mean.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="n">c</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pattern</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pattern</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">MinMaxScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">obskey_prefix</span><span class="si">}{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">adata</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

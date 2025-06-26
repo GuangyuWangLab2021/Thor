@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.analy.prepare_and_run_copykat &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="thor.analy.adata_to_mtx_conversion" href="thor.analy.adata_to_mtx_conversion.html" />
+    <link rel="prev" title="thor.analy.read_polygon_ROI" href="thor.analy.read_polygon_ROI.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../API.html">Classes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html#api">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../API.html#preprocessing">Preprocessing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../API.html#advanced-analyses">Advanced analyses</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="thor.analy.analyze_gene_expression_gradient.html">thor.analy.analyze_gene_expression_gradient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thor.analy.compute_dge_between_regions.html">thor.analy.compute_dge_between_regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thor.analy.get_pathway_score.html">thor.analy.get_pathway_score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thor.analy.get_tf_activity.html">thor.analy.get_tf_activity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thor.analy.read_polygon_ROI.html">thor.analy.read_polygon_ROI</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">thor.analy.prepare_and_run_copykat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#thor.analy.prepare_and_run_copykat"><code class="docutils literal notranslate"><span class="pre">prepare_and_run_copykat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thor.analy.adata_to_mtx_conversion.html">thor.analy.adata_to_mtx_conversion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thor.analy.run_commot.html">thor.analy.run_commot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#plotting">Plotting</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../API.html">Classes</a></li>
+      <li class="breadcrumb-item active">thor.analy.prepare_and_run_copykat</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/thor.analy.prepare_and_run_copykat.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="thor-analy-prepare-and-run-copykat">
+<h1>thor.analy.prepare_and_run_copykat<a class="headerlink" href="#thor-analy-prepare-and-run-copykat" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="thor.analy.prepare_and_run_copykat">
+<span class="sig-prename descclassname"><span class="pre">thor.analy.</span></span><span class="sig-name descname"><span class="pre">prepare_and_run_copykat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><span class="pre">AnnData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">datadir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'S'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngene_chr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KS_cut</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sam_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'euclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_cell_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_seg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'FALSE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_genes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'TRUE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'hg20'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copykat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/thor/analysis/cna.html#prepare_and_run_copykat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.analy.prepare_and_run_copykat" title="Link to this definition"></a></dt>
+<dd><p>Run CopyKAT on the input data. Requires R and the CopyKAT package to be installed. Refer to the CopyKAT documentation for more information:
+<a class="reference external" href="https://github.com/navinlabcode/copykat/blob/b795ff793522499f814f6ae282aad1aab790902f/R/copykat.R">CopyKAT</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – Gene expression data.</p></li>
+<li><p><strong>datadir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Directory where data will be saved. Default is None. If None, data will be saved in the current working directory.</p></li>
+<li><p><strong>layer</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the layer in <cite>adata</cite> to use as input data. Default is None. If None, the X layer will be used.</p></li>
+<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of subfolders to process in parallel. Default is 10.</p></li>
+<li><p><strong>id_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – CopyKAT parameter <cite>id.type</cite>. Gene identification type. Default is “S”(“s”), which refers to gene symbol. Other option is “E”(“e”) for Ensembl ID.</p></li>
+<li><p><strong>ngene_chr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – CopyKAT parameter <cite>ngene.chr</cite>. Minimal number of genes per chromosome for cell filtering. Default is 5.</p></li>
+<li><p><strong>win_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – CopyKAT parameter <cite>win.size</cite>. Minimal window sizes for segmentation. Default is 25.</p></li>
+<li><p><strong>KS_cut</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – CopyKAT parameter <cite>KS.cut</cite>. Segmentation parameter ranging from 0 to 1; larger value means looser criteria. Default is 0.1.</p></li>
+<li><p><strong>sam_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – CopyKAT parameter <cite>sam.name</cite>. Sample name. Default is “”.</p></li>
+<li><p><strong>distance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – CopyKAT parameter <cite>distance</cite>. Distance metric. Default is “euclidean”. Other options are “pearson” and “spearman”.</p></li>
+<li><p><strong>norm_cell_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – CopyKAT parameter <cite>norm.cell.names</cite>. A vector of normal cell names. Default is “”.</p></li>
+<li><p><strong>output_seg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – CopyKAT parameter <cite>output.seg</cite>. Whether to output segmentation results for IGV visualization. Default is “FALSE”. Other option is
+“TRUE”. Note that it is a string and not a boolean.</p></li>
+<li><p><strong>plot_genes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – CopyKAT parameter <cite>plot.genes</cite>. Whether to output heatmap of CNAs with genename labels. Default is “TRUE”. Other option is “FALSE”. Note that it is a string and not a boolean.</p></li>
+<li><p><strong>genome</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – CopyKAT parameter <cite>genome</cite>. Genome name. Default is “hg20” for human genome version 20. Other option is “mm10” for mouse genome version 10.</p></li>
+<li><p><strong>n_cores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – CopyKAT parameter <cite>n.cores</cite>. Number of CPU cores for parallel computing. Default is 1. Recommended to use 1 core if batch_size &gt; 1.</p></li>
+<li><p><strong>copykat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to run the CopyKAT analysis. Default is True. If False, the function will only split the data into smaller chunks and prepare the R script for CopyKAT.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Results are saved in the current working directory.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="thor.analy.read_polygon_ROI.html" class="btn btn-neutral float-left" title="thor.analy.read_polygon_ROI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thor.analy.adata_to_mtx_conversion.html" class="btn btn-neutral float-right" title="thor.analy.adata_to_mtx_conversion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

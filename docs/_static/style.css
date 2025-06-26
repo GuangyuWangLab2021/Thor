@@ -1,0 +1,54 @@
+/* https://stackoverflow.com/questions/23211695/modifying-content-width-of-the-sphinx-theme-read-the-docs 
+
+and https://github.com/readthedocs/sphinx_rtd_theme/issues/295
+
+*/
+.wy-nav-content {
+    max-width: 1500px !important;
+}
+
+
+/* and fix wrap bug per https://rackerlabs.github.io/docs-rackspace/tools/rtd-tables.html */
+.wy-table-responsive table td {
+    /* !important prevents the common CSS stylesheets from overriding
+    this as on RTD they are loaded after this stylesheet */
+    white-space: normal !important;
+}
+
+.wy-table-responsive {
+    overflow: visible !important;
+}
+
+/* Fix parameter rendering in the Read the Docs theme */
+dl.field-list > dt {
+    word-break: normal !important;
+}
+
+.rst-content dl:not(.docutils) dt {
+    display: table;
+}
+
+.rst-content dl:not(.docutils) dt .classifier {
+    word-break: normal;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+/* Make parameter descriptions appear on new lines */
+.rst-content dl.field-list dd p {
+    margin-bottom: 8px;
+}
+
+/* Improve bullet point formatting in parameter descriptions */
+.rst-content dd > ul {
+    margin-bottom: 10px !important;
+}
+
+/* Parameter group styling */
+.parameter-group {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    border-top: 3px solid #2ecc71;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}

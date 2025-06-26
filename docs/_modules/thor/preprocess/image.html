@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.preprocess.image &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.preprocess.image</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.preprocess.image</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">kneighbors_graph</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">detect_outlier</span><span class="p">,</span> <span class="n">get_spot_diameter_in_pixels</span><span class="p">,</span> <span class="n">update_kwargs</span>
+<span class="kn">from</span> <span class="nn">.seg_models</span> <span class="kn">import</span> <span class="n">nuclei_segmentation_from_image_array</span> 
+<span class="kn">from</span> <span class="nn">.nuclei_seg</span> <span class="kn">import</span> <span class="n">load_nuclei</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">MIN_CELLS</span> <span class="o">=</span> <span class="mi">10</span>
+
+
+<div class="viewcode-block" id="WholeSlideImage">
+<a class="viewcode-back" href="../../../_autosummary/thor.pp.WholeSlideImage.html#thor.pp.WholeSlideImage">[docs]</a>
+<span class="k">class</span> <span class="nc">WholeSlideImage</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whole slide image class. </span>
+
+
+<span class="sd">    .. raw:: html</span>
+
+<span class="sd">        &lt;span style=&quot;color: red;&quot;&gt;New: Now support external cell features as csv file.&lt;/span&gt;</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image_path: str</span>
+<span class="sd">        Path to the whole slide image.</span>
+<span class="sd">    name: str, optional</span>
+<span class="sd">        Name of the image.</span>
+<span class="sd">    color_image: bool</span>
+<span class="sd">        Whether the image is a color image. Default is True.</span>
+<span class="sd">    nuclei_seg_path: str, optional</span>
+<span class="sd">        Path to the nuclei segmentation result file.</span>
+<span class="sd">    nuclei_seg_format: str, optional</span>
+<span class="sd">        Format of the nuclei segmentation result file. Can be &#39;cellpose&#39;, &#39;mask_array_npz&#39; or &#39;cellprofiler&#39;.</span>
+<span class="sd">    nuclei_remove_outlier: bool, optional</span>
+<span class="sd">        Whether to remove outlier cells. Default is True.</span>
+<span class="sd">    external_cell_features_csv_path: str, optional</span>
+<span class="sd">        Pre-extracted cell features from the image. If provided, the cell features will be loaded from the csv file. Note, the externally provided cell features need to be paired with the nuclei segmentation results. The indices of the nuclei should be the segmentation labels.</span>
+<span class="sd">    save_dir: str</span>
+<span class="sd">        Path to save the results.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from thor.pp import WholeSlideImage</span>
+<span class="sd">    &gt;&gt;&gt; wsi = WholeSlideImage(</span>
+<span class="sd">    ...     image_path=&quot;path/to/image.tif&quot;,</span>
+<span class="sd">    ...     name=&quot;wsi_1&quot;,</span>
+<span class="sd">    ...     color_image=True,)</span>
+<span class="sd">    &gt;&gt;&gt; wsi.process(method=&quot;stardist&quot;, tile_size=(500, 500), min_size=10, flow_threshold=0, prob_thresh=0.1)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">image_path</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">color_image</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">nuclei_seg_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">nuclei_seg_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">nuclei_remove_outlier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">context_size</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+        <span class="n">external_cell_features_csv_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">save_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color_image</span> <span class="o">=</span> <span class="n">color_image</span>
+        <span class="k">if</span> <span class="n">save_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="sa">f</span><span class="s2">&quot;WSI_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span> <span class="o">=</span> <span class="n">save_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nuclei_seg_path</span> <span class="o">=</span> <span class="n">nuclei_seg_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nuclei_seg_format</span> <span class="o">=</span> <span class="n">nuclei_seg_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nuclei_remove_outlier</span> <span class="o">=</span> <span class="n">nuclei_remove_outlier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context_size</span> <span class="o">=</span> <span class="n">context_size</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+        <span class="n">PIL_im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">color_image</span> <span class="k">else</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">PIL_im</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">external_cell_features_csv_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">nuclei_seg_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Paired `nuclei_seg_path` must be provided if `external_cell_features_csv_path` is provided.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">external_cell_features_csv_path</span> <span class="o">=</span> <span class="n">external_cell_features_csv_path</span>
+        
+<div class="viewcode-block" id="WholeSlideImage.nuclei_segmentation">
+<a class="viewcode-back" href="../../../_autosummary/thor.pp.WholeSlideImage.html#thor.pp.WholeSlideImage.nuclei_segmentation">[docs]</a>
+    <span class="k">def</span> <span class="nf">nuclei_segmentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrapper function for nuclei segmentation :func:`thor.preprocessing.nuclei_seg.nuclei_segmentation_from_image_array`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Performing nuclei segmentation...&quot;</span><span class="p">)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">update_kwargs</span><span class="p">(</span><span class="n">nuclei_segmentation_from_image_array</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;save_dir&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">nuclei_segmentation_from_image_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WholeSlideImage.get_bbox">
+<a class="viewcode-back" href="../../../_autosummary/thor.pp.WholeSlideImage.html#thor.pp.WholeSlideImage.get_bbox">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spot_adata_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the bounding box of the image according to the mapped spot positions.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spot_adata_path : str</span>
+<span class="sd">            Path to the spot adata object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        LB : tuple</span>
+<span class="sd">            Lower bound of the image (lower left corner).</span>
+<span class="sd">        UB : tuple</span>
+<span class="sd">            Upper bound of the image (upper right corner).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ad_spot</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="n">spot_adata_path</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">spot_diameter</span> <span class="o">=</span> <span class="n">get_spot_diameter_in_pixels</span><span class="p">(</span><span class="n">ad_spot</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;spot diameter not found in the adata object, use default margin 50.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">spot_diameter</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">spot_radius</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">spot_diameter</span>
+        <span class="n">LB</span> <span class="o">=</span> <span class="n">ad_spot</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">spot_radius</span>
+        <span class="n">UB</span> <span class="o">=</span> <span class="n">ad_spot</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">spot_radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="n">LB</span><span class="p">,</span> <span class="n">UB</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">LB</span><span class="p">,</span> <span class="n">UB</span></div>
+
+
+<div class="viewcode-block" id="WholeSlideImage.process">
+<a class="viewcode-back" href="../../../_autosummary/thor.pp.WholeSlideImage.html#thor.pp.WholeSlideImage.process">[docs]</a>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process the staining image to get the cell features and nuclei segmentation results.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Keyword arguments for the `nuclei_segmentation` function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nuclei_seg_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Perform cell segmentation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nuclei_segmentation</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nuclei_seg_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;nuclei_mask.npz&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nuclei_seg_format</span> <span class="o">=</span> <span class="s2">&quot;mask_array_npz&quot;</span>
+
+        <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;bbox&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;cell_features.csv&quot;</span>
+        <span class="p">)</span>
+        <span class="n">preprocess_image</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_path</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span>
+            <span class="n">color_image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">color_image</span><span class="p">,</span>
+            <span class="n">nuclei_seg_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nuclei_seg_path</span><span class="p">,</span>
+            <span class="n">nuclei_seg_format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nuclei_seg_format</span><span class="p">,</span>
+            <span class="n">context_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">context_size</span><span class="p">,</span>
+            <span class="n">remove_outlier</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nuclei_remove_outlier</span><span class="p">,</span>
+            <span class="n">save_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_cell_features_csv_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_external_cell_features</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="WholeSlideImage.load_external_cell_features">
+<a class="viewcode-back" href="../../../_autosummary/thor.pp.WholeSlideImage.html#thor.pp.WholeSlideImage.load_external_cell_features">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_external_cell_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load external cell features and combine them with default features.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exclusive : bool, default=False</span>
+<span class="sd">            If True, only use external features (must include &#39;x&#39; and &#39;y&#39; coordinates in the first two columns).</span>
+<span class="sd">            If False, join external features with the default cell features.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If exclusive=True and the first two columns are not named &#39;x&#39; and &#39;y&#39;.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The external CSV file is expected to have cell IDs as the index (first column).</span>
+<span class="sd">        When exclusive=True, the first two columns must be &#39;x&#39; and &#39;y&#39;.</span>
+<span class="sd">        The result is saved to `self.cell_features_csv_path`, either replacing or extending</span>
+<span class="sd">        the existing features.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">external_cell_features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">external_cell_features_csv_path</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">exclusive</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Only the external cell features will be used. We expected the first columns to be the cell positions [x, y].&quot;</span><span class="p">)</span>
+
+            <span class="c1"># quit if the first two columns are not x and y</span>
+            <span class="k">if</span> <span class="n">external_cell_features_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;x&#39;</span> <span class="ow">or</span> <span class="n">external_cell_features_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The first two columns should be the cell positions [x, y].&quot;</span><span class="p">)</span>
+
+            <span class="n">external_cell_features_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Join the external cell features with the default cell features and rewrite the csv file.</span>
+            <span class="n">default_cell_features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">cell_features_df</span> <span class="o">=</span> <span class="n">default_cell_features_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">external_cell_features_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">lsuffix</span><span class="o">=</span><span class="s1">&#39;_default&#39;</span><span class="p">,</span> <span class="n">rsuffix</span><span class="o">=</span><span class="s1">&#39;_external&#39;</span><span class="p">)</span>
+            <span class="n">cell_features_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WholeSlideImage.split">
+<a class="viewcode-back" href="../../../_autosummary/thor.pp.WholeSlideImage.html#thor.pp.WholeSlideImage.split">[docs]</a>
+    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the image into tiles.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        split : tuple</span>
+<span class="sd">            Number of tiles to split the image. Default is (2, 2).</span>
+<span class="sd">        output_path : str</span>
+<span class="sd">            Path to save the tiles. Default is None.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            The tiles will be saved to the provided path in .png format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># x</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># y</span>
+        <span class="n">tiles</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">im</span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="n">x</span> <span class="o">+</span> <span class="n">M</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">y</span> <span class="o">+</span> <span class="n">N</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;tiles&quot;</span>
+        <span class="p">)</span> <span class="k">if</span> <span class="n">output_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">output_path</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+            <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">/subset_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="preprocess_image">
+<a class="viewcode-back" href="../../../_autosummary/thor.pp.preprocess_image.html#thor.pp.preprocess_image">[docs]</a>
+<span class="k">def</span> <span class="nf">preprocess_image</span><span class="p">(</span>
+    <span class="n">image_path</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">color_image</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">nuclei_seg_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">nuclei_seg_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">nuclei_centroids_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">context_size</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+    <span class="n">extract_image_feature_custom_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">remove_outlier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Preprocess the image and extract features from the cells.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image_path : str</span>
+<span class="sd">        Path to the full resolution image to process.</span>
+<span class="sd">    bbox : tuple, optional</span>
+<span class="sd">        Bounding box of the image. Format is (`lower_left`, `upper_right`). If not provided, the whole image will be processed. `lower_left` and `upper_right` are tuples of x and y coordinates.</span>
+<span class="sd">    color_image : bool, optional</span>
+<span class="sd">        Whether to extract color features from the image. Default is True.</span>
+<span class="sd">    nuclei_seg_path : str</span>
+<span class="sd">        Path to the nuclei segmentation result file.</span>
+<span class="sd">    nuclei_seg_format : str</span>
+<span class="sd">        Format of the nuclei segmentation result file. Can be &#39;cellpose&#39;, &#39;mask_array_npz&#39; or &#39;cellprofiler&#39;.</span>
+<span class="sd">    nuclei_centroids_path : str</span>
+<span class="sd">        Path to the nuclei centroids. The format should be a csv file with columns `x` and `y` for the x and</span>
+<span class="sd">        y coordinates of the nuclei centroids. Index of the dataframe should be the cell labels.</span>
+<span class="sd">    context_size : numeric or str, optional</span>
+<span class="sd">        Radius of the square image patch to extract around each cell (unit: pixel). Valid values are numeric or &#39;median&#39;, &#39;mean&#39;, &#39;min&#39;, &#39;max&#39;.</span>
+<span class="sd">        If provided as `str`, the radius is estimated from the nearest cell distances.</span>
+<span class="sd">    extract_image_feature_custom_func : function</span>
+<span class="sd">        Custom function to extract additional features from the image patches. The function should be written in a way that takes a list of</span>
+<span class="sd">        image patches as input and return a dataframe of features.</span>
+<span class="sd">    remove_outlier : bool</span>
+<span class="sd">        Whether to remove outlier cells. Default is True.</span>
+<span class="sd">    save_path : str</span>
+<span class="sd">        Path to save the extracted features.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">nuclei_centroids_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">nuclei_centroids</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">nuclei_centroids_path</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">nuclei_centroids</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">nuclei_centroids</span> <span class="o">=</span> <span class="n">nuclei_centroids</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">labels</span><span class="p">,</span> <span class="n">nuclei_centroids</span> <span class="o">=</span> <span class="n">load_nuclei</span><span class="p">(</span>
+            <span class="n">nuclei_path</span><span class="o">=</span><span class="n">nuclei_seg_path</span><span class="p">,</span>
+            <span class="n">source_format</span><span class="o">=</span><span class="n">nuclei_seg_format</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">n_cells</span> <span class="o">=</span> <span class="n">nuclei_centroids</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_cells</span><span class="si">}</span><span class="s2"> cells detected.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">bbox</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># remove cells outside of the spots range</span>
+        <span class="n">nuclei_to_keep</span> <span class="o">=</span> <span class="n">get_inbound</span><span class="p">(</span><span class="n">nuclei_centroids</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
+        <span class="n">nuclei_centroids</span> <span class="o">=</span> <span class="n">nuclei_centroids</span><span class="p">[</span><span class="n">nuclei_to_keep</span><span class="p">]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">nuclei_to_keep</span><span class="p">]</span>
+        <span class="n">LB</span><span class="p">,</span> <span class="n">UB</span> <span class="o">=</span> <span class="n">bbox</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">LB</span><span class="p">,</span> <span class="n">UB</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="n">n_cells_mapped</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_cells_mapped</span><span class="si">}</span><span class="s2"> cells mapped to spots.&quot;</span><span class="p">)</span>
+    <span class="c1"># remove outlier cells</span>
+    <span class="k">if</span> <span class="n">remove_outlier</span> <span class="ow">and</span> <span class="n">n_cells_mapped</span> <span class="o">&gt;</span> <span class="n">MIN_CELLS</span><span class="p">:</span>
+        <span class="n">inlier_indices</span> <span class="o">=</span> <span class="n">detect_outlier</span><span class="p">(</span>
+            <span class="n">nuclei_centroids</span><span class="p">,</span> <span class="n">n_neigh</span><span class="o">=</span><span class="n">MIN_CELLS</span><span class="p">,</span> <span class="n">return_outlier</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="n">nuclei_centroids</span> <span class="o">=</span> <span class="n">nuclei_centroids</span><span class="p">[</span><span class="n">inlier_indices</span><span class="p">]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">inlier_indices</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="si">}</span><span class="s2"> cells kept.&quot;</span><span class="p">)</span>
+    <span class="n">extract_image_features</span><span class="p">(</span>
+        <span class="n">labels</span><span class="p">,</span>
+        <span class="n">nuclei_centroids</span><span class="p">,</span>
+        <span class="n">image_path</span><span class="p">,</span>
+        <span class="n">LB</span><span class="o">=</span><span class="n">LB</span><span class="p">,</span>
+        <span class="n">UB</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>
+        <span class="n">color_image</span><span class="o">=</span><span class="n">color_image</span><span class="p">,</span>
+        <span class="n">context_size</span><span class="o">=</span><span class="n">context_size</span><span class="p">,</span>
+        <span class="n">extract_image_feature_custom_func</span><span class="o">=</span><span class="n">extract_image_feature_custom_func</span><span class="p">,</span>
+        <span class="n">save_path</span><span class="o">=</span><span class="n">save_path</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">extract_image_features</span><span class="p">(</span>
+    <span class="n">labels</span><span class="p">,</span>
+    <span class="n">nuclei_centroids</span><span class="p">,</span>
+    <span class="n">image_path</span><span class="p">,</span>
+    <span class="n">LB</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">UB</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">color_image</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">context_size</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+    <span class="n">extract_image_feature_custom_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract image features from the image patches centered at the nuclei centroids.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    labels: list</span>
+<span class="sd">        List of cell labels as in the original segmentation array.</span>
+<span class="sd">    nuclei_centroids : numpy array</span>
+<span class="sd">        Nuclei centroids.</span>
+<span class="sd">    image_path : str</span>
+<span class="sd">        Path to the full resolution image to process.</span>
+<span class="sd">    LB : tuple</span>
+<span class="sd">        Lower bound of the image.</span>
+<span class="sd">    UB : tuple</span>
+<span class="sd">        Upper bound of the image.</span>
+<span class="sd">    color_image : bool</span>
+<span class="sd">        Whether to extract color features from the image.</span>
+<span class="sd">    context_size : numeric or str, optional</span>
+<span class="sd">        Radius of the square image patch to extract around each cell (unit: pixel). Valid values are numeric or &#39;median&#39;, &#39;mean&#39;, &#39;min&#39;, &#39;max&#39;.</span>
+<span class="sd">        If provided as `str`, the radius is estimated from the nearest cell distances.</span>
+<span class="sd">    extract_image_feature_custom_func : function</span>
+<span class="sd">        Custom function to extract additional features from the image patches. The function should be written in a way that takes a list of</span>
+<span class="sd">        image patches as input and return a dataframe of features.</span>
+<span class="sd">    save_path : str</span>
+<span class="sd">        Path to save the extracted features.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    nuclei coordinates in closest integers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">context_size_usage_message</span> <span class="o">=</span> <span class="s2">&quot;Use &#39;median&#39;, &#39;mean&#39;, &#39;min&#39;, &#39;max&#39; or a positive number in pixels.&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context_size</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">context_size</span> <span class="o">=</span> <span class="n">context_size</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">context_size</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span> <span class="n">context_size_usage_message</span>
+    
+        <span class="n">meas_funcs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">}</span>
+        <span class="n">nn_1</span> <span class="o">=</span> <span class="n">kneighbors_graph</span><span class="p">(</span>
+            <span class="n">nuclei_centroids</span><span class="p">,</span>
+            <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span>
+            <span class="n">include_self</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+        <span class="c1">#print(meas_funcs[context_size])</span>
+        <span class="n">context_size</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">meas_funcs</span><span class="p">[</span><span class="n">context_size</span><span class="p">](</span><span class="n">nn_1</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">context_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">context_size</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context_size</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="k">assert</span> <span class="n">context_size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">context_size_usage_message</span>
+        <span class="n">context_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">context_size</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">context_size_usage_message</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Extracting image features from a square image patch of size </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">context_size</span><span class="si">}</span><span class="s2"> pixels centered at the cell.&quot;</span>
+    <span class="p">)</span>
+    
+    <span class="n">PIL_im_all_chn</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+    <span class="n">PIL_im_gray</span> <span class="o">=</span> <span class="n">PIL_im_all_chn</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+    <span class="n">cell_image_patches</span> <span class="o">=</span> <span class="n">crop_image</span><span class="p">(</span>
+        <span class="n">nuclei_centroids</span><span class="p">,</span>
+        <span class="n">PIL_im_gray</span><span class="p">,</span>
+        <span class="n">LB</span><span class="o">=</span><span class="n">LB</span><span class="p">,</span>
+        <span class="n">UB</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>
+        <span class="n">coverage</span><span class="o">=</span><span class="n">context_size</span>
+    <span class="p">)</span>
+    <span class="c1">#assert len(cell_image_patches) == len(nuclei_centroids)</span>
+
+    <span class="n">gray_feature_df</span> <span class="o">=</span> <span class="n">extract_gray_image_features</span><span class="p">(</span><span class="n">cell_image_patches</span><span class="p">)</span>
+    <span class="n">feature_df</span> <span class="o">=</span> <span class="n">gray_feature_df</span>
+
+    <span class="k">if</span> <span class="n">color_image</span><span class="p">:</span>
+        <span class="n">PIL_im_RGB</span> <span class="o">=</span> <span class="n">PIL_im_all_chn</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+        <span class="n">cell_image_patches</span> <span class="o">=</span> <span class="n">crop_image</span><span class="p">(</span>
+            <span class="n">nuclei_centroids</span><span class="p">,</span>
+            <span class="n">PIL_im_RGB</span><span class="p">,</span>
+            <span class="n">LB</span><span class="o">=</span><span class="n">LB</span><span class="p">,</span>
+            <span class="n">UB</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>
+            <span class="n">coverage</span><span class="o">=</span><span class="n">context_size</span>
+        <span class="p">)</span>
+        <span class="n">color_feature_df</span> <span class="o">=</span> <span class="n">extract_color_image_features</span><span class="p">(</span><span class="n">cell_image_patches</span><span class="p">)</span>
+        <span class="n">feature_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">feature_df</span><span class="p">,</span> <span class="n">color_feature_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">extract_image_feature_custom_func</span><span class="p">):</span>
+        <span class="c1"># Here the patches match the original images (color or gray)</span>
+        <span class="n">additional_feature_df</span> <span class="o">=</span> <span class="n">extract_image_feature_custom_func</span><span class="p">(</span>
+            <span class="n">cell_image_patches</span>
+        <span class="p">)</span>
+        <span class="n">feature_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">feature_df</span><span class="p">,</span> <span class="n">additional_feature_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span>
+        <span class="p">)</span>
+
+    <span class="n">feature_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">labels</span>
+    <span class="n">pos_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nuclei_centroids</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">feature_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pos_df</span><span class="p">,</span> <span class="n">feature_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
+    <span class="n">feature_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">extract_gray_image_features</span><span class="p">(</span><span class="n">images_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract cell features from a color image read from provided path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n_images</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">images_list</span><span class="p">)</span>
+
+    <span class="n">props_gray</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;mean_gray&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;std_gray&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;entropy_img&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">props</span> <span class="o">=</span> <span class="n">props_gray</span>
+    <span class="n">props_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_images</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">props</span><span class="p">}</span>
+
+    <span class="c1"># centroid starts from 0</span>
+    <span class="k">for</span> <span class="n">cell_idx</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_images</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Extracting gray image features&quot;</span><span class="p">):</span>
+        <span class="n">cropped_im_gray</span> <span class="o">=</span> <span class="n">images_list</span><span class="p">[</span><span class="n">cell_idx</span><span class="p">]</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;entropy_img&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">cropped_im_gray</span><span class="o">.</span><span class="n">entropy</span><span class="p">()</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;mean_gray&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cropped_im_gray</span><span class="p">)</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;std_gray&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">cropped_im_gray</span><span class="p">)</span>
+
+    <span class="n">img_props</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">props_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img_props</span>
+
+
+<span class="k">def</span> <span class="nf">extract_color_image_features</span><span class="p">(</span><span class="n">images_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract cell features from a color image read from provided path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_images</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">images_list</span><span class="p">)</span>
+
+    <span class="n">props_color</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;mean_r&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mean_g&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mean_b&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;std_r&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;std_g&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;std_b&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">props</span> <span class="o">=</span> <span class="n">props_color</span>
+    <span class="n">props_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_images</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">props</span><span class="p">}</span>
+
+    <span class="c1"># centroid starts from 0</span>
+    <span class="k">for</span> <span class="n">cell_idx</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_images</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Extracting RGB features&quot;</span><span class="p">):</span>
+        <span class="c1"># color properties</span>
+        <span class="n">cropped_im</span> <span class="o">=</span> <span class="n">images_list</span><span class="p">[</span><span class="n">cell_idx</span><span class="p">]</span>
+        <span class="n">mean_rgb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+            <span class="n">cropped_im</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndim</span><span class="p">(</span><span class="n">cropped_im</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">std_rgb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">cropped_im</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndim</span><span class="p">(</span><span class="n">cropped_im</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;mean_r&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;std_r&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">std_rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;mean_g&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_rgb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;std_g&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">std_rgb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;mean_b&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_rgb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">props_dict</span><span class="p">[</span><span class="s1">&#39;std_b&#39;</span><span class="p">][</span><span class="n">cell_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">std_rgb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">img_props</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">props_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img_props</span>
+
+
+<span class="k">def</span> <span class="nf">crop_image</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">PIL_im</span><span class="p">,</span> <span class="n">LB</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">UB</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Crop image patches around the cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">PIL_im</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">LB_im</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">UB_im</span> <span class="o">=</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># x -&gt; horizontal, y -&gt; verticle</span>
+
+    <span class="k">if</span> <span class="n">LB</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">LB</span> <span class="o">=</span> <span class="n">LB_im</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">LB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">LB</span><span class="p">,</span> <span class="n">LB_im</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">UB</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">UB</span> <span class="o">=</span> <span class="n">UB_im</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">UB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">((</span><span class="n">UB</span><span class="p">,</span> <span class="n">UB_im</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">pieces</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">cell_pos</span> <span class="ow">in</span> <span class="n">cells</span><span class="p">:</span>
+        <span class="n">cell_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cell_pos</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="n">cell_pos_lower</span> <span class="o">=</span> <span class="n">cell_pos</span> <span class="o">-</span> <span class="n">coverage</span>
+        <span class="n">cell_pos_upper</span> <span class="o">=</span> <span class="n">cell_pos</span> <span class="o">+</span> <span class="n">coverage</span>
+
+        <span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">cell_pos_lower</span><span class="p">,</span> <span class="n">cell_pos_upper</span><span class="p">]),</span> <span class="n">LB</span><span class="p">,</span>
+                       <span class="n">UB</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">pieces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PIL_im</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">area</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pieces</span>
+
+
+<span class="k">def</span> <span class="nf">get_inbound</span><span class="p">(</span><span class="n">cell_pos</span><span class="p">,</span> <span class="n">bound</span><span class="p">):</span>
+    <span class="n">LB</span><span class="p">,</span> <span class="n">UB</span> <span class="o">=</span> <span class="n">bound</span>
+    <span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">=</span> <span class="n">LB</span>
+    <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">UB</span>
+
+    <span class="n">select</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">cell_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">cell_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">x_max</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">cell_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">cell_pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">y_max</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">select</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

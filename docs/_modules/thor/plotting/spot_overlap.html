@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.plotting.spot_overlap &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.plotting.spot_overlap</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.plotting.spot_overlap</h1><div class="highlight"><pre>
+<span></span><span class="c1">## The code does not really work as expected. The spot size is not scaled correctly when changing figure size.</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">colors</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">get_spot_diameter_in_pixels</span><span class="p">,</span> <span class="n">get_scalefactors</span>
+
+
+<div class="viewcode-block" id="spot_over">
+<a class="viewcode-back" href="../../../_autosummary/thor.pl.spot_over.html#thor.pl.spot_over">[docs]</a>
+<span class="k">def</span> <span class="nf">spot_over</span><span class="p">(</span>
+    <span class="n">ad</span><span class="p">,</span>
+    <span class="n">ad_spot</span><span class="p">,</span>
+    <span class="n">spot_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">spot_cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+    <span class="n">spot_color_obs_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">spot_facecolor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">spot_alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">spot_linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">sc_kwargs</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot spatial expression data with spots on top.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ad : :class:`~anndata.AnnData`</span>
+<span class="sd">        Annotated data matrix at the cell level.</span>
+<span class="sd">    ad_spot : :class:`~anndata.AnnData`</span>
+<span class="sd">        Annotated data matrix at the spot level.</span>
+<span class="sd">    spot_scale : `float`, optional (default: 1)</span>
+<span class="sd">        Scale factor for spot size.</span>
+<span class="sd">    figsize : `tuple`, optional (default: None)</span>
+<span class="sd">        Figure size in full resolution.</span>
+<span class="sd">    spot_cmap : `str`, optional (default: &#39;viridis&#39;)</span>
+<span class="sd">        Colormap for spot colors.</span>
+<span class="sd">    spot_color_obs_key : `str`, optional (default: None)</span>
+<span class="sd">        Key for observation in `ad_spot` that contains spot colors.</span>
+<span class="sd">    spot_facecolor : `str`, optional (default: None)</span>
+<span class="sd">        Face color for spots.</span>
+<span class="sd">    spot_alpha : `float`, optional (default: 0.5)</span>
+<span class="sd">        Alpha value for spots.</span>
+<span class="sd">    spot_linewidth : `float`, optional (default: 0.5)</span>
+<span class="sd">        Line width for spots.</span>
+<span class="sd">    **sc_kwargs : keyword arguments</span>
+<span class="sd">        Keyword arguments for :func:`~scanpy.pl.spatial`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Depending on scanpy settings returns axes or list of axes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;ax&#39;</span> <span class="ow">in</span> <span class="n">sc_kwargs</span><span class="p">:</span>
+        <span class="n">sc_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;ax&#39;</span><span class="p">:</span> <span class="n">ax</span><span class="p">})</span>
+
+    <span class="n">basis</span> <span class="o">=</span> <span class="n">sc_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;basis&#39;</span><span class="p">,</span> <span class="s1">&#39;spatial&#39;</span><span class="p">)</span>
+    <span class="n">library_id</span> <span class="o">=</span> <span class="n">sc_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;library_id&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">img_key</span> <span class="o">=</span> <span class="n">sc_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;img_key&#39;</span><span class="p">,</span> <span class="s1">&#39;hires&#39;</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">get_spot_diameter_in_pixels</span><span class="p">(</span><span class="n">ad_spot</span><span class="p">,</span> <span class="n">library_id</span><span class="o">=</span><span class="n">library_id</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">d</span> <span class="o">*</span> <span class="n">spot_scale</span>
+
+    <span class="n">scalef</span> <span class="o">=</span> <span class="n">get_scalefactors</span><span class="p">(</span><span class="n">ad_spot</span><span class="p">,</span> <span class="n">library_id</span><span class="o">=</span><span class="n">library_id</span><span class="p">)[</span><span class="sa">f</span><span class="s2">&quot;tissue_</span><span class="si">{</span><span class="n">img_key</span><span class="si">}</span><span class="s2">_scalef&quot;</span><span class="p">]</span>
+    <span class="n">spotpos</span> <span class="o">=</span> <span class="n">ad_spot</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="n">basis</span><span class="p">]</span> <span class="o">*</span> <span class="n">scalef</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">ad_spot</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">spot_color_obs_key</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ad_spot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">spot_cmap</span><span class="p">]</span>
+    <span class="n">ec</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">spotpos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">spotpos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="n">spot_facecolor</span><span class="p">,</span>
+        <span class="n">edgecolors</span><span class="o">=</span><span class="n">ec</span><span class="p">,</span>
+        <span class="n">s</span><span class="o">=</span><span class="n">r</span><span class="p">,</span>
+        <span class="n">zorder</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">lw</span><span class="o">=</span><span class="n">spot_linewidth</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">spot_alpha</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">ad</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">sc_kwargs</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">spot_over_fig</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span>
+    <span class="n">ad_spot</span><span class="p">,</span>
+    <span class="n">spot_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">spot_cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+    <span class="n">spot_color_obs_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">spot_facecolor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">spot_alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">spot_linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">offset_x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">offset_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot spatial expression data with spots on top.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ad_spot : :class:`~anndata.AnnData`</span>
+<span class="sd">        Annotated data matrix at the spot level.</span>
+<span class="sd">    spot_scale : `float`, optional (default: 1)</span>
+<span class="sd">        Scale factor for spot size.</span>
+<span class="sd">    spot_cmap : `str`, optional (default: &#39;viridis&#39;)</span>
+<span class="sd">        Colormap for spot colors.</span>
+<span class="sd">    spot_color_obs_key : `str`, optional (default: None)</span>
+<span class="sd">        Key for observation in `ad_spot` that contains spot colors.</span>
+<span class="sd">    spot_facecolor : `str`, optional (default: None)</span>
+<span class="sd">        Face color for spots.</span>
+<span class="sd">    spot_alpha : `float`, optional (default: 0.5)</span>
+<span class="sd">        Alpha value for spots.</span>
+<span class="sd">    spot_linewidth : `float`, optional (default: 0.5)</span>
+<span class="sd">        Line width for spots.</span>
+<span class="sd">    **kwargs : keyword arguments</span>
+<span class="sd">        Keyword arguments. </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="n">basis</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;basis&#39;</span><span class="p">,</span> <span class="s1">&#39;spatial&#39;</span><span class="p">)</span>
+    <span class="n">library_id</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;library_id&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">img_key</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;img_key&#39;</span><span class="p">,</span> <span class="s1">&#39;hires&#39;</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">get_spot_diameter_in_pixels</span><span class="p">(</span><span class="n">ad_spot</span><span class="p">,</span> <span class="n">library_id</span><span class="o">=</span><span class="n">library_id</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">d</span> <span class="o">*</span> <span class="n">spot_scale</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">scalef</span> <span class="o">=</span> <span class="n">get_scalefactors</span><span class="p">(</span><span class="n">ad_spot</span><span class="p">,</span> <span class="n">library_id</span><span class="o">=</span><span class="n">library_id</span><span class="p">)[</span><span class="sa">f</span><span class="s2">&quot;tissue_</span><span class="si">{</span><span class="n">img_key</span><span class="si">}</span><span class="s2">_scalef&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">scalef</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">spotpos</span> <span class="o">=</span> <span class="n">ad_spot</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="n">basis</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">offset_x</span><span class="p">,</span> <span class="n">offset_y</span><span class="p">])</span>
+    <span class="n">spotpos</span> <span class="o">=</span> <span class="n">spotpos</span> <span class="o">*</span> <span class="n">scalef</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">ad_spot</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">spot_color_obs_key</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ad_spot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">spot_cmap</span><span class="p">]</span>
+    <span class="n">ec</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+
+    <span class="n">scatter</span><span class="p">(</span>
+        <span class="n">spotpos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">spotpos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">ax</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">s</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="n">spot_facecolor</span><span class="p">,</span>
+        <span class="n">edgecolors</span><span class="o">=</span><span class="n">ec</span><span class="p">,</span>
+        <span class="n">zorder</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">lw</span><span class="o">=</span><span class="n">spot_linewidth</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">spot_alpha</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+
+
+<span class="c1"># source: https://stackoverflow.com/a/48174228/4124317</span>
+<span class="k">class</span> <span class="nc">scatter</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">ax</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size_data</span><span class="o">=</span><span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sc</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_resize</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cid</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s1">&#39;draw_event&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resize</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">ppd</span><span class="o">=</span><span class="mf">72.</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">dpi</span>
+        <span class="n">trans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="o">.</span><span class="n">transform</span>
+        <span class="n">s</span> <span class="o">=</span>  <span class="p">((</span><span class="n">trans</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">size_data</span><span class="p">))</span><span class="o">-</span><span class="n">trans</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span><span class="o">*</span><span class="n">ppd</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sc</span><span class="o">.</span><span class="n">set_sizes</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">s</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_redraw_later</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_redraw_later</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">new_timer</span><span class="p">(</span><span class="n">interval</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">single_shot</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">add_callback</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw_idle</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

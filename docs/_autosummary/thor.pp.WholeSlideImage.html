@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.pp.WholeSlideImage &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="thor.pp.Spatial" href="thor.pp.Spatial.html" />
+    <link rel="prev" title="thor.fineST" href="thor.fineST.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Classes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../API.html#prediction-of-in-silico-cell-gene-expression">Prediction of in silico cell gene expression</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../API.html#preprocessing-of-wsi">Preprocessing of WSI</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">thor.pp.WholeSlideImage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#thor.pp.WholeSlideImage"><code class="docutils literal notranslate"><span class="pre">WholeSlideImage</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#preprocessing-of-spatial-transcriptomics">Preprocessing of spatial transcriptomics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#example-interface-with-external-r-packages">Example interface with external R packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../API.html">Classes</a></li>
+      <li class="breadcrumb-item active">thor.pp.WholeSlideImage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/thor.pp.WholeSlideImage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="thor-pp-wholeslideimage">
+<h1>thor.pp.WholeSlideImage<a class="headerlink" href="#thor-pp-wholeslideimage" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="thor.pp.WholeSlideImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thor.pp.</span></span><span class="sig-name descname"><span class="pre">WholeSlideImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuclei_seg_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuclei_seg_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuclei_remove_outlier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_cell_features_csv_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/preprocess/image.html#WholeSlideImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.pp.WholeSlideImage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Whole slide image class.</p>
+<span style="color: red;">New: Now support external cell features as csv file.</span><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the whole slide image.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the image.</p></li>
+<li><p><strong>color_image</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether the image is a color image. Default is True.</p></li>
+<li><p><strong>nuclei_seg_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the nuclei segmentation result file.</p></li>
+<li><p><strong>nuclei_seg_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Format of the nuclei segmentation result file. Can be ‘cellpose’, ‘mask_array_npz’ or ‘cellprofiler’.</p></li>
+<li><p><strong>nuclei_remove_outlier</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to remove outlier cells. Default is True.</p></li>
+<li><p><strong>external_cell_features_csv_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Pre-extracted cell features from the image. If provided, the cell features will be loaded from the csv file. Note, the externally provided cell features need to be paired with the nuclei segmentation results. The indices of the nuclei should be the segmentation labels.</p></li>
+<li><p><strong>save_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to save the results.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">thor.pp</span> <span class="kn">import</span> <span class="n">WholeSlideImage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wsi</span> <span class="o">=</span> <span class="n">WholeSlideImage</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">image_path</span><span class="o">=</span><span class="s2">&quot;path/to/image.tif&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;wsi_1&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">color_image</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wsi</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;stardist&quot;</span><span class="p">,</span> <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">flow_threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">prob_thresh</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.pp.WholeSlideImage.get_bbox" title="thor.pp.WholeSlideImage.get_bbox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bbox</span></code></a></p></td>
+<td><p>Get the bounding box of the image according to the mapped spot positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.pp.WholeSlideImage.load_external_cell_features" title="thor.pp.WholeSlideImage.load_external_cell_features"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_external_cell_features</span></code></a></p></td>
+<td><p>Load external cell features and combine them with default features.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.pp.WholeSlideImage.nuclei_segmentation" title="thor.pp.WholeSlideImage.nuclei_segmentation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nuclei_segmentation</span></code></a></p></td>
+<td><p>Wrapper function for nuclei segmentation <code class="xref py py-func docutils literal notranslate"><span class="pre">thor.preprocessing.nuclei_seg.nuclei_segmentation_from_image_array()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.pp.WholeSlideImage.process" title="thor.pp.WholeSlideImage.process"><code class="xref py py-obj docutils literal notranslate"><span class="pre">process</span></code></a></p></td>
+<td><p>Process the staining image to get the cell features and nuclei segmentation results.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.pp.WholeSlideImage.split" title="thor.pp.WholeSlideImage.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a></p></td>
+<td><p>Split the image into tiles.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.pp.WholeSlideImage.get_bbox">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spot_adata_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/preprocess/image.html#WholeSlideImage.get_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.pp.WholeSlideImage.get_bbox" title="Link to this definition"></a></dt>
+<dd><p>Get the bounding box of the image according to the mapped spot positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>spot_adata_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the spot adata object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>LB</strong> (<em>tuple</em>) – Lower bound of the image (lower left corner).</p></li>
+<li><p><strong>UB</strong> (<em>tuple</em>) – Upper bound of the image (upper right corner).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.pp.WholeSlideImage.load_external_cell_features">
+<span class="sig-name descname"><span class="pre">load_external_cell_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclusive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/preprocess/image.html#WholeSlideImage.load_external_cell_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.pp.WholeSlideImage.load_external_cell_features" title="Link to this definition"></a></dt>
+<dd><p>Load external cell features and combine them with default features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exclusive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, only use external features (must include ‘x’ and ‘y’ coordinates in the first two columns).
+If False, join external features with the default cell features.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If exclusive=True and the first two columns are not named ‘x’ and ‘y’.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The external CSV file is expected to have cell IDs as the index (first column).
+When exclusive=True, the first two columns must be ‘x’ and ‘y’.
+The result is saved to <cite>self.cell_features_csv_path</cite>, either replacing or extending
+the existing features.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.pp.WholeSlideImage.nuclei_segmentation">
+<span class="sig-name descname"><span class="pre">nuclei_segmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/preprocess/image.html#WholeSlideImage.nuclei_segmentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.pp.WholeSlideImage.nuclei_segmentation" title="Link to this definition"></a></dt>
+<dd><p>Wrapper function for nuclei segmentation <code class="xref py py-func docutils literal notranslate"><span class="pre">thor.preprocessing.nuclei_seg.nuclei_segmentation_from_image_array()</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.pp.WholeSlideImage.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/preprocess/image.html#WholeSlideImage.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.pp.WholeSlideImage.process" title="Link to this definition"></a></dt>
+<dd><p>Process the staining image to get the cell features and nuclei segmentation results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments for the <cite>nuclei_segmentation</cite> function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.pp.WholeSlideImage.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/preprocess/image.html#WholeSlideImage.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.pp.WholeSlideImage.split" title="Link to this definition"></a></dt>
+<dd><p>Split the image into tiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – Number of tiles to split the image. Default is (2, 2).</p></li>
+<li><p><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to save the tiles. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The tiles will be saved to the provided path in .png format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="thor.fineST.html" class="btn btn-neutral float-left" title="thor.fineST" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thor.pp.Spatial.html" class="btn btn-neutral float-right" title="thor.pp.Spatial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

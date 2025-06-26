@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.analy.SPARKX &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="thor.pp.preprocess_image" href="thor.pp.preprocess_image.html" />
+    <link rel="prev" title="thor.pp.Spatial" href="thor.pp.Spatial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Classes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../API.html#prediction-of-in-silico-cell-gene-expression">Prediction of in silico cell gene expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#preprocessing-of-wsi">Preprocessing of WSI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#preprocessing-of-spatial-transcriptomics">Preprocessing of spatial transcriptomics</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../API.html#example-interface-with-external-r-packages">Example interface with external R packages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">thor.analy.SPARKX</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#thor.analy.SPARKX"><code class="docutils literal notranslate"><span class="pre">SPARKX</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../API.html">Classes</a></li>
+      <li class="breadcrumb-item active">thor.analy.SPARKX</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/thor.analy.SPARKX.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="thor-analy-sparkx">
+<h1>thor.analy.SPARKX<a class="headerlink" href="#thor-analy-sparkx" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="thor.analy.SPARKX">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thor.analy.</span></span><span class="sig-name descname"><span class="pre">SPARKX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rscript_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'R/run_SPARKX.R'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/analysis/sparkx.html#SPARKX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.analy.SPARKX" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for running <a class="reference external" href="https://doi.org/10.1186/s13059-021-02404-0">SPARK-X</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rscript_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, default: “R/run_SPARKX.R”) – Path to the R script for running SPARKX.</p>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.analy.SPARKX.RUN_SPARKX_R" title="thor.analy.SPARKX.RUN_SPARKX_R"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RUN_SPARKX_R</span></code></a></p></td>
+<td><p>Run SPARK-X with provided R script.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.analy.SPARKX.compute_pattern_mean" title="thor.analy.SPARKX.compute_pattern_mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_pattern_mean</span></code></a></p></td>
+<td><p>Compute the mean expression of each gene module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.analy.SPARKX.hierarchy_clustering" title="thor.analy.SPARKX.hierarchy_clustering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hierarchy_clustering</span></code></a></p></td>
+<td><p>Run hierarchical clustering with sklearn's AgglomerativeClustering on the residual matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.analy.SPARKX.kmeans_clustering" title="thor.analy.SPARKX.kmeans_clustering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kmeans_clustering</span></code></a></p></td>
+<td><p>Run k-means clustering with sklearn's KMeans on the residual matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.analy.SPARKX.load_gene_modules" title="thor.analy.SPARKX.load_gene_modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_gene_modules</span></code></a></p></td>
+<td><p>Load the gene modules of SPARK-X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.analy.SPARKX.load_result" title="thor.analy.SPARKX.load_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_result</span></code></a></p></td>
+<td><p>Load the result of SPARK-X.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.analy.SPARKX.RUN_SPARKX_R">
+<span class="sig-name descname"><span class="pre">RUN_SPARKX_R</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/analysis/sparkx.html#SPARKX.RUN_SPARKX_R"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.analy.SPARKX.RUN_SPARKX_R" title="Link to this definition"></a></dt>
+<dd><p>Run SPARK-X with provided R script.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Path to the AnnData object.</p></li>
+<li><p><strong>layer</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Layer of the AnnData object to use.</p></li>
+<li><p><strong>out_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Path to the output directory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.analy.SPARKX.compute_pattern_mean">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_pattern_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obskey_prefix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/analysis/sparkx.html#SPARKX.compute_pattern_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.analy.SPARKX.compute_pattern_mean" title="Link to this definition"></a></dt>
+<dd><p>Compute the mean expression of each gene module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a>) – AnnData object.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> (n_sig_genes x n_cells)) – Residual matrix of SPARK-X.</p></li>
+<li><p><strong>pattern</strong> (<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> (n_sig_genes x 1), column is cluster, index is gene) – </p></li>
+<li><p><strong>obskey_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Prefix of the observation key.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>adata</strong> – AnnData object with the computed pattern mean.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.analy.SPARKX.hierarchy_clustering">
+<span class="sig-name descname"><span class="pre">hierarchy_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">hc_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/analysis/sparkx.html#SPARKX.hierarchy_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.analy.SPARKX.hierarchy_clustering" title="Link to this definition"></a></dt>
+<dd><p>Run hierarchical clustering with sklearn’s AgglomerativeClustering on the residual matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hc_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Keyword arguments for AgglomerativeClustering.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>labels</strong> – Cluster labels.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> (n_cells,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.analy.SPARKX.kmeans_clustering">
+<span class="sig-name descname"><span class="pre">kmeans_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_patterns</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kmeans_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/analysis/sparkx.html#SPARKX.kmeans_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.analy.SPARKX.kmeans_clustering" title="Link to this definition"></a></dt>
+<dd><p>Run k-means clustering with sklearn’s KMeans on the residual matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_patterns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of clusters.</p></li>
+<li><p><strong>kmeans_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Keyword arguments for KMeans.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>labels</strong> – Cluster labels.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> (n_cells,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.analy.SPARKX.load_gene_modules">
+<span class="sig-name descname"><span class="pre">load_gene_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SP'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/analysis/sparkx.html#SPARKX.load_gene_modules"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.analy.SPARKX.load_gene_modules" title="Link to this definition"></a></dt>
+<dd><p>Load the gene modules of SPARK-X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pattern_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, default: “SP”) – Prefix of the gene modules.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.analy.SPARKX.load_result">
+<span class="sig-name descname"><span class="pre">load_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/analysis/sparkx.html#SPARKX.load_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.analy.SPARKX.load_result" title="Link to this definition"></a></dt>
+<dd><p>Load the result of SPARK-X.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="thor.pp.Spatial.html" class="btn btn-neutral float-left" title="thor.pp.Spatial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thor.pp.preprocess_image.html" class="btn btn-neutral float-right" title="thor.pp.preprocess_image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

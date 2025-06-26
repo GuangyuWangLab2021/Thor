@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.preprocess.seg_models &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.preprocess.seg_models</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.preprocess.seg_models</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">squidpy</span> <span class="k">as</span> <span class="nn">sq</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span><span class="p">,</span> <span class="n">save_npz</span>
+
+<span class="c1"># Disable tensorflow logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;tensorflow&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">require_packages</span>
+
+
+<span class="n">Image</span><span class="o">.</span><span class="n">MAX_IMAGE_PIXELS</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="nuclei_segmentation">
+<a class="viewcode-back" href="../../../_autosummary/thor.pp.nuclei_segmentation.html#thor.pp.nuclei_segmentation">[docs]</a>
+<span class="k">def</span> <span class="nf">nuclei_segmentation</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;stardist&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">segment_kwds</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Segment nuclei from H&amp;E stained images using stardist, cellpose or histocartography.</span>
+<span class="sd">    The segmentation mask is saved as a sparse matrix in .npz format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image_path : str</span>
+<span class="sd">        Path to the full resolution image to segment.</span>
+<span class="sd">    save_dir : str</span>
+<span class="sd">        Path to the directory where to save the segmentation mask.</span>
+<span class="sd">    tile_size : tuple </span>
+<span class="sd">        Size of the tiles to use for stardist segmentation.</span>
+<span class="sd">    method : str</span>
+<span class="sd">        Segmentation method to use. Can be &#39;stardist&#39;, &#39;cellpose&#39; or &#39;histocartography&#39;.</span>
+<span class="sd">    segment_kwds : dict</span>
+<span class="sd">        Keyword arguments to pass to the segmentation function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">PIL_im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">PIL_im</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nuclei_segmentation_from_image_array</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">tile_size</span><span class="o">=</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="o">**</span><span class="n">segment_kwds</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">nuclei_segmentation_from_image_array</span><span class="p">(</span><span class="n">im_array</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;stardist&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">segment_kwds</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Segment nuclei from H&amp;E stained images using stardist, cellpose or histocartography.</span>
+<span class="sd">    The segmentation mask is saved as a sparse matrix in .npz format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    im_array : np.ndarray</span>
+<span class="sd">        Image to segment.</span>
+<span class="sd">    save_dir : str, optional</span>
+<span class="sd">        Path to the directory where to save the segmentation mask. The default is None (saving to current directory).</span>
+<span class="sd">    tile_size : tuple, optional</span>
+<span class="sd">        Size of the tiles to use for stardist segmentation. The default is (1000, 1000).</span>
+<span class="sd">    method : str</span>
+<span class="sd">        Segmentation method to use. Can be &#39;stardist&#39;, &#39;cellpose&#39; or &#39;histocartography&#39;.</span>
+<span class="sd">    segment_kwds : dict</span>
+<span class="sd">        Keyword arguments to pass to the segmentation function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">seg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;stardist&#39;</span><span class="p">:</span> <span class="n">stardist_2D_versatile_he</span><span class="p">,</span> 
+           <span class="s1">&#39;cellpose&#39;</span><span class="p">:</span> <span class="n">cellpose_he</span><span class="p">,</span>
+           <span class="s1">&#39;histocartography&#39;</span><span class="p">:</span> <span class="n">histocartography_2d_he</span>
+           <span class="p">}</span>
+
+    <span class="n">whole_img</span> <span class="o">=</span> <span class="n">sq</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">ImageContainer</span><span class="p">(</span><span class="n">im_array</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;img1&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;stardist&#39;</span> <span class="ow">and</span> <span class="n">tile_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">n_tiles</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">im_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">tile_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">im_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">tile_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">segment_kwds</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;n_tiles&#39;</span><span class="p">:</span><span class="n">n_tiles</span><span class="p">})</span>
+
+    <span class="n">seg_func</span> <span class="o">=</span> <span class="n">seg</span><span class="p">[</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> 
+
+    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;histocartography&#39;</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">seg_func</span><span class="p">(</span><span class="n">im_array</span><span class="p">,</span> <span class="o">**</span><span class="n">segment_kwds</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sq</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span>
+            <span class="n">img</span><span class="o">=</span><span class="n">whole_img</span><span class="p">,</span>
+            <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;img1&quot;</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">seg_func</span><span class="p">,</span>
+            <span class="n">layer_added</span><span class="o">=</span><span class="s1">&#39;segmented_default&#39;</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">segment_kwds</span>
+        <span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">whole_img</span><span class="p">[</span><span class="s1">&#39;segmented_default&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">save_dir</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">cell_seg_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s1">&#39;nuclei_mask.npz&#39;</span><span class="p">)</span>
+    <span class="n">save_npz</span><span class="p">(</span><span class="n">cell_seg_path</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+
+
+<span class="nd">@require_packages</span><span class="p">(</span><span class="s1">&#39;histocartography&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">histocartography_2d_he</span><span class="p">(</span><span class="n">image_array</span><span class="p">,</span> <span class="n">pretrained_model</span><span class="o">=</span><span class="s2">&quot;monusac&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; nuclei segmentation using histocartography pretrained model.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image_array : np.ndarray</span>
+<span class="sd">        Image to segment.</span>
+<span class="sd">    pretrained_model : str</span>
+<span class="sd">        Name of the pretrained model to use. Can be &#39;monusac&#39; or &#39;pannuke&#39;.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cell_masks : np.ndarray</span>
+<span class="sd">        Segmentation mask of the image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">histocartography.preprocessing</span> <span class="kn">import</span> <span class="n">NucleiExtractor</span>
+    <span class="n">nuclei_detector</span> <span class="o">=</span> <span class="n">NucleiExtractor</span><span class="p">(</span><span class="n">pretrained_data</span><span class="o">=</span><span class="s2">&quot;monusac&quot;</span><span class="p">)</span>
+    <span class="n">cell_masks</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">nuclei_detector</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cell_masks</span>
+
+
+<span class="nd">@require_packages</span><span class="p">(</span><span class="s1">&#39;stardist&#39;</span><span class="p">)</span>
+<span class="c1"># Many thanks to squidpy developpers for providing examples for running nuclei segmentation from H&amp;E staining images.</span>
+<span class="k">def</span> <span class="nf">stardist_2D_versatile_he</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">nms_thresh</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prob_thresh</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">n_tiles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># Import the StarDist 2D segmentation models.</span>
+    <span class="kn">from</span> <span class="nn">stardist.models</span> <span class="kn">import</span> <span class="n">StarDist2D</span>
+
+    <span class="c1"># Import the recommended normalization technique for stardist.</span>
+    <span class="kn">from</span> <span class="nn">csbdeep.utils</span> <span class="kn">import</span> <span class="n">normalize</span>
+
+    <span class="c1">#axis_norm = (1)   # normalize channels independently</span>
+    <span class="n">axis_norm</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># normalize channels jointly</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">99.8</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis_norm</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">StarDist2D</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;2D_versatile_he&#39;</span><span class="p">)</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_instances</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">nms_thresh</span><span class="o">=</span><span class="n">nms_thresh</span><span class="p">,</span> <span class="n">prob_thresh</span><span class="o">=</span><span class="n">prob_thresh</span><span class="p">,</span> <span class="n">n_tiles</span><span class="o">=</span><span class="n">n_tiles</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">labels</span>
+
+
+<span class="nd">@require_packages</span><span class="p">(</span><span class="s1">&#39;cellpose&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cellpose_he</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">flow_threshold</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">cellprob_threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">channel_cellpose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">cellpose</span> <span class="kn">import</span> <span class="n">models</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Cellpose</span><span class="p">(</span><span class="n">model_type</span><span class="o">=</span><span class="s1">&#39;nuclei&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="n">use_gpu</span><span class="p">)</span>
+    <span class="n">res</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
+        <span class="n">img</span><span class="p">,</span>
+        <span class="n">channels</span><span class="o">=</span><span class="p">[</span><span class="n">channel_cellpose</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">diameter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">min_size</span><span class="o">=</span><span class="n">min_size</span><span class="p">,</span>
+        <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">flow_threshold</span><span class="o">=</span><span class="n">flow_threshold</span><span class="p">,</span>
+        <span class="n">cellprob_threshold</span><span class="o">=</span><span class="n">cellprob_threshold</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

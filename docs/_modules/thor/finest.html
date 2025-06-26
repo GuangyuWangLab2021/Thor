@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.finest &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.finest</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.finest</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">load_npz</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="kn">from</span> <span class="nn">thor.pp</span> <span class="kn">import</span> <span class="n">WholeSlideImage</span><span class="p">,</span> <span class="n">Spatial</span>
+<span class="kn">from</span> <span class="nn">thor.markov_graph_diffusion</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">estimate_expression_markov_graph_diffusion</span><span class="p">,</span>
+    <span class="n">markov_graph_diffusion_initialize</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">thor.plotting.graph</span> <span class="kn">import</span> <span class="n">plot_cell_graph</span>
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">generate_cell_adata</span><span class="p">,</span> <span class="n">get_adata_layer_array</span><span class="p">,</span> <span class="n">get_spot_heterogeneity_cv</span><span class="p">,</span>
+    <span class="n">var_cos</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">thor.VAE</span> <span class="kn">import</span> <span class="n">VAE</span><span class="p">,</span> <span class="n">IdentityGenerator</span><span class="p">,</span> <span class="n">train_vae</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span>
+
+
+<span class="n">MANY_GENES</span> <span class="o">=</span> <span class="mi">200</span>
+
+<span class="n">default_run_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">initialize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">burn_in_steps</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">is_rawCount</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">regulate_expression_mean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">stochastic_expression_neighbors_level</span><span class="o">=</span><span class="s2">&quot;spot&quot;</span><span class="p">,</span>
+    <span class="n">n_iter</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">conn_key</span><span class="o">=</span><span class="s2">&quot;snn&quot;</span><span class="p">,</span>
+    <span class="n">write_freq</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">out_prefix</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span>
+    <span class="n">sample_predicted_expression_fluctuation_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">smooth_predicted_expression_steps</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">save_chain</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">default_graph_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">conn_key</span><span class="o">=</span><span class="s2">&quot;snn&quot;</span><span class="p">,</span>
+    <span class="n">obs_keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">reduced_dimension_transcriptome_obsm_key</span><span class="o">=</span><span class="s2">&quot;X_pca&quot;</span><span class="p">,</span>
+    <span class="n">reduced_dimension_transcriptome_obsm_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">geom_morph_ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">geom_constraint</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">adjust_cell_network_by_transcriptome_scale</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">snn_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">smoothing_scale</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">conn_csr_matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">inflation_percentage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">node_features_obs_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;spot_heterogeneity&quot;</span><span class="p">],</span>
+    <span class="n">preferential_flow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">weigh_cells</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">balance_cell_quality</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">bcq_IQR</span><span class="o">=</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="fineST">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST">[docs]</a>
+<span class="k">class</span> <span class="nc">fineST</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for in silico cell gene expression inference</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image_path : :py:class:`str`</span>
+<span class="sd">        Path to the whole slide image which is aligned to the spatial transcriptomics.</span>
+<span class="sd">    name : :py:class:`str`</span>
+<span class="sd">        Name of the sample.</span>
+<span class="sd">    spot_adata_path : :py:class:`str`, optional</span>
+<span class="sd">        Path to the processed spatial transcriptomics data (e.g., from the Visium sequencing data) in the ``.h5ad`` format. </span>
+
+<span class="sd">        The expression array (``.X``) and spots coordinates (``.obsm[&quot;spatial&quot;]``) are required. Expecting that ``.X`` is lognormalized.</span>
+
+<span class="sd">        One of ``spot_adata_path`` or ``st_dir`` is needed. If ``spot_adata_path`` is provided, ``st_dir`` will be neglected.</span>
+<span class="sd">    st_dir : :py:class:`str`, optional</span>
+<span class="sd">        Directory to the SpaceRanger output directory, where the count matrix and spatial directory are located.</span>
+<span class="sd">    cell_features_csv_path : :py:class:`str`, optional</span>
+<span class="sd">        Path to the CSV file that stores the cell features. The first two columns are expected (exactly) to be the nuclei positions &quot;x&quot; and &quot;y&quot;.</span>
+<span class="sd">    cell_features_list : :py:class:`list` or :py:obj:`None`, optional</span>
+<span class="sd">        List of features to be used for generating the cell-cell graph. </span>
+<span class="sd">            The first two are expected (exactly) to be the nuclei positions &quot;x&quot; and &quot;y&quot;. </span>
+
+<span class="sd">            By default, if no external features are provided, those features ``[&quot;x&quot;, &quot;y&quot;, &quot;mean_gray&quot;, &quot;std_gray&quot;, &quot;entropy_img&quot;, &quot;mean_r&quot;, &quot;mean_g&quot;, &quot;mean_b&quot;, &quot;std_r&quot;, &quot;std_g&quot;, &quot;std_b&quot;]`` are used.</span>
+<span class="sd">    genes_path : :py:class:`str`, optional</span>
+<span class="sd">        Path to the file that contains a headless one column of the genes to be included.</span>
+<span class="sd">            The gene names or gene IDs should be consistent with the ``self.adata.var_names``.</span>
+<span class="sd">            If ``None``, the genes will be highly variable genes or set further by ``self.set_genes_for_prediction``.</span>
+<span class="sd">    save_dir : :py:class:`str` or :py:obj:`None`, optional</span>
+<span class="sd">        Path to the directory of saving fineST prediction results.</span>
+<span class="sd">    recipe : :py:class:`str`, optional</span>
+<span class="sd">        Specifies the mode for predicting the gene expression. Valid options are: ``(&quot;gene&quot;, &quot;reduced&quot;, &quot;mix&quot;)``.</span>
+<span class="sd">    **kwargs : :py:class:`dict`, optional</span>
+<span class="sd">        Keyword arguments for any additional attributes to be set for the class. This allows future loading of the saved json file to create a new instance of the class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">image_path</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">,</span>
+        <span class="n">spot_adata_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">st_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">cell_features_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">cell_features_csv_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">genes_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">save_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">recipe</span><span class="o">=</span><span class="s2">&quot;gene&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">if</span> <span class="n">save_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="sa">f</span><span class="s2">&quot;fineST_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">save_dir</span><span class="p">)</span>
+        <span class="n">image_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span> <span class="o">=</span> <span class="n">save_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_path</span> <span class="o">=</span> <span class="n">image_path</span>
+
+        <span class="k">assert</span> <span class="p">(</span><span class="n">spot_adata_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="n">st_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">),</span> <span class="s2">&quot;Spot-level spatial transcriptomics data are required!&quot;</span>
+
+        <span class="k">if</span> <span class="n">spot_adata_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spot_adata_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">spot_adata_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># This means st_dir is provided</span>
+            <span class="c1"># In this case we process the transcriptome data from the SpaceRanger output directory and output raw counts</span>
+            <span class="c1"># In practice, one is encouraged to provide the processed spot adata (e.g., from the Visium sequencing data) in the ``.h5ad`` format tailored to user&#39;s needs.</span>
+            <span class="c1"># At the moment, we do not support this option.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">st_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">st_dir</span><span class="p">)</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Spatial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">st_dir</span><span class="p">,</span> <span class="n">image_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">image_path</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">)</span>
+            <span class="n">st</span><span class="o">.</span><span class="n">process_transcriptome</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Please provide `spot_adata_path`&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_cell_features_csv_path</span><span class="p">(</span><span class="n">cell_features_csv_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_cell_features_list</span><span class="p">(</span><span class="n">cell_features_list</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">genes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">genes_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_genes</span><span class="p">(</span><span class="n">genes_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph_params</span> <span class="o">=</span> <span class="n">default_graph_params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_params</span> <span class="o">=</span> <span class="n">default_run_params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="fineST.prepare_input">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.prepare_input">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping_margin</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">spot_identifier</span><span class="o">=</span><span class="s2">&quot;spot_barcodes&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Prepare the input for the fineST estimation.</span>
+
+<span class="sd">            First, generate the cell-wise adata from the cell features and spot adata. In this step, the segmented cells will be read from the</span>
+<span class="sd">            ``self.cell_features_csv_path`` and the outliers from the segmentation will be removed according to the distance between a cell and</span>
+<span class="sd">            its nearest neighbor. Second, the spot gene expression is mapped to aligned nearest cells. Lastly, the spot heterogeneity will be</span>
+<span class="sd">            computed using the image features for future construction of the cell-cell graph and the transition matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mapping_margin : :py:class:`int` or :py:class:`float`, optional</span>
+<span class="sd">            Margin for mapping the spot gene expression to the cells. Default is 10, which will attempt to map cells which are within 10- spot radius of any spot (so almost all identified cells are mapped to nearest spots). </span>
+<span class="sd">            Decrease this number if you would like to eliminate isolated cells.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;adata&quot;</span><span class="p">):</span>
+            <span class="n">adata_sc_nearest_spot</span> <span class="o">=</span> <span class="n">generate_cell_adata</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">spot_adata_path</span><span class="p">,</span>
+                <span class="n">obs_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_features_list</span><span class="p">,</span>
+                <span class="n">mapping_margin</span><span class="o">=</span><span class="n">mapping_margin</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata_sc_nearest_spot</span>
+
+        <span class="c1"># compute spot heterogeneity, excluding the first two columns which are the 2D positions of the cells</span>
+        <span class="n">obs_edited</span> <span class="o">=</span> <span class="n">get_spot_heterogeneity_cv</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cell_features_list</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span>
+            <span class="n">spot_identifier</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;spot_heterogeneity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs_edited</span></div>
+
+        <span class="c1">#self.write_adata(f&quot;{self.name}_adata_cell_pre-run.h5ad&quot;, self.adata)</span>
+        <span class="c1">#self.data_pre_path = os.path.join(self.save_dir, f&quot;{self.name}_adata_cell_pre-run.h5ad&quot;)</span>
+
+<div class="viewcode-block" id="fineST.vae_training">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.vae_training">[docs]</a>
+    <span class="k">def</span> <span class="nf">vae_training</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">vae_genes_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_mean_expression</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Train a VAE model for the spot-level transcriptome data. </span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vae_genes_set : :py:class:`set` or :py:obj:`None`, optional</span>
+<span class="sd">            Set of genes to be used for VAE training. </span>
+<span class="sd">                If :py:obj:`None`, all the genes (``adata.var.used_for_prediction``, which are specified in the :meth:`prepare_input`) with mean expression &gt; ``min_mean_expression`` will be used.</span>
+<span class="sd">        min_mean_expression : :py:class:`float`, optional</span>
+<span class="sd">            Minimum mean expression for the genes to be used for VAE training.</span>
+<span class="sd">        kwargs : :py:class:`dict`</span>
+<span class="sd">            Keyword arguments for the :func:`thor.VAE.train_vae` function. </span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        :func:`thor.VAE.train_vae` : For detailed parameter descriptions and usage.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">vae_genes_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">vae_genes_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">used_for_prediction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">means</span>
+                    <span class="o">&gt;</span> <span class="n">min_mean_expression</span>
+                <span class="p">)]</span>
+            <span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">vae_genes_set</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span>
+            <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">used_for_prediction</span><span class="p">])</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_vae&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
+            <span class="n">vae_genes_set</span>
+        <span class="p">)</span>
+        <span class="n">ad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">used_for_vae</span><span class="p">]</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+        <span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+        <span class="n">X_norm</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="n">model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;VAE_models&quot;</span><span class="p">)</span>
+        <span class="n">model_save_prefix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;save_prefix&quot;</span><span class="p">:</span> <span class="n">model_save_prefix</span><span class="p">})</span>
+
+        <span class="n">train_vae</span><span class="p">(</span><span class="n">X_norm</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">model_path</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;vae_genes_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">tfile</span><span class="p">:</span>
+            <span class="n">tfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vae_genes_set</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="fineST.load_genes">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.load_genes">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_genes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes_file_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the user-input genes to be used for prediction.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        genes_file_path: :py:class:`str`</span>
+<span class="sd">            Path to the csv file that contains the genes to be used for prediction. The genes should be in the first column of the csv file.</span>
+<span class="sd">            Gene naming convention should match ``self.adata.var_names``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The genes are loaded into the list ``self.genes``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">genes_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">genes_file_path</span><span class="p">,</span>
+                                 <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">genes</span> <span class="o">=</span> <span class="n">genes_list</span></div>
+
+
+<div class="viewcode-block" id="fineST.set_cell_features_csv_path">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.set_cell_features_csv_path">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_cell_features_csv_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell_features_csv_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the path to the CSV file containing cell features.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cell_features_csv_path : :py:class:`str` or :py:obj:`None`, optional</span>
+<span class="sd">            Path to the CSV file containing cell features. If :py:obj:`None`, the cell features csv file will be obtained from the WSI, which includes nuclei segmentation and feature extraction.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The file path is stored in ``self.cell_features_csv_path``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cell_features_csv_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">cell_features_csv_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">wsi</span> <span class="o">=</span> <span class="n">WholeSlideImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">)</span>
+        <span class="n">wsi</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span> <span class="o">=</span> <span class="n">wsi</span><span class="o">.</span><span class="n">cell_features_csv_path</span></div>
+
+
+<div class="viewcode-block" id="fineST.set_cell_features_list">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.set_cell_features_list">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_cell_features_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell_features_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the list of cell features to be used for graph construction.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cell_features_list : :py:class:`list` or :py:obj:`None`, optional</span>
+<span class="sd">            List of features to be used for generating the cell-cell graph. If :py:obj:`None`, default features will be used:</span>
+<span class="sd">            [&quot;x&quot;, &quot;y&quot;, &quot;mean_gray&quot;, &quot;std_gray&quot;, &quot;entropy_img&quot;, &quot;mean_r&quot;, &quot;mean_g&quot;, &quot;mean_b&quot;, &quot;std_r&quot;, &quot;std_g&quot;, &quot;std_b&quot;]</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The feature names are stored in the list ``self.cell_features_list``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Please provide the cell features csv file path.&quot;</span>
+        
+        <span class="n">cell_features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_features_csv_path</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">feature_names</span> <span class="o">=</span> <span class="n">cell_features_df</span><span class="o">.</span><span class="n">columns</span>
+
+        <span class="k">if</span> <span class="n">cell_features_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cell_features_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                <span class="n">feature_names</span><span class="p">[</span><span class="n">feature_names</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">cell_features_list</span><span class="p">)]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cell_features_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fineST.set_params">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.set_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the parameters for the fineST estimation.</span>
+
+<span class="sd">        This method allows you to configure both graph construction and Markov diffusion parameters.</span>
+<span class="sd">        All parameters are optional and will update the default values.</span>
+
+<span class="sd">        .. rst-class:: parameter-group</span>
+<span class="sd">        </span>
+<span class="sd">        **Graph Construction Parameters**</span>
+<span class="sd">        =================================</span>
+
+<span class="sd">        n_neighbors : :py:class:`int`, optional</span>
+<span class="sd">            Number of neighbors for cell-cell graph construction. Default is 5.</span>
+<span class="sd">        obs_keys : :py:class:`list` or :py:obj:`None`, optional</span>
+<span class="sd">            List of observation keys to use for graph construction. If :py:obj:`None`, uses default features.</span>
+<span class="sd">        reduced_dimension_transcriptome_obsm_key : :py:class:`str`, optional</span>
+<span class="sd">            Key in ``obsm`` for reduced dimension representation. Default is &quot;X_pca&quot;.</span>
+<span class="sd">        reduced_dimension_transcriptome_obsm_dims : :py:class:`int`, optional</span>
+<span class="sd">            Number of dimensions to use from the reduced representation. Default is 2.</span>
+<span class="sd">        geom_morph_ratio : :py:class:`float`, optional</span>
+<span class="sd">            Ratio between geometric and morphological distances. Default is 1.</span>
+<span class="sd">        geom_constraint : :py:class:`float`, optional</span>
+<span class="sd">            Constraint on geometric distances. Default is 0.</span>
+<span class="sd">        snn_threshold : :py:class:`float`, optional</span>
+<span class="sd">            Threshold for shared nearest neighbor graph. Default is 0.1.</span>
+<span class="sd">        node_features_obs_list : :py:class:`list`, optional</span>
+<span class="sd">            List of node features to use. Default is [&quot;spot_heterogeneity&quot;].</span>
+<span class="sd">        balance_cell_quality : :py:class:`bool`, optional</span>
+<span class="sd">            Whether to balance cell quality. Default is :py:obj:`False`.</span>
+<span class="sd">        bcq_IQR : :py:class:`tuple`, optional</span>
+<span class="sd">            Interquartile range for balancing cell quality. Default is (0.15, 0.85).</span>
+
+<span class="sd">        .. rst-class:: parameter-group</span>
+<span class="sd">        </span>
+<span class="sd">        **Transition Matrix Parameters**</span>
+<span class="sd">        ================================</span>
+
+<span class="sd">        preferential_flow : :py:class:`bool`, optional</span>
+<span class="sd">            Whether to use preferential flow in transition matrix. Default is :py:obj:`True`.</span>
+<span class="sd">        weigh_cells : :py:class:`bool`, optional</span>
+<span class="sd">            Whether to weigh cells (nodes) by node features. The idea is to give more weight to the cells </span>
+<span class="sd">            with higher quality (e.g. lower heterogeneity with surrounding cells). Default is :py:obj:`True`.</span>
+<span class="sd">        smoothing_scale : :py:class:`float`, optional</span>
+<span class="sd">            Scale for smoothing when constructing the transition matrix. The lower the scale, the more </span>
+<span class="sd">            self-transition (i.e. the more likely to stay in the same state). Default is 0.8.</span>
+<span class="sd">            </span>
+<span class="sd">            The diffusion transition matrix is defined as:</span>
+<span class="sd">            </span>
+<span class="sd">            .. math::</span>
+<span class="sd">            </span>
+<span class="sd">               T = I - \\lambda \\cdot K</span>
+<span class="sd">            </span>
+<span class="sd">            where :math:`I` is the identity matrix, :math:`K` is the connectivity matrix,</span>
+<span class="sd">            and :math:`\\lambda` is the smoothing scale.</span>
+<span class="sd">            </span>
+<span class="sd">        inflation_percentage : :py:class:`float` or :py:obj:`None`, optional</span>
+<span class="sd">            Percentage for reverse diffusion scale relative to the forward diffusion scale ``smoothing_scale``.</span>
+<span class="sd">            Default is :py:obj:`None` (no reverse diffusion). When enabled, the reverse diffusion will be performed right after the forward diffusion every iteration.</span>
+<span class="sd">            </span>
+<span class="sd">            The reverse diffusion transition matrix is defined as:</span>
+<span class="sd">            </span>
+<span class="sd">            .. math::</span>
+<span class="sd">            </span>
+<span class="sd">               T_{rev} = I - \\mu \\cdot K</span>
+<span class="sd">            </span>
+<span class="sd">            where :math:`I` is the identity matrix, :math:`K` is the connectivity matrix,</span>
+<span class="sd">            and :math:`\\mu` is the reverse diffusion scale.</span>
+<span class="sd">            :math:`\\mu = -\\lambda \\cdot (1 + \\text{inflation_percentage} \\cdot 100)`</span>
+<span class="sd">            </span>
+<span class="sd">        conn_csr_matrix : :class:`scipy.sparse.csr_matrix` or :py:obj:`None`, optional</span>
+<span class="sd">            Pre-computed connectivity matrix. Default is :py:obj:`None`. </span>
+<span class="sd">            </span>
+<span class="sd">            * If provided, the connectivity matrix will be used and the other parameters will be ignored. </span>
+<span class="sd">            * If :py:obj:`None`, the connectivity matrix will be computed from the cell-cell graph if it does not exist in ``adata.obsp``; else the existing connectivity matrix will be used.</span>
+<span class="sd">            * If &quot;force&quot;, the connectivity matrix will be computed regardless of whether it already exists.</span>
+<span class="sd">        </span>
+<span class="sd">        .. rst-class:: parameter-group</span>
+<span class="sd">        </span>
+<span class="sd">        **Markov Diffusion Parameters**</span>
+<span class="sd">        ===============================</span>
+
+<span class="sd">        initialize : :py:class:`bool`, optional</span>
+<span class="sd">            Whether to initialize graph and transition matrix. Default is :py:obj:`True`.</span>
+<span class="sd">        burn_in_steps : :py:class:`int`, optional</span>
+<span class="sd">            Number of steps for burn-in period. Default is 5.</span>
+<span class="sd">        layer : :py:class:`str` or :py:obj:`None`, optional</span>
+<span class="sd">            Layer in AnnData to use for gene expression. Default is :py:obj:`None` (use ``.X``).</span>
+<span class="sd">        is_rawCount : :py:class:`bool`, optional</span>
+<span class="sd">            Whether the input data is raw counts. Default is :py:obj:`False`.</span>
+<span class="sd">        regulate_expression_mean : :py:class:`bool`, optional</span>
+<span class="sd">            Whether to regulate expression mean. Default is :py:obj:`False`.</span>
+<span class="sd">        stochastic_expression_neighbors_level : :py:class:`str`, optional</span>
+<span class="sd">            Level for stochastic expression neighbors (&quot;spot&quot; or &quot;cell&quot;). Default is &quot;spot&quot;.</span>
+<span class="sd">        n_iter : :py:class:`int`, optional</span>
+<span class="sd">            Number of iterations for Markov diffusion. Default is 20.</span>
+<span class="sd">        conn_key : :py:class:`str`, optional</span>
+<span class="sd">            Key for connectivity matrix in ``.obsp``. Default is &quot;snn&quot;.</span>
+<span class="sd">        write_freq : :py:class:`int`, optional</span>
+<span class="sd">            Frequency of writing results to disk. Default is 10.</span>
+<span class="sd">        out_prefix : :py:class:`str`, optional</span>
+<span class="sd">            Prefix for output files. Default is &quot;y&quot;.</span>
+<span class="sd">        sample_predicted_expression_fluctuation_scale : :py:class:`float`, optional</span>
+<span class="sd">            Scale for fluctuation in predicted expression. Default is 1.</span>
+<span class="sd">        smooth_predicted_expression_steps : :py:class:`int`, optional</span>
+<span class="sd">            Number of steps for smoothing predicted expression. Default is 0.</span>
+<span class="sd">        save_chain : :py:class:`bool`, optional</span>
+<span class="sd">            Whether to save the MCMC chain. Default is :py:obj:`False`.</span>
+<span class="sd">        n_jobs : :py:class:`int`, optional</span>
+<span class="sd">            Number of parallel jobs to run. Default is 1.</span>
+<span class="sd">        adjust_cell_network_by_transcriptome_scale : :py:class:`float`, optional</span>
+<span class="sd">            Scale for adjusting cell network by transcriptome. Default is 0.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        :meth:`predict_gene_expression` : For using these parameters in prediction.</span>
+<span class="sd">        :func:`thor.markov_graph_diffusion.markov_graph_diffusion_initialize` : For graph construction details.</span>
+<span class="sd">        :func:`thor.markov_graph_diffusion.estimate_expression_markov_graph_diffusion` : For Markov diffusion details.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">param</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">param</span><span class="p">]})</span>
+
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">graph_params</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">param</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">param</span><span class="p">]})</span></div>
+
+
+<div class="viewcode-block" id="fineST.sanity_check">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.sanity_check">[docs]</a>
+    <span class="k">def</span> <span class="nf">sanity_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform sanity checks on the input data and parameters.</span>
+
+<span class="sd">        This function verifies that all necessary attributes and parameters are set correctly before running the fineST estimation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:class:`bool`</span>
+<span class="sd">            Returns :py:obj:`True` if all checks pass, otherwise :py:obj:`False`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;gene&quot;</span><span class="p">]:</span>
+            <span class="n">required_attrs_for_prediction</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;adata&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">required_attrs_for_prediction</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;adata&quot;</span><span class="p">,</span> <span class="s2">&quot;model_path&quot;</span><span class="p">,</span> <span class="s2">&quot;generate&quot;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required_attrs_for_prediction</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Need to set attribute </span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2"> before running the prediction&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="fineST.predict_gene_expression">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.predict_gene_expression">[docs]</a>
+    <span class="k">def</span> <span class="nf">predict_gene_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict gene expression using Markov graph diffusion.</span>
+
+<span class="sd">        This method performs the following steps:</span>
+<span class="sd">        1. Updates parameters using :meth:`set_params`</span>
+<span class="sd">        2. Prepares the recipe based on the selected mode</span>
+<span class="sd">        3. Optionally performs burn-in if transcriptome effects are included</span>
+<span class="sd">        4. Initializes the cell graph and transition matrix</span>
+<span class="sd">        5. Runs the Markov graph diffusion process</span>
+<span class="sd">        6. Saves results and cleans up temporary files</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs : :py:class:`dict`</span>
+<span class="sd">            Same parameters as accepted by :meth:`set_params`. </span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`anndata.AnnData`</span>
+<span class="sd">            Anndata object with predicted gene expression for cells.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        :meth:`set_params` : For detailed parameter descriptions.</span>
+<span class="sd">        :func:`thor.markov_graph_diffusion.estimate_expression_markov_graph_diffusion` : For the underlying implementation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_recipe</span><span class="p">()</span>
+
+        <span class="c1">#print(self.run_params)</span>
+        <span class="c1">#print(self.graph_params)</span>
+
+        <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;TEMP&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># sanity_check</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sanity_check</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span>
+
+        <span class="c1"># burn-in if you would like to include the effect of the input transcriptome in the cell-cell graph construction</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_params</span><span class="p">[</span><span class="s2">&quot;adjust_cell_network_by_transcriptome_scale&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_burn_in</span><span class="p">(</span><span class="n">n_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;burn_in_steps&quot;</span><span class="p">],</span> <span class="n">n_pcs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_params</span><span class="p">[</span><span class="s2">&quot;reduced_dimension_transcriptome_obsm_dims&quot;</span><span class="p">])</span>
+
+        <span class="c1"># initialization: constructing cell graph and the transition matrix</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;initialize&quot;</span><span class="p">]:</span>
+            <span class="n">markov_graph_diffusion_initialize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_params</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_pre_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span>
+                                          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_adata_cell_input.h5ad&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;regulate_expression_mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;regulate_expression_mean&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">==</span> <span class="s2">&quot;reduced&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_adata</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_adata_cell_input.h5ad&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_params</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># run the finest estimation</span>
+        <span class="n">estimate_expression_markov_graph_diffusion</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span>
+            <span class="n">conn_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;conn_key&quot;</span><span class="p">],</span>
+            <span class="n">n_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;n_iter&quot;</span><span class="p">],</span>
+            <span class="n">input_layer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;layer&quot;</span><span class="p">],</span>
+            <span class="n">is_rawCount</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;is_rawCount&quot;</span><span class="p">],</span>
+            <span class="n">stochastic_expression_neighbors_level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span>
+            <span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;stochastic_expression_neighbors_level&quot;</span><span class="p">],</span>
+            <span class="n">regulate_expression_mean</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;regulate_expression_mean&quot;</span><span class="p">],</span>
+            <span class="n">smooth_predicted_expression_steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span>
+            <span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;smooth_predicted_expression_steps&quot;</span><span class="p">],</span>
+            <span class="n">sample_predicted_expression_fluctuation_scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span>
+            <span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;sample_predicted_expression_fluctuation_scale&quot;</span><span class="p">],</span>
+            <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;n_jobs&quot;</span><span class="p">],</span>
+            <span class="n">out_prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;out_prefix&quot;</span><span class="p">],</span>
+            <span class="n">write_freq</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;write_freq&quot;</span><span class="p">],</span>
+            <span class="n">temp_dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">,</span>
+            <span class="n">save_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span>
+            <span class="n">gen_module</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Clean up</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;save_chain&quot;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">strerror</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_burn_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">genes_included</span><span class="o">=</span><span class="s2">&quot;highly_variable&quot;</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Burn-in the Markov graph diffusion. To include the effect of the input transcriptome in the cell-cell graph construction, we run :func:`estimate_expression_markov_graph_diffusion` function for the</span>
+<span class="sd">        finest estimation using only histology features with vanilla parameters for ``n_iter`` steps (default: 5). In the burnin stage, ``adjust_cell_network_by_transcriptome_scale`` is set to 0. </span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_iter : :py:class:`int`, optional</span>
+<span class="sd">            Number of iterations for the Markov graph diffusion in burn-in stage. Default is 5. </span>
+<span class="sd">        genes_included : :py:class:`str` or :py:obj:`None`, optional</span>
+<span class="sd">            Genes to be used for PCA of the transcriptome. </span>
+<span class="sd">                If :py:obj:`None`, use the genes for prediction in the :class:`thor.fineST` object; </span>
+<span class="sd">                If &quot;highly_variable&quot; (default), the highly variable genes (recomputed) will be used; </span>
+<span class="sd">                If &quot;all&quot;, all the genes will be used. </span>
+<span class="sd">        n_pcs : :py:class:`int`, optional</span>
+<span class="sd">            Number of PCs for PCA of the transcriptome. Default is 2.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            Update ``self.adata.obsm[&quot;X_pca&quot;]``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">n_iter</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># disable the logging for the burn-in stage at the moment for cleaner output</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">disable</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Burn-in the Markov graph diffusion first.&quot;</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TQDM_DISABLE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+
+        <span class="c1"># Create a copy of the original object</span>
+        <span class="n">burnin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">burnin</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">get_adata_layer_array</span><span class="p">(</span><span class="n">burnin</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="n">layer_key</span><span class="o">=</span><span class="n">burnin</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;layer&quot;</span><span class="p">])</span>
+
+        <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">burnin</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;BURNIN_TEMP&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># initialization: constructing cell graph and the transition matrix</span>
+        <span class="n">burnin</span><span class="o">.</span><span class="n">graph_params</span><span class="p">[</span><span class="s2">&quot;adjust_cell_network_by_transcriptome_scale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">burnin</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;initialize&quot;</span><span class="p">]:</span>
+            <span class="n">markov_graph_diffusion_initialize</span><span class="p">(</span><span class="n">burnin</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="o">**</span><span class="n">burnin</span><span class="o">.</span><span class="n">graph_params</span><span class="p">)</span>
+
+        <span class="c1"># # set genes for prediction</span>
+        <span class="c1"># if genes_included == &quot;highly_variable&quot;:</span>
+        <span class="c1">#     # recompute the highly variable genes based on the cell-wise gene expression</span>
+        <span class="c1">#     sc.pp.highly_variable_genes(burnin.adata, inplace=True)</span>
+        <span class="c1"># burnin.genes = genes_included</span>
+        <span class="n">burnin</span><span class="o">.</span><span class="n">set_genes_for_prediction</span><span class="p">(</span><span class="n">genes_selection_key</span><span class="o">=</span><span class="n">genes_included</span><span class="p">)</span>
+
+        <span class="n">burnin</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="s2">&quot;gene&quot;</span>
+        <span class="n">burnin</span><span class="o">.</span><span class="n">prepare_recipe</span><span class="p">()</span>
+        
+        <span class="c1"># run the markov graph diffusion</span>
+        <span class="n">estimate_expression_markov_graph_diffusion</span><span class="p">(</span>
+            <span class="n">burnin</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span>
+            <span class="n">conn_key</span><span class="o">=</span><span class="n">burnin</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;conn_key&quot;</span><span class="p">],</span>
+            <span class="n">n_iter</span><span class="o">=</span><span class="n">n_iter</span><span class="p">,</span>
+            <span class="n">input_layer</span><span class="o">=</span><span class="n">burnin</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;layer&quot;</span><span class="p">],</span>
+            <span class="n">is_rawCount</span><span class="o">=</span><span class="n">burnin</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;is_rawCount&quot;</span><span class="p">],</span>
+            <span class="n">stochastic_expression_neighbors_level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">regulate_expression_mean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">smooth_predicted_expression_steps</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">n_jobs</span><span class="o">=</span><span class="n">burnin</span><span class="o">.</span><span class="n">run_params</span><span class="p">[</span><span class="s2">&quot;n_jobs&quot;</span><span class="p">],</span>
+            <span class="n">out_prefix</span><span class="o">=</span><span class="s2">&quot;burnin&quot;</span><span class="p">,</span>
+            <span class="n">write_freq</span><span class="o">=</span><span class="n">n_iter</span><span class="p">,</span>
+            <span class="n">temp_dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="p">,</span>
+            <span class="n">save_dir</span><span class="o">=</span><span class="n">burnin</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span>
+            <span class="n">gen_module</span><span class="o">=</span><span class="n">burnin</span><span class="o">.</span><span class="n">generate</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">ad_burnin</span> <span class="o">=</span> <span class="n">burnin</span><span class="o">.</span><span class="n">load_result</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;burnin_</span><span class="si">{</span><span class="n">n_iter</span><span class="si">}</span><span class="s2">.npz&quot;</span><span class="p">)</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">ad_burnin</span><span class="p">,</span> <span class="n">n_comps</span><span class="o">=</span><span class="n">n_pcs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">&quot;X_pca&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ad_burnin</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">&quot;X_pca&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Clean up</span>
+        <span class="k">del</span> <span class="n">ad_burnin</span>
+        <span class="k">del</span> <span class="n">burnin</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">strerror</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TQDM_DISABLE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">disable</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">)</span>
+
+<div class="viewcode-block" id="fineST.write_adata">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.write_adata">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_adata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">ad</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write an AnnData object to disk in the results directory.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_name : :py:class:`str`</span>
+<span class="sd">            Relative path to the file to write. The file will be saved in ``self.save_dir``.</span>
+<span class="sd">        ad : :class:`anndata.AnnData`</span>
+<span class="sd">            Cell-wise gene expression to save.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">cell_adata_out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+        <span class="n">ad</span><span class="o">.</span><span class="n">write_h5ad</span><span class="p">(</span><span class="n">cell_adata_out_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fineST.write_params">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.write_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;conn_csr_matrix&quot;</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write the current parameters to a JSON file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exclude : :py:class:`list` of :py:class:`str`, optional</span>
+<span class="sd">            List of parameter names to exclude from writing. Default is ``[&quot;conn_csr_matrix&quot;]``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The parameters are written to a JSON file in ``self.save_dir``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_run_params.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_params</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="n">graph_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_params</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">graph_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;conn_csr_matrix&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">graph_params</span><span class="p">[</span><span class="s2">&quot;conn_csr_matrix&quot;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_graph_params.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">graph_params</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fineST.load_params">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.load_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load parameters from a JSON file. The loaded parameters will be merged with the current parameters in ``self.run_params`` and ``self.graph_params``.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        json_path : :py:class:`str`</span>
+<span class="sd">            Path to the JSON file containing the parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fineST.load_result">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.load_result">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the predicted gene expression data and create an :class:`anndata.AnnData` object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_name : :py:class:`str`</span>
+<span class="sd">            Relative path to the file to load. The file should be in ``self.save_dir``.</span>
+<span class="sd">        layer_name : :py:class:`str` or :py:obj:`None`, optional</span>
+<span class="sd">            Name of the layer to save the loaded gene expression. If :py:obj:`None`, save the gene expression to ``adata.X``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`anndata.AnnData`</span>
+<span class="sd">            The loaded :class:`anndata.AnnData` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;adata&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_pre_path</span><span class="p">)</span>
+        <span class="n">layer_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+        <span class="n">layer_array</span> <span class="o">=</span> <span class="n">load_npz</span><span class="p">(</span><span class="n">layer_file</span><span class="p">)</span>
+        <span class="n">ad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">used_for_prediction</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">del</span> <span class="n">ad</span><span class="o">.</span><span class="n">layers</span>
+
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ad</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">layer_array</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ad</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer_array</span>
+        <span class="k">return</span> <span class="n">ad</span></div>
+
+
+<div class="viewcode-block" id="fineST.prepare_recipe">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.prepare_recipe">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_recipe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare the recipe for gene expression prediction.</span>
+
+<span class="sd">        This function sets up the appropriate genes and parameters based on the selected recipe. Supported recipes are:</span>
+<span class="sd">        - &quot;gene&quot;: use all the user-provided genes for prediction. The user-provided genes should be in the ``self.adata.var.used_for_prediction``.</span>
+<span class="sd">        - &quot;reduced&quot;: use the VAE genes for prediction. The VAE genes should be in the ``self.adata.var.used_for_vae`` and used for prediction, ignoring ``self.genes``.</span>
+<span class="sd">        - &quot;mix&quot;: use both the VAE genes and the rest of the user-provided genes for prediction. The VAE genes should be in the ``self.adata.var.used_for_vae``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The recipe-specific settings are applied to set ``self.adata.var`` columns for gene selection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;gene&quot;</span><span class="p">,</span> <span class="s2">&quot;reduced&quot;</span><span class="p">,</span> <span class="s2">&quot;mix&quot;</span><span class="p">),</span> <span class="s2">&quot;Please specify one of the implemented recipes: `mix`, `gene`, or `reduced`&quot;</span>
+        
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using mode </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">==</span> <span class="s2">&quot;mix&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_reduced_genes</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_reduced&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">used_for_reduced</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s2">&quot;Failed to get reduced genes. Using all genes for prediction.&quot;</span>
+                        <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="s2">&quot;gene&quot;</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">==</span> <span class="s2">&quot;reduced&quot;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using purely all the VAE genes for prediction. `self.genes` is ignored.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">genes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_reduced&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_vae&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_reduced&quot;</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">==</span> <span class="s2">&quot;gene&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_reduced&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_vae&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate</span> <span class="o">=</span> <span class="n">IdentityGenerator</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="fineST.visualize_cell_network">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.visualize_cell_network">[docs]</a>
+    <span class="k">def</span> <span class="nf">visualize_cell_network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Visualize the cell-cell network.</span>
+
+<span class="sd">        This function internally calls :func:`thor.plotting.graph.plot_cell_graph` to create the visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs : :py:class:`dict`</span>
+<span class="sd">            Additional parameters for the visualization. See :func:`thor.plotting.graph.plot_cell_graph`</span>
+<span class="sd">            for available options.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The network visualization is displayed.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        :func:`thor.plotting.graph.plot_cell_graph` : For detailed parameter descriptions and usage.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">plot_cell_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fineST.set_genes_for_prediction">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.set_genes_for_prediction">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_genes_for_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genes_selection_key</span><span class="o">=</span><span class="s2">&quot;highly_variable&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set genes to be used for prediction.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        genes_selection_key : :py:class:`str`, optional</span>
+<span class="sd">            Key for gene selection in ``self.adata.var``. Default: &quot;highly_variable&quot;</span>
+<span class="sd">            </span>
+<span class="sd">            Valid options:</span>
+<span class="sd">            </span>
+<span class="sd">            - &quot;highly_variable&quot;: Selects highly variable genes</span>
+<span class="sd">            - &quot;all&quot;: Selects all genes (not recommended)</span>
+<span class="sd">            - :py:obj:`None`: Uses genes specified in ``self.genes``</span>
+<span class="sd">            - Any key in ``self.adata.var``: Uses that key for selection</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The selected genes are marked in ``self.adata.var.used_for_prediction``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span>
+        <span class="k">if</span> <span class="n">genes_selection_key</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Using all the genes. This may not be optimal and can be slow.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">genes_selection_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;No genes provided. Please set `self.genes` or provide a valid genes_selection_key.&quot;</span>
+            <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genes</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+        <span class="c1"># If the genes_selection_key is not None, we will use the genes in adata.var[genes_selection_key] + self.genes for prediction.</span>
+        <span class="k">assert</span> <span class="n">genes_selection_key</span> <span class="ow">in</span> <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">genes_selection_key</span><span class="si">}</span><span class="s2"> is not a valid key in adata.var.&quot;</span>
+
+        <span class="n">selected_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ad</span><span class="o">.</span><span class="n">var_names</span><span class="p">[</span><span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">genes_selection_key</span><span class="p">]])</span>
+        <span class="n">combined_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">selected_list</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">genes</span><span class="p">))</span>
+        <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">combined_list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fineST.get_reduced_genes">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.get_reduced_genes">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_reduced_genes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">min_mean_expression</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a reduced set of genes which were used to train the VAE model. This is because the genes used for VAE training may not be reconstructed faithfully to the same extent. Therefore, we will use the genes with high reconstruction</span>
+<span class="sd">        quality (measured by cosine similarity with the input gene expression). One should be aware that the genes used for VAE training (``self.adata.var.used_for_vae``) are not the same as the genes used for thor prediction in reduced mode (``self.adata.var.used_for_reduced``; subset).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        keep : :py:class:`float`, optional</span>
+<span class="sd">            Fraction of genes to keep based on their importance in the VAE model for thor prediction in reduced mode. The genes are ranked according to the VAE reconstruction</span>
+<span class="sd">            quality (measured by cosine similarity with the input gene expression). Default is 0.9.</span>
+<span class="sd">        min_mean_expression : :py:class:`float`, optional</span>
+<span class="sd">            Minimum mean expression for genes to be considered. Note the expression values are log-transformed normalized expression. Default is 0.5.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The selected genes are marked in ``self.adata.var.used_for_reduced``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ad_spot</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spot_adata_path</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="s2">&quot;used_for_vae&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="s2">&quot;Please set up `used_for_vae` column in adata.var by running either `self.vae_training` or `self.load_vae_model`&quot;</span>
+
+        <span class="n">genes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">used_for_vae</span><span class="p">]</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">genes</span>
+        <span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;No gene was used for VAE training. There is something wrong with the VAE model.&quot;</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="n">get_adata_layer_array</span><span class="p">(</span><span class="n">ad_spot</span><span class="p">[:,</span> <span class="n">genes</span><span class="p">])</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">decoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">cos_genes</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">var_cos</span><span class="p">(</span><span class="n">decoded</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+        <span class="n">mean_exp_genes</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">index_low_to_high</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">cos_genes</span><span class="p">))</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">index_low_to_high</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">ad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">genes</span><span class="p">]</span>
+        <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;reconstr_rank&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_reduced&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+            <span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;reconstr_rank&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">keep</span> <span class="o">*</span> <span class="n">ad</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mean_exp_genes</span>
+            <span class="o">&gt;=</span> <span class="n">min_mean_expression</span>
+        <span class="p">)</span>
+        <span class="n">reduced_genes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ad</span><span class="o">.</span><span class="n">var_names</span><span class="p">[</span><span class="n">ad</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">used_for_reduced</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="s2">&quot;used_for_prediction&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_reduced&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">reduced_genes</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">used_for_prediction</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_reduced&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
+                <span class="n">reduced_genes</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fineST.load_vae_model">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.load_vae_model">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_vae_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a pre-trained VAE model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model_path : :py:class:`str` or :py:obj:`None`, optional</span>
+<span class="sd">            Path to the directory containing the VAE model. The model should be saved in the `encoder` and `decoder` subdirectories, with the filenames `{self.name}_VAE_encoder.h5` and `{self.name}_VAE_decoder.h5`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The VAE model is loaded into the instance as `self.generate` and the model path is stored in `self.model_path`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">model_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Please provide a correct model path.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">encoder_model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="s2">&quot;encoder&quot;</span><span class="p">)</span>
+        <span class="n">decoder_model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="s2">&quot;decoder&quot;</span><span class="p">)</span>
+
+        <span class="n">vae</span> <span class="o">=</span> <span class="n">VAE</span><span class="p">()</span>
+        <span class="n">vae</span><span class="o">.</span><span class="n">load_models</span><span class="p">(</span>
+            <span class="n">encoder_model_path</span><span class="o">=</span><span class="n">encoder_model_path</span><span class="p">,</span>
+            <span class="n">decoder_model_path</span><span class="o">=</span><span class="n">decoder_model_path</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate</span> <span class="o">=</span> <span class="n">vae</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">model_path</span>
+
+        <span class="c1"># load the associated genes used for vae training.</span>
+        <span class="c1"># single column headless genes</span>
+        <span class="n">vae_genes_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;vae_genes_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+        <span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">vae_genes_file_path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">vae_genes_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;used_for_vae&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
+            <span class="n">vae_genes_set</span>
+        <span class="p">)</span></div>
+
+<span class="c1">#        self.adata.obsm[&quot;X_vae&quot;] = self.generate.encode(self.adata[:, self.adata.var[&quot;used_for_vae&quot;]].X.toarray())</span>
+
+<div class="viewcode-block" id="fineST.save">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;generate&quot;</span><span class="p">,</span> <span class="s2">&quot;adata&quot;</span><span class="p">,</span> <span class="s2">&quot;conn_csr_matrix&quot;</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the current state of the instance. The saved JSON file can be used to create a new instance of the class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exclude : :py:class:`list` of :py:class:`str`, optional</span>
+<span class="sd">            List of attributes to exclude from saving. Default is [&quot;generate&quot;, &quot;adata&quot;, &quot;conn_csr_matrix&quot;].</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :py:obj:`None`</span>
+<span class="sd">            The instance state is saved to a JSON file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_fineST.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">):</span>
+        <span class="c1"># Create a new instance of the class</span>
+        <span class="n">new_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+        <span class="n">memo</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">=</span> <span class="n">new_instance</span>
+
+        <span class="c1"># Copy all attributes except &#39;generate&#39;</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;generate&#39;</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">new_instance</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">memo</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_instance</span><span class="o">.</span><span class="n">load_vae_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_path</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">new_instance</span>
+
+<div class="viewcode-block" id="fineST.copy">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.copy">[docs]</a>
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a deep copy of the instance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`fineST`</span>
+<span class="sd">            A new instance that is a deep copy of the current instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+    
+<div class="viewcode-block" id="fineST.load">
+<a class="viewcode-back" href="../../_autosummary/thor.fineST.html#thor.fineST.load">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a fineST instance from a JSON file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        json_path : :py:class:`str`</span>
+<span class="sd">            Path to the JSON file containing the saved instance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`fineST`</span>
+<span class="sd">            A new instance loaded from the JSON file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">obj</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;data_pre_path&quot;</span><span class="p">):</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">data_pre_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;model_path&quot;</span><span class="p">):</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">load_vae_model</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">model_path</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">obj</span></div>
+</div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

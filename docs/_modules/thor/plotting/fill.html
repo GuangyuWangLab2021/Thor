@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.plotting.fill &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.plotting.fill</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.plotting.fill</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Patch</span>
+<span class="kn">from</span> <span class="nn">matplotlib_scalebar.scalebar</span> <span class="kn">import</span> <span class="n">ScaleBar</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">Voronoi</span><span class="p">,</span> <span class="n">voronoi_plot_2d</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">update_kwargs</span><span class="p">,</span> <span class="n">update_kwargs_exclusive</span>
+
+<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">get_cells_ROI</span><span class="p">,</span> <span class="n">paint_regions</span><span class="p">,</span> <span class="n">sample_n_paint_regions</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="single">
+<a class="viewcode-back" href="../../../_autosummary/thor.pl.single.html#thor.pl.single">[docs]</a>
+<span class="k">def</span> <span class="nf">single</span><span class="p">(</span>
+    <span class="n">var_name</span><span class="p">,</span>
+    <span class="n">img_mask</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">vor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">full_res_im</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">ROI_tuple</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">img_alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">show_cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cbar_loc</span><span class="o">=</span><span class="p">[</span><span class="mf">1.04</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">],</span>
+    <span class="n">return_fig</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">imshow_kwds</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Color the cells or nuclei with one variable, gene name, or any other observable.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    var_name : str</span>
+<span class="sd">        Name of the variable to color the cells or nuclei. For example, a gene name, cell type, etc.</span>
+<span class="sd">    img_mask : numpy array</span>
+<span class="sd">        Image mask filled with the variable values. Should have the same size as `full_res_im`.</span>
+<span class="sd">    ax : matplotlib.axes._subplots.AxesSubplot, optional</span>
+<span class="sd">        The Axes object to plot the gene mask. If None, a new figure and Axes will be created.</span>
+<span class="sd">    vor : scipy.spatial.Voronoi object, optional</span>
+<span class="sd">        The Voronoi diagram object.</span>
+<span class="sd">    full_res_im : numpy array, optional</span>
+<span class="sd">        The full-size image where the gene expression mask should be plotted.</span>
+<span class="sd">    ROI_tuple : tuple, optional</span>
+<span class="sd">        A tuple (left, bottom, width, height) representing the region of interest (ROI)</span>
+<span class="sd">        where the gene expression mask should be displayed. If None, the entire `img_mask` will be plotted.</span>
+<span class="sd">    img_alpha : float, optional</span>
+<span class="sd">        Alpha value (transparency) of the `full_res_im` if provided. Default is 1 (fully opaque).</span>
+<span class="sd">    figsize : tuple, optional</span>
+<span class="sd">        Figure size in inches (width, height). Default is (5, 5).</span>
+<span class="sd">    dpi : int, optional</span>
+<span class="sd">        Dots per inch for the figure. Default is 500.</span>
+<span class="sd">    show_cbar : bool, optional</span>
+<span class="sd">        Whether to show the colorbar. Default is True.</span>
+<span class="sd">    cbar_loc : list, optional</span>
+<span class="sd">        The location of the colorbar as [left, bottom, width, height]. Default is [1.04, 0.02, 0.05, 0.15].</span>
+<span class="sd">    return_fig : bool, optional</span>
+<span class="sd">        If True, return the Figure object. Default is False.</span>
+<span class="sd">    show : bool, optional</span>
+<span class="sd">        If True, display the plot. If False, return the Axes object without displaying the plot. Default is False.</span>
+<span class="sd">    **imshow_kwds : dict, optional</span>
+<span class="sd">        Additional keyword arguments for customizing the imshow function, such as &#39;cmap&#39;, &#39;vmin&#39;, &#39;vmax&#39;, etc.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot or matplotlib.figure.Figure, optional</span>
+<span class="sd">        If `return_fig` is False and `show` is False, the function returns the Axes object.</span>
+<span class="sd">        If `return_fig` is True, the function returns the Figure object.</span>
+<span class="sd">        If `show` is True, the function displays the plot and returns None.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function plots the gene expression mask within a specified region of interest (ROI) or the entire `img_mask`</span>
+<span class="sd">    if `ROI_tuple` is None. The function can overlay the gene expression mask on a full-size image (`full_res_im`) and/or</span>
+<span class="sd">    a Voronoi diagram (`vor`) if provided.</span>
+
+<span class="sd">    The function allows customization of the colormap using the `use_global_vmax` and `use_global_vmin` parameters,</span>
+<span class="sd">    which automatically set the maximum and minimum color values based on the global maximum and minimum values of the</span>
+<span class="sd">    `img_mask`, respectively.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+
+<span class="sd">    &gt;&gt;&gt; # Assuming `img_mask` is a numpy array representing the gene expression mask.</span>
+<span class="sd">    &gt;&gt;&gt; # Also, `vor` is a Voronoi diagram object, and `full_res_im` is a numpy array containing the full-size image.</span>
+<span class="sd">    &gt;&gt;&gt; pl.single(&quot;Gene_X&quot;, img_mask, vor=vor, full_res_im=full_res_im, ROI_tuple=(10, 20, 30, 40))</span>
+
+<span class="sd">    &gt;&gt;&gt; # Customizing the plot with optional arguments</span>
+<span class="sd">    &gt;&gt;&gt; pl.single(&quot;Gene_Y&quot;, img_mask, show_cbar=False, cmap=&#39;viridis&#39;, use_global_vmax=False, figsize=(8, 6))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">ROI_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">ROI_tuple</span>
+        <span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ROI_tuple should be a tuple of (left, bottom, width, height)!&quot;</span>
+
+    <span class="c1">#assert use_global_vmax, &quot;use_global_vmax=False is not supported yet!&quot;</span>
+    <span class="c1">#assert use_global_vmin, &quot;use_global_vmin=False is not supported yet!&quot;</span>
+    <span class="c1">#val_max = np.max(var_values)</span>
+    <span class="c1">#val_min = np.min(var_values)</span>
+    <span class="c1">#vmin, vmax = imshow_kwds.get(&#39;vmin&#39;, val_min), imshow_kwds.get(&#39;vmax&#39;, val_max)</span>
+    <span class="c1">#vmin, vmax = update_vmin_vmax((vmin, vmax), (val_min, val_max))</span>
+    <span class="c1">#imshow_kwds.update({&#39;vmin&#39;: vmin, &#39;vmax&#39;: vmax})</span>
+
+    <span class="n">imshow_kwds</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;extent&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
+    <span class="c1"># cmap = imshow_kwds.get(&#39;cmap&#39;, &#39;viridis&#39;)</span>
+    <span class="c1"># cmap_new, sm = get_colormap(cmap, var_values, cell_labels, vmin, vmax)</span>
+    <span class="c1"># imshow_kwds.update({&#39;cmap&#39;: cmap_new})</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">create_axes</span><span class="p">(</span><span class="n">fig_size</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">ROI_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax_img</span> <span class="o">=</span> <span class="n">plot_within_roi</span><span class="p">(</span>
+            <span class="n">ax</span><span class="p">,</span> <span class="n">img_mask</span><span class="p">,</span> <span class="n">full_res_im</span><span class="p">,</span> <span class="n">vor</span><span class="p">,</span> <span class="n">ROI_tuple</span><span class="p">,</span> <span class="n">img_alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">imshow_kwds</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;Visualizing the whole image is not supported! Use BioGIS instead.&quot;</span>
+        <span class="p">)</span>
+        <span class="c1">#ax_img = plot_entire_mask(ax, img_mask, full_res_im, vor, img_alpha, **imshow_kwds)</span>
+
+    <span class="n">set_xlim_ylim</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">img_mask</span><span class="p">,</span> <span class="n">ROI_tuple</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+    <span class="k">if</span> <span class="n">var_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">var_name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">var_name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">show_cbar</span><span class="p">:</span>
+        <span class="n">add_colorbar</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ax_img</span><span class="p">,</span> <span class="n">cbar_loc</span><span class="p">,</span> <span class="n">var_name</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">return_fig</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fig</span>
+
+    <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ax</span></div>
+
+
+
+<div class="viewcode-block" id="multiple">
+<a class="viewcode-back" href="../../../_autosummary/thor.pl.multiple.html#thor.pl.multiple">[docs]</a>
+<span class="k">def</span> <span class="nf">multiple</span><span class="p">(</span>
+    <span class="n">vars_list</span><span class="p">,</span>
+    <span class="n">img_masks_list</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">vor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;tab20&#39;</span><span class="p">,</span>
+    <span class="n">full_res_im</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">ROI_tuple</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">img_alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+    <span class="n">show_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span>
+    <span class="n">show_cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">return_fig</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">imshow_kwds</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Color the cells or nuclei with multiple variables.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vars_list : list</span>
+<span class="sd">        List of variable names to color the cells or nuclei.</span>
+<span class="sd">    img_masks_list : list of numpy arrays</span>
+<span class="sd">        List of image masks filled with the variable values. Each mask should have the same size as `full_res_im`.</span>
+<span class="sd">    ax : matplotlib.axes._subplots.AxesSubplot, optional</span>
+<span class="sd">        The Axes object to plot the gene masks. If None, a new figure and Axes will be created.</span>
+<span class="sd">    vor : scipy.spatial.Voronoi object, optional</span>
+<span class="sd">        The Voronoi diagram object.</span>
+<span class="sd">    palette : str or list or tuple or numpy array, optional</span>
+<span class="sd">        The color palette to use for coloring variables. Can be a valid matplotlib colormap name, or a list/tuple/array of colors.</span>
+<span class="sd">    full_res_im : numpy array, optional</span>
+<span class="sd">        The full-size image where the gene expression masks should be plotted.</span>
+<span class="sd">    ROI_tuple : tuple, optional</span>
+<span class="sd">        A tuple (left, bottom, width, height) representing the region of interest (ROI) where the gene expression masks should be displayed.</span>
+<span class="sd">    img_alpha : float, optional</span>
+<span class="sd">        Alpha value (transparency) of the `full_res_im` if provided. Default is 1 (fully opaque).</span>
+<span class="sd">    figsize : tuple, optional</span>
+<span class="sd">        Figure size in inches (width, height). Default is (5, 5).</span>
+<span class="sd">    dpi : int, optional</span>
+<span class="sd">        Dots per inch for the figure. Default is 150.</span>
+<span class="sd">    show_legend : bool, optional</span>
+<span class="sd">        Whether to show the legend indicating variables. Default is True.</span>
+<span class="sd">    legend_loc : str, optional</span>
+<span class="sd">        Location for the legend. Default is &#39;upper left&#39;.</span>
+<span class="sd">    show_cbar : bool, optional</span>
+<span class="sd">        Whether to show the colorbar. Default is False.</span>
+<span class="sd">    return_fig : bool, optional</span>
+<span class="sd">        If True, return the Figure object. Default is False.</span>
+<span class="sd">    show : bool, optional</span>
+<span class="sd">        If True, display the plot. If False, return the Axes object without displaying the plot. Default is False.</span>
+<span class="sd">    **imshow_kwds : dict, optional</span>
+<span class="sd">        Additional keyword arguments for customizing the imshow function, such as &#39;cmap&#39;, &#39;vmin&#39;, &#39;vmax&#39;, etc.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot or matplotlib.figure.Figure, optional</span>
+<span class="sd">        If `return_fig` is False and `show` is False, the function returns the Axes object.</span>
+<span class="sd">        If `return_fig` is True, the function returns the Figure object.</span>
+<span class="sd">        If `show` is True, the function displays the plot and returns None.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function plots multiple gene expression masks within a specified region of interest (ROI) or the entire `img_masks_list`</span>
+<span class="sd">    if `ROI_tuple` is None. Each variable&#39;s mask is color-coded using the provided palette.</span>
+
+<span class="sd">    The function supports showing either a legend indicating the variables (`show_legend=True`) or a single colorbar</span>
+<span class="sd">    (`show_cbar=True`) for the entire plot. Both options cannot be selected simultaneously.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+
+<span class="sd">    &gt;&gt;&gt; # Assuming `img_masks_list` is a list of numpy arrays representing gene expression masks.</span>
+<span class="sd">    &gt;&gt;&gt; # Also, `vor` is a Voronoi diagram object, and `full_res_im` is a numpy array containing the full-size image.</span>
+<span class="sd">    &gt;&gt;&gt; pl.multiple([&quot;Gene_X&quot;, &quot;Gene_Y&quot;], img_masks_list, vor=vor, full_res_im=full_res_im, ROI_tuple=(10, 20, 30, 40))</span>
+
+<span class="sd">    &gt;&gt;&gt; # Customizing the plot with optional arguments</span>
+<span class="sd">    &gt;&gt;&gt; pl.multiple([&quot;Gene_A&quot;, &quot;Gene_B&quot;], img_masks_list, show_legend=False, palette=[&#39;red&#39;, &#39;blue&#39;], use_global_vmax=False, figsize=(8, 6))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">vars_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vars_list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vars_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+        <span class="n">img_masks_list</span>
+    <span class="p">),</span> <span class="s1">&#39;Inequal length of the vars_list and img_masks_list!&#39;</span>
+    <span class="c1"># `extent` would be confusing with `xlim`, `ylim`</span>
+    <span class="n">imshow_kwds</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;extent&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
+
+    <span class="n">vPara_iter</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">vPara</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">,</span> <span class="s1">&#39;vmin&#39;</span><span class="p">,</span> <span class="s1">&#39;cmap&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">vPara</span> <span class="ow">in</span> <span class="n">imshow_kwds</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">imshow_kwds</span><span class="p">[</span><span class="n">vPara</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="n">vPara_iter</span><span class="p">[</span><span class="n">vPara</span><span class="p">]</span> <span class="o">=</span> <span class="n">imshow_kwds</span><span class="p">[</span><span class="n">vPara</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">vPara_iter</span><span class="p">[</span><span class="n">vPara</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">imshow_kwds</span><span class="p">[</span><span class="n">vPara</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">vars_list</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">show_cbar</span> <span class="o">!=</span> <span class="n">show_legend</span><span class="p">,</span> <span class="s2">&quot;Can only show the colorbar or the legend, not both or neither!&quot;</span>
+
+    <span class="n">palette</span> <span class="o">=</span> <span class="n">get_palette</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="n">vars_list</span><span class="p">)</span>
+
+    <span class="n">plot_genes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">vars_list_use</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">ROI_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">ROI_tuple</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gene</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vars_list</span><span class="p">):</span>
+            <span class="n">gmask_plot</span> <span class="o">=</span> <span class="n">img_masks_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">b</span><span class="p">:</span><span class="n">b</span> <span class="o">+</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">l</span> <span class="o">+</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># skip non-expressed genes in the region</span>
+            <span class="k">if</span> <span class="n">gmask_plot</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">plot_genes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gene</span><span class="p">)</span>
+            <span class="n">vars_list_use</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vars_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gene</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vars_list</span><span class="p">):</span>
+            <span class="n">gmask_plot</span> <span class="o">=</span> <span class="n">img_masks_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">gmask_plot</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">plot_genes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gene</span><span class="p">)</span>
+            <span class="n">vars_list_use</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vars_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gene</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vars_list_use</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">show_cbar</span><span class="p">:</span>
+            <span class="n">cbar_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.04</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">]</span>
+                               <span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">i</span>
+            <span class="k">if</span> <span class="s1">&#39;cmap&#39;</span> <span class="ow">in</span> <span class="n">vPara_iter</span><span class="p">:</span>
+                <span class="n">color_gene_cmap</span> <span class="o">=</span> <span class="n">vPara_iter</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">color_gene_cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
+                    <span class="s1">&#39;custom_monotonic_cmap&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;white&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">palette</span><span class="p">[</span><span class="n">gene</span><span class="p">]]</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">show_legend</span><span class="p">:</span>
+            <span class="n">cbar_loc</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">color_gene_cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">([</span><span class="n">palette</span><span class="p">[</span><span class="n">gene</span><span class="p">]])</span>
+
+        <span class="n">imshow_kwds</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;cmap&#39;</span><span class="p">:</span> <span class="n">color_gene_cmap</span><span class="p">})</span>
+        <span class="k">for</span> <span class="n">vPara</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">,</span> <span class="s1">&#39;vmin&#39;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">imshow_kwds</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">vPara</span><span class="p">:</span> <span class="n">vPara_iter</span><span class="p">[</span><span class="n">vPara</span><span class="p">][</span><span class="n">i</span><span class="p">]})</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">vars_list_use</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">plot_genes</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="c1"># handle background image and the cell Voronoi outlines.</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">single</span><span class="p">(</span>
+                <span class="n">gene</span><span class="p">,</span>
+                <span class="n">img_masks_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">vor</span><span class="o">=</span><span class="n">vor</span><span class="p">,</span>
+                <span class="n">full_res_im</span><span class="o">=</span><span class="n">full_res_im</span><span class="p">,</span>
+                <span class="n">ROI_tuple</span><span class="o">=</span><span class="n">ROI_tuple</span><span class="p">,</span>
+                <span class="n">img_alpha</span><span class="o">=</span><span class="n">img_alpha</span><span class="p">,</span>
+                <span class="n">show_cbar</span><span class="o">=</span><span class="n">show_cbar</span><span class="p">,</span>
+                <span class="n">cbar_loc</span><span class="o">=</span><span class="n">cbar_loc</span><span class="p">,</span>
+                <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">return_fig</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span>
+                <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">imshow_kwds</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">single</span><span class="p">(</span>
+                <span class="n">gene</span><span class="p">,</span>
+                <span class="n">img_masks_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">vor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">full_res_im</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">ROI_tuple</span><span class="o">=</span><span class="n">ROI_tuple</span><span class="p">,</span>
+                <span class="n">show_cbar</span><span class="o">=</span><span class="n">show_cbar</span><span class="p">,</span>
+                <span class="n">cbar_loc</span><span class="o">=</span><span class="n">cbar_loc</span><span class="p">,</span>
+                <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">return_fig</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="o">**</span><span class="n">imshow_kwds</span>
+            <span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">show_legend</span><span class="p">:</span>
+        <span class="n">legend_elements</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="n">gene</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">gene</span><span class="p">)</span> <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">plot_genes</span>
+        <span class="p">]</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+            <span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">,</span>
+            <span class="n">loc</span><span class="o">=</span><span class="n">legend_loc</span><span class="p">,</span>
+            <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;molecules&#39;</span><span class="p">,</span>
+            <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">return_fig</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fig</span>
+    <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ax</span></div>
+
+
+
+<div class="viewcode-block" id="clusters">
+<a class="viewcode-back" href="../../../_autosummary/thor.pl.clusters.html#thor.pl.clusters">[docs]</a>
+<span class="k">def</span> <span class="nf">clusters</span><span class="p">(</span>
+    <span class="n">cluster_labels_list</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cells_pixels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">multiple_kwds</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Color the cells or nuclei with cluster labels.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cluster_labels_list : list</span>
+<span class="sd">        List of cluster labels for each cell or nucleus.</span>
+<span class="sd">    image_size : tuple, optional</span>
+<span class="sd">        Tuple (height, width) representing the size of the image.</span>
+<span class="sd">    cells_pixels : list of numpy arrays, optional</span>
+<span class="sd">        List of numpy arrays representing the pixels of each cell or nucleus.</span>
+<span class="sd">    **multiple_kwds : dict, optional</span>
+<span class="sd">        Additional keyword arguments for the `multiple` function.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot or matplotlib.figure.Figure, optional</span>
+<span class="sd">        If `return_fig` is False and `show` is False, the function returns the Axes object.</span>
+<span class="sd">        If `return_fig` is True, the function returns the Figure object.</span>
+<span class="sd">        If `show` is True, the function displays the plot and returns None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ct_dummies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">cluster_labels_list</span><span class="p">)</span>
+    <span class="n">cmask_var_cluster</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ct</span> <span class="ow">in</span> <span class="n">ct_dummies</span><span class="p">:</span>
+        <span class="n">var_color</span> <span class="o">=</span> <span class="n">ct_dummies</span><span class="p">[</span><span class="n">ct</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">cmask_var_cluster</span><span class="p">[</span><span class="n">ct</span><span class="p">]</span> <span class="o">=</span> <span class="n">paint_regions</span><span class="p">(</span>
+            <span class="n">image_size</span><span class="p">,</span> <span class="n">cells_pixels</span><span class="p">,</span> <span class="n">var_color</span>
+        <span class="p">)</span>
+        <span class="n">cmask_var_cluster</span><span class="p">[</span><span class="n">ct</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_equal</span><span class="p">(</span><span class="n">cmask_var_cluster</span><span class="p">[</span><span class="n">ct</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">multiple</span><span class="p">(</span>
+        <span class="n">ct_dummies</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="p">[</span><span class="n">cmask_var_cluster</span><span class="p">[</span><span class="n">ct</span><span class="p">]</span> <span class="k">for</span> <span class="n">ct</span> <span class="ow">in</span> <span class="n">ct_dummies</span><span class="p">],</span>
+        <span class="o">**</span><span class="n">multiple_kwds</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="single_molecule">
+<a class="viewcode-back" href="../../../_autosummary/thor.pl.single_molecule.html#thor.pl.single_molecule">[docs]</a>
+<span class="k">def</span> <span class="nf">single_molecule</span><span class="p">(</span>
+    <span class="n">var</span><span class="p">,</span>
+    <span class="n">var_expression</span><span class="p">,</span>
+    <span class="n">cells_pixels</span><span class="p">,</span>
+    <span class="n">image_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">global_norm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">single_kwds</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Color the cells or nuclei with a variable, gene or any observable (gene expression vector as input).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    var : str</span>
+<span class="sd">        Variable name to color the cells or nuclei.</span>
+<span class="sd">    var_expression : numpy 1d array</span>
+<span class="sd">        Array of shape (n_cells, ) containing the expression values of the variables.</span>
+<span class="sd">    cells_pixels : list of numpy arrays</span>
+<span class="sd">        List of numpy arrays representing the pixels of each cell or nucleus.</span>
+<span class="sd">    image_size : tuple, optional</span>
+<span class="sd">        Tuple (height, width) representing the size of the image.</span>
+<span class="sd">    global_norm : bool, optional</span>
+<span class="sd">        If True, normalize the expression values of each variable across all cells. Default is True.</span>
+<span class="sd">    **single_kwds : dict, optional</span>
+<span class="sd">        Additional keyword arguments for the `single` function.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot or matplotlib.figure.Figure, optional</span>
+<span class="sd">        If `return_fig` is False and `show` is False, the function returns the Axes object.</span>
+<span class="sd">        If `return_fig` is True, the function returns the Figure object.</span>
+<span class="sd">        If `show` is True, the function displays the plot and returns None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">single_kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;full_res_im&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">image_size</span>
+            <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">im</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;image size is not provided!&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">image_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">im</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">image_size</span> <span class="o">==</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;image size is not consistent!&quot;</span>
+    <span class="k">if</span> <span class="n">image_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_size</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">ROI_tuple</span> <span class="o">=</span> <span class="n">single_kwds</span><span class="p">[</span><span class="s1">&#39;ROI_tuple&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">ROI_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;ROI_tuple is not provided!&quot;</span>
+
+    <span class="n">nmask</span> <span class="o">=</span> <span class="n">paint_regions</span><span class="p">(</span>
+        <span class="n">image_size</span><span class="p">,</span> <span class="n">cells_pixels</span><span class="p">,</span> <span class="n">cell_colors_list</span><span class="o">=</span><span class="n">var_expression</span>
+    <span class="p">)</span>
+
+    <span class="n">vmin</span> <span class="o">=</span> <span class="n">single_kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">vmax</span> <span class="o">=</span> <span class="n">single_kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmax&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">global_norm</span><span class="p">:</span>
+        <span class="n">var_color</span> <span class="o">=</span> <span class="n">var_expression</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">center_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">cells_pixels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cells_pixels</span><span class="p">))</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">cells_on_patch</span> <span class="o">=</span> <span class="n">get_cells_ROI</span><span class="p">(</span><span class="n">center_pos</span><span class="p">,</span> <span class="n">ROI_tuple</span><span class="p">)</span>
+        <span class="n">var_color</span> <span class="o">=</span> <span class="n">var_expression</span><span class="p">[</span><span class="n">cells_on_patch</span><span class="p">]</span>
+
+    <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">update_vmin_vmax</span><span class="p">((</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">),</span> <span class="n">var_color</span><span class="p">)</span>
+    <span class="n">single_kwds</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;vmin&#39;</span><span class="p">:</span> <span class="n">vmin</span><span class="p">,</span> <span class="s1">&#39;vmax&#39;</span><span class="p">:</span> <span class="n">vmax</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">single</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">nmask</span><span class="p">,</span> <span class="o">**</span><span class="n">single_kwds</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="multi_molecules">
+<a class="viewcode-back" href="../../../_autosummary/thor.pl.multi_molecules.html#thor.pl.multi_molecules">[docs]</a>
+<span class="k">def</span> <span class="nf">multi_molecules</span><span class="p">(</span>
+    <span class="n">vars_list</span><span class="p">,</span>
+    <span class="n">vars_expression_array</span><span class="p">,</span>
+    <span class="n">cells_pixels</span><span class="p">,</span>
+    <span class="n">image_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">global_norm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">multiple_kwds</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Color the cells or nuclei with multiple variables, gene or any observable (gene expression array as input).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vars_list : list</span>
+<span class="sd">        List of variable names to color the cells or nuclei.</span>
+<span class="sd">    vars_expression_array : numpy array</span>
+<span class="sd">        Array of shape (n_cells, n_variables) containing the expression values of the variables.</span>
+<span class="sd">    image_size : tuple</span>
+<span class="sd">        Tuple (height, width) representing the size of the image.</span>
+<span class="sd">    cells_pixels : list of numpy arrays</span>
+<span class="sd">        List of numpy arrays representing the pixels of each cell or nucleus.</span>
+<span class="sd">    global_norm : bool, optional</span>
+<span class="sd">        If True, normalize the expression values of each variable across all cells. Default is True.</span>
+<span class="sd">    **multiple_kwds : dict, optional</span>
+<span class="sd">        Additional keyword arguments for the `multiple` function.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot or matplotlib.figure.Figure, optional</span>
+<span class="sd">        If `return_fig` is False and `show` is False, the function returns the Axes object.</span>
+<span class="sd">        If `return_fig` is True, the function returns the Figure object.</span>
+<span class="sd">        If `show` is True, the function displays the plot and returns None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">multiple_kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;full_res_im&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">image_size</span>
+            <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">im</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;image size is not provided!&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">image_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">im</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">image_size</span> <span class="o">==</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;image size is not consistent!&quot;</span>
+
+    <span class="n">ROI_tuple</span> <span class="o">=</span> <span class="n">multiple_kwds</span><span class="p">[</span><span class="s1">&#39;ROI_tuple&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">ROI_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;ROI_tuple is not provided!&quot;</span>
+    <span class="c1">#center_pos = np.array([(np.mean(cells_pixels[i]), np.mean(cells_pixels[i])) for i in range(len(cells_pixels))])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">global_norm</span><span class="p">:</span>
+        <span class="n">center_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cells_pixels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cells_pixels</span><span class="p">))</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">cells_on_patch</span> <span class="o">=</span> <span class="n">get_cells_ROI</span><span class="p">(</span><span class="n">center_pos</span><span class="p">,</span> <span class="n">ROI_tuple</span><span class="p">)</span>
+
+    <span class="n">mask_var_list</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vars_list</span><span class="p">):</span>
+        <span class="n">var_color</span> <span class="o">=</span> <span class="n">vars_expression_array</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">nmask</span> <span class="o">=</span> <span class="n">paint_regions</span><span class="p">(</span>
+            <span class="n">image_size</span><span class="p">,</span> <span class="n">cells_pixels</span><span class="p">,</span> <span class="n">cell_colors_list</span><span class="o">=</span><span class="n">var_color</span>
+        <span class="p">)</span>
+        <span class="n">mask_var_list</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">nmask</span>
+
+    <span class="n">vmin_list</span> <span class="o">=</span> <span class="n">multiple_kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmin&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">vars_list</span><span class="p">))</span>
+    <span class="n">vmax_list</span> <span class="o">=</span> <span class="n">multiple_kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vmax&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">vars_list</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vars_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">global_norm</span><span class="p">:</span>
+            <span class="n">var_color</span> <span class="o">=</span> <span class="n">vars_expression_array</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">var_color</span> <span class="o">=</span> <span class="n">vars_expression_array</span><span class="p">[</span><span class="n">cells_on_patch</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">vmin_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">vmax_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_vmin_vmax</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">vmin_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">vmax_list</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">var_color</span>
+        <span class="p">)</span>
+    <span class="n">multiple_kwds</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;vmin&#39;</span><span class="p">:</span> <span class="n">vmin_list</span><span class="p">,</span> <span class="s1">&#39;vmax&#39;</span><span class="p">:</span> <span class="n">vmax_list</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">multiple</span><span class="p">(</span>
+        <span class="n">vars_list</span><span class="p">,</span> <span class="p">[</span><span class="n">mask_var_list</span><span class="p">[</span><span class="n">gene</span><span class="p">]</span> <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">vars_list</span><span class="p">],</span> <span class="o">**</span><span class="n">multiple_kwds</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">multi_molecules_sample</span><span class="p">(</span>
+    <span class="n">vars_list</span><span class="p">,</span>
+    <span class="n">vars_expression_array</span><span class="p">,</span>
+    <span class="n">image_size</span><span class="p">,</span>
+    <span class="n">cells_pixels</span><span class="p">,</span>
+    <span class="n">global_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">sample_more</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">multiple_kwds</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Color the cells or nuclei with multiple variables, gene or any observable.</span>
+<span class="sd">    Here the expression values are represented by sampled pixels drawn from the cells or nuclei.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vars_list : list</span>
+<span class="sd">        List of variable names to color the cells or nuclei.</span>
+<span class="sd">    vars_expression_array : numpy array</span>
+<span class="sd">        Array of shape (n_cells, n_variables) containing the expression values of the variables.</span>
+<span class="sd">    image_size : tuple</span>
+<span class="sd">        Tuple (height, width) representing the size of the image.</span>
+<span class="sd">    cells_pixels : list of numpy arrays</span>
+<span class="sd">        List of numpy arrays representing the pixels of each cell or nucleus.</span>
+<span class="sd">    global_norm : bool, optional</span>
+<span class="sd">        If True, normalize the expression values of each variable across all cells. Default is False.</span>
+<span class="sd">    sample_more : int, optional</span>
+<span class="sd">        Number of additional samples to draw from each cell or nucleus. Default is 1.</span>
+<span class="sd">    random_seed : int, optional</span>
+<span class="sd">        Random seed for reproducibility. Default is None.</span>
+<span class="sd">    **multiple_kwds : dict, optional</span>
+<span class="sd">        Additional keyword arguments for the `multiple` function.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot or matplotlib.figure.Figure, optional</span>
+<span class="sd">        If `return_fig` is False and `show` is False, the function returns the Axes object.</span>
+<span class="sd">        If `return_fig` is True, the function returns the Figure object.</span>
+<span class="sd">        If `show` is True, the function displays the plot and returns None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">mask_var_sample</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">ROI_tuple</span> <span class="o">=</span> <span class="n">multiple_kwds</span><span class="p">[</span><span class="s1">&#39;ROI_tuple&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">ROI_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">center_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cells_pixels</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cells_pixels</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cells_pixels</span><span class="p">))</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">cells_on_patch</span> <span class="o">=</span> <span class="n">get_cells_ROI</span><span class="p">(</span><span class="n">center_pos</span><span class="p">,</span> <span class="n">ROI_tuple</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vars_list</span><span class="p">):</span>
+        <span class="n">var_color</span> <span class="o">=</span> <span class="n">vars_expression_array</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">var_color</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">var_color</span><span class="p">))</span>
+
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">sample_n_paint_regions</span><span class="p">(</span>
+            <span class="n">image_size</span><span class="p">,</span>
+            <span class="n">cells_pixels</span><span class="p">,</span>
+            <span class="n">cells_on_patch</span><span class="p">,</span>
+            <span class="n">var_color</span><span class="p">,</span>
+            <span class="n">global_norm</span><span class="o">=</span><span class="n">global_norm</span><span class="p">,</span>
+            <span class="n">sample_more</span><span class="o">=</span><span class="n">sample_more</span><span class="p">,</span>
+            <span class="n">random_seed</span><span class="o">=</span><span class="n">random_seed</span>
+        <span class="p">)</span>
+        <span class="n">mask_var_sample</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span>
+
+    <span class="k">return</span> <span class="n">multiple</span><span class="p">(</span>
+        <span class="n">vars_list</span><span class="p">,</span> <span class="p">[</span><span class="n">mask_var_sample</span><span class="p">[</span><span class="n">gene</span><span class="p">]</span> <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">vars_list</span><span class="p">],</span>
+        <span class="o">**</span><span class="n">multiple_kwds</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># Helper functions</span>
+<span class="k">def</span> <span class="nf">create_axes</span><span class="p">(</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+    <span class="n">fig_size</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">get_size_inches</span><span class="p">()</span>
+    <span class="n">fig_size</span> <span class="o">=</span> <span class="n">fig_size</span> <span class="o">/</span> <span class="n">fig_size</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">fig_size</span> <span class="o">*</span> <span class="mf">0.9</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+
+<span class="k">def</span> <span class="nf">plot_within_roi</span><span class="p">(</span>
+    <span class="n">ax</span><span class="p">,</span> <span class="n">img_mask</span><span class="p">,</span> <span class="n">full_res_im</span><span class="p">,</span> <span class="n">vor</span><span class="p">,</span> <span class="n">ROI_tuple</span><span class="p">,</span> <span class="n">img_alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">imshow_kwds</span>
+<span class="p">):</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">ROI_tuple</span>
+
+    <span class="k">if</span> <span class="n">full_res_im</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_res_im</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1">#im_type is &#39;gray&#39;</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+                <span class="n">full_res_im</span><span class="p">[</span><span class="n">b</span><span class="p">:</span><span class="n">b</span> <span class="o">+</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">l</span> <span class="o">+</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="n">img_alpha</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_res_im</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="c1">#im_type is &#39;color&#39;:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+                <span class="n">full_res_im</span><span class="p">[</span><span class="n">b</span><span class="p">:</span><span class="n">b</span> <span class="o">+</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">l</span> <span class="o">+</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="n">img_alpha</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span>
+            <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vor</span><span class="p">,</span> <span class="n">Voronoi</span><span class="p">):</span>
+        <span class="n">vor</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="n">vor</span><span class="o">.</span><span class="n">vertices</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        <span class="n">voronoi_plot_2d</span><span class="p">(</span>
+            <span class="n">vor</span><span class="p">,</span> <span class="n">show_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_vertices</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">999</span>
+        <span class="p">)</span>
+        <span class="n">vor</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="n">vor</span><span class="o">.</span><span class="n">vertices</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+    <span class="n">ax_img</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_mask</span><span class="p">[</span><span class="n">b</span><span class="p">:</span><span class="n">b</span> <span class="o">+</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">l</span> <span class="o">+</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="o">**</span><span class="n">imshow_kwds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax_img</span>
+
+
+<span class="k">def</span> <span class="nf">plot_entire_mask</span><span class="p">(</span>
+    <span class="n">ax</span><span class="p">,</span> <span class="n">img_mask</span><span class="p">,</span> <span class="n">full_res_im</span><span class="p">,</span> <span class="n">vor</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">img_alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">imshow_kwds</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Not recommended to use this function, since it is not efficient to plot the whole image. Please use Mjolnir instead</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">full_res_im</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_res_im</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">full_res_im</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">img_alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_res_im</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">full_res_im</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">img_alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vor</span><span class="p">,</span> <span class="n">Voronoi</span><span class="p">):</span>
+        <span class="n">voronoi_plot_2d</span><span class="p">(</span>
+            <span class="n">vor</span><span class="p">,</span> <span class="n">show_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_vertices</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">999</span>
+        <span class="p">)</span>
+
+    <span class="n">ax_img</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_mask</span><span class="p">,</span> <span class="o">**</span><span class="n">imshow_kwds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax_img</span>
+
+
+<span class="k">def</span> <span class="nf">set_xlim_ylim</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">img_mask</span><span class="p">,</span> <span class="n">ROI_tuple</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ROI_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">ROI_tuple</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">img_mask</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">add_scalebar</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">units_per_pixel</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    microPerPixel = thor.utils.convert_pixel_to_micron_visium(ad, res=&#39;fullres&#39;, spotDiameterinMicron=65)</span>
+<span class="sd">    fig, ax = plt.subplots()</span>
+<span class="sd">    ax.imshow(rim)</span>
+<span class="sd">    add_scalebar(ax, microPerPixel, &#39;um&#39;, &#39;lower left&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scalebar_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="n">location</span><span class="p">,</span>
+            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">unit</span><span class="p">,</span>
+            <span class="s1">&#39;fixed_value&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+            <span class="s1">&#39;fixed_units&#39;</span><span class="p">:</span> <span class="n">unit</span><span class="p">,</span>
+            <span class="s1">&#39;box_alpha&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>
+            <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rotation&#39;</span><span class="p">:</span> <span class="s1">&#39;horizontal&#39;</span>
+            <span class="p">}</span>
+
+    <span class="n">scalebar_kwargs</span> <span class="o">=</span> <span class="n">update_kwargs_exclusive</span><span class="p">(</span><span class="n">ScaleBar</span><span class="p">,</span> <span class="n">scalebar_kwargs</span><span class="p">)</span>
+    <span class="n">scalebar_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">scalebar</span> <span class="o">=</span> <span class="n">ScaleBar</span><span class="p">(</span><span class="n">units_per_pixel</span><span class="p">,</span> <span class="o">**</span><span class="n">scalebar_kwargs</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">scalebar</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_palette</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="n">vars_list</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">palette</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">palette</span><span class="p">]</span><span class="o">.</span><span class="n">colors</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Please specify a valid color palette name from matplotlib.colormaps&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+        <span class="n">palette</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">vars_list</span><span class="p">,</span> <span class="n">palette</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">vars_list</span><span class="p">)]))</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">palette</span>
+
+
+<span class="k">def</span> <span class="nf">add_colorbar</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ax_img</span><span class="p">,</span> <span class="n">cbar_loc</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="n">axins</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">inset_axes</span><span class="p">(</span><span class="n">cbar_loc</span><span class="p">)</span>
+    <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax_img</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">axins</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">labelpad</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">update_vmin_vmax</span><span class="p">(</span><span class="n">v_set</span><span class="p">,</span> <span class="n">v_data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse vmin, vmax.</span>
+<span class="sd">    v_set : tuple</span>
+<span class="sd">        (vmin, vmax) set by users, can be None, int, float, or string. If string, should be like &#39;p1&#39;, representing 1 percentile.</span>
+<span class="sd">    v_data : vector</span>
+<span class="sd">        the color data to be plotted</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    vmin, vmax : float</span>
+<span class="sd">        the parsed vmin, vmax  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vmin_set</span><span class="p">,</span> <span class="n">vmax_set</span> <span class="o">=</span> <span class="n">v_set</span>
+    <span class="n">vmin_data</span><span class="p">,</span> <span class="n">vmax_data</span> <span class="o">=</span> <span class="n">v_data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">v_data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">vmax_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">vmax</span> <span class="o">=</span> <span class="n">vmax_data</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vmax_set</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">vmax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">vmax_set</span><span class="p">,</span> <span class="n">vmax_data</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vmax_set</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">vmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">v_data</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">vmax_set</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;vmax should be None, int, float, or string!&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">vmin_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">vmin</span> <span class="o">=</span> <span class="n">vmin_data</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vmin_set</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">vmin</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">vmin_set</span><span class="p">,</span> <span class="n">vmin_data</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vmin_set</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">vmin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">v_data</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">vmin_set</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;vmin should be None, int, float, or string!&quot;</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">vmin</span> <span class="o">&lt;</span> <span class="n">vmax</span><span class="p">,</span> <span class="s2">&quot;vmin should be smaller than vmax!&quot;</span>
+    <span class="k">return</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

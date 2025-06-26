@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.analysis.cna &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.analysis.cna</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.analysis.cna</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">anndata</span> <span class="kn">import</span> <span class="n">AnnData</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">mmwrite</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
+
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">get_adata_layer_array</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="prepare_and_run_copykat">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.prepare_and_run_copykat.html#thor.analy.prepare_and_run_copykat">[docs]</a>
+<span class="k">def</span> <span class="nf">prepare_and_run_copykat</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span>
+    <span class="n">datadir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">id_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span>
+    <span class="n">ngene_chr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">win_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="n">KS_cut</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">sam_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">distance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+    <span class="n">norm_cell_names</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">output_seg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;FALSE&quot;</span><span class="p">,</span>
+    <span class="n">plot_genes</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;TRUE&quot;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hg20&quot;</span><span class="p">,</span>
+    <span class="n">n_cores</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">copykat</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run CopyKAT on the input data. Requires R and the CopyKAT package to be installed. Refer to the CopyKAT documentation for more information:</span>
+<span class="sd">    `CopyKAT &lt;https://github.com/navinlabcode/copykat/blob/b795ff793522499f814f6ae282aad1aab790902f/R/copykat.R&gt;`_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : AnnData</span>
+<span class="sd">        Gene expression data.</span>
+<span class="sd">    datadir : str, optional</span>
+<span class="sd">        Directory where data will be saved. Default is None. If None, data will be saved in the current working directory.</span>
+<span class="sd">    layer : str, optional</span>
+<span class="sd">        Name of the layer in `adata` to use as input data. Default is None. If None, the X layer will be used.</span>
+<span class="sd">    batch_size : int</span>
+<span class="sd">        Number of subfolders to process in parallel. Default is 10.</span>
+<span class="sd">    id_type : str</span>
+<span class="sd">        CopyKAT parameter `id.type`. Gene identification type. Default is &quot;S&quot;(&quot;s&quot;), which refers to gene symbol. Other option is &quot;E&quot;(&quot;e&quot;) for Ensembl ID. </span>
+<span class="sd">    ngene_chr : int</span>
+<span class="sd">        CopyKAT parameter `ngene.chr`. Minimal number of genes per chromosome for cell filtering. Default is 5.</span>
+<span class="sd">    win_size : int</span>
+<span class="sd">        CopyKAT parameter `win.size`. Minimal window sizes for segmentation. Default is 25.</span>
+<span class="sd">    KS_cut : float</span>
+<span class="sd">        CopyKAT parameter `KS.cut`. Segmentation parameter ranging from 0 to 1; larger value means looser criteria. Default is 0.1.</span>
+<span class="sd">    sam_name : str</span>
+<span class="sd">        CopyKAT parameter `sam.name`. Sample name. Default is &quot;&quot;.</span>
+<span class="sd">    distance : str</span>
+<span class="sd">        CopyKAT parameter `distance`. Distance metric. Default is &quot;euclidean&quot;. Other options are &quot;pearson&quot; and &quot;spearman&quot;.</span>
+<span class="sd">    norm_cell_names : str</span>
+<span class="sd">        CopyKAT parameter `norm.cell.names`. A vector of normal cell names. Default is &quot;&quot;.</span>
+<span class="sd">    output_seg : str </span>
+<span class="sd">        CopyKAT parameter `output.seg`. Whether to output segmentation results for IGV visualization. Default is &quot;FALSE&quot;. Other option is</span>
+<span class="sd">        &quot;TRUE&quot;. Note that it is a string and not a boolean.</span>
+<span class="sd">    plot_genes : str</span>
+<span class="sd">        CopyKAT parameter `plot.genes`. Whether to output heatmap of CNAs with genename labels. Default is &quot;TRUE&quot;. Other option is &quot;FALSE&quot;. Note that it is a string and not a boolean.</span>
+<span class="sd">    genome : str</span>
+<span class="sd">        CopyKAT parameter `genome`. Genome name. Default is &quot;hg20&quot; for human genome version 20. Other option is &quot;mm10&quot; for mouse genome version 10.</span>
+<span class="sd">    n_cores : int</span>
+<span class="sd">        CopyKAT parameter `n.cores`. Number of CPU cores for parallel computing. Default is 1. Recommended to use 1 core if batch_size &gt; 1.</span>
+<span class="sd">    copykat : bool</span>
+<span class="sd">        Whether to run the CopyKAT analysis. Default is True. If False, the function will only split the data into smaller chunks and prepare the R script for CopyKAT.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        Results are saved in the current working directory.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Warn user that CopyKAT need to be installed</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="s2">&quot;Rscript and CopyKAT needs to be installed. Please refer to the CopyKAT documentation for more information:`CopyKAT &lt;https://github.com/navinlabcode/copykat/blob/b795ff793522499f814f6ae282aad1aab790902f/R/copykat.R&gt;`_.&quot;</span>
+    <span class="p">)</span>
+
+
+    <span class="k">if</span> <span class="n">datadir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">datadir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">datadir</span> <span class="o">=</span> <span class="n">datadir</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datadir</span><span class="p">,</span> <span class="s2">&quot;split_data_forcopykat&quot;</span><span class="p">)</span>
+
+    
+    <span class="c1"># Run split function and get folder names</span>
+    <span class="n">out_dirs</span> <span class="o">=</span> <span class="n">prepare_data_for_parallel_processing</span><span class="p">(</span>
+        <span class="n">adata</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">id_type</span><span class="p">,</span> <span class="n">ngene_chr</span><span class="p">,</span> <span class="n">win_size</span><span class="p">,</span> <span class="n">KS_cut</span><span class="p">,</span> <span class="n">sam_name</span><span class="p">,</span>
+        <span class="n">distance</span><span class="p">,</span> <span class="n">norm_cell_names</span><span class="p">,</span> <span class="n">output_seg</span><span class="p">,</span> <span class="n">plot_genes</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">n_cores</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">copykat</span><span class="p">:</span>
+        <span class="n">processes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">num_folders</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_dirs</span><span class="p">)</span>
+        <span class="n">processes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">num_folders</span> <span class="o">&lt;</span> <span class="n">batch_size</span><span class="p">:</span>
+            <span class="n">batch_size</span> <span class="o">=</span> <span class="n">num_folders</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running CopyKAT on </span><span class="si">{</span><span class="n">num_folders</span><span class="si">}</span><span class="s2"> batches of data&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Run R files in parallel batches</span>
+        <span class="k">for</span> <span class="n">num_batch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_folders</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="n">out_dirs</span><span class="p">[</span><span class="n">num_batch</span><span class="p">:</span><span class="n">num_batch</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">:</span>
+                <span class="n">folder_matrix_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="n">r_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_matrix_path</span><span class="p">,</span> <span class="s2">&quot;copykat_R.R&quot;</span><span class="p">)</span>
+                <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;Rscript&quot;</span><span class="p">,</span> <span class="n">r_path</span><span class="p">])</span>
+                <span class="n">processes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+
+            <span class="c1"># Wait for the current batch of processes to finish</span>
+            <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+                <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+            <span class="c1"># Clear the list of processes</span>
+            <span class="n">processes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Merging CopyKAT results&quot;</span><span class="p">)</span>
+        <span class="n">merge_copykat_result</span><span class="p">(</span><span class="n">out_dirs</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">copykat</span><span class="p">,</span> <span class="n">sam_name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">prepare_data_for_parallel_processing</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">id_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">ngene_chr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">win_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">KS_cut</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">sam_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">distance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span> <span class="n">norm_cell_names</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">output_seg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;FALSE&quot;</span><span class="p">,</span> <span class="n">plot_genes</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;TRUE&quot;</span><span class="p">,</span> <span class="n">genome</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hg20&quot;</span><span class="p">,</span> <span class="n">n_cores</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split the input data into smaller chunks and create subfolders for parallel processing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : AnnData object</span>
+<span class="sd">        Annotated data matrix.</span>
+<span class="sd">    source : str</span>
+<span class="sd">        Directory where subfolders will be created.</span>
+<span class="sd">    layer : str or None, optional</span>
+<span class="sd">        Name of the layer in &#39;adata&#39; to use as input data. Default is None.</span>
+<span class="sd">    id_type : str, optional</span>
+<span class="sd">        Identifier type. Default is &quot;S&quot;.</span>
+<span class="sd">    ngene_chr : int, optional</span>
+<span class="sd">        Number of genes per chromosome. Default is 5.</span>
+<span class="sd">    win_size : int, optional</span>
+<span class="sd">        Window size. Default is 25.</span>
+<span class="sd">    KS_cut : float, optional</span>
+<span class="sd">        KS cut-off value. Default is 0.1.</span>
+<span class="sd">    sam_name : str, optional</span>
+<span class="sd">        Sample name. Default is &quot;&quot;.</span>
+<span class="sd">    distance : str, optional</span>
+<span class="sd">        Distance metric. Default is &quot;euclidean&quot;.</span>
+<span class="sd">    norm_cell_names : str, optional</span>
+<span class="sd">        Normalized cell names. Default is &quot;&quot;.</span>
+<span class="sd">    output_seg : str, optional</span>
+<span class="sd">        Output segment. Default is &quot;FALSE&quot;.</span>
+<span class="sd">    plot_genes : str, optional</span>
+<span class="sd">        Plot genes. Default is &quot;TRUE&quot;.</span>
+<span class="sd">    genome : str, optional</span>
+<span class="sd">        Genome name. Default is &quot;hg20&quot;.</span>
+<span class="sd">    n_cores : int, optional</span>
+<span class="sd">        Number of CPU cores to use. Default is 1.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out_dirs : list</span>
+<span class="sd">        List of subfolder names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">adata_copy</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">adata_copy</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expm1</span><span class="p">(</span><span class="n">adata_copy</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">out_dirs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Initialize variables</span>
+    <span class="n">cell_split</span> <span class="o">=</span> <span class="mi">2000</span>
+
+    <span class="n">obs_all</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adata_copy</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">num_folders</span><span class="p">,</span><span class="n">random_obs</span> <span class="o">=</span> <span class="n">sample_data</span><span class="p">(</span><span class="n">data_list</span><span class="o">=</span><span class="n">obs_all</span><span class="p">,</span><span class="n">number_sampling</span><span class="o">=</span><span class="n">cell_split</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">folder_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_folders</span><span class="p">):</span>
+        <span class="n">folder_matrix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;filtered_feature_bc_matrix_</span><span class="si">{</span><span class="n">cell_split</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">folder_num</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">out_dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">folder_matrix</span><span class="p">)</span>
+        <span class="n">folder_matrix_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">folder_matrix</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder_matrix_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">obs_list</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">random_obs</span><span class="p">[</span><span class="n">folder_num</span><span class="p">])</span>
+        <span class="c1"># Save each cell list to each folder</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">obs_list</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_matrix_path</span><span class="p">,</span> <span class="s2">&quot;cell_list.txt&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Create AnnData object for the current batch</span>
+        <span class="n">adata_batch</span> <span class="o">=</span> <span class="n">adata_copy</span><span class="p">[</span><span class="n">obs_list</span><span class="p">]</span>
+        <span class="n">adata_to_mtx_conversion</span><span class="p">(</span>
+                <span class="n">adata_batch</span><span class="p">,</span>
+                <span class="n">save_path</span><span class="o">=</span><span class="n">folder_matrix_path</span><span class="p">,</span>
+                <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">,</span>
+            <span class="p">)</span>
+
+
+        <span class="c1"># Create R copykat script for the current subfolder</span>
+        <span class="n">generate_copykat_r_script</span><span class="p">(</span>
+            <span class="n">source</span><span class="p">,</span> <span class="n">folder_matrix_path</span><span class="p">,</span> <span class="n">id_type</span><span class="p">,</span> <span class="n">ngene_chr</span><span class="p">,</span> <span class="n">win_size</span><span class="p">,</span> <span class="n">KS_cut</span><span class="p">,</span>
+            <span class="n">sam_name</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">norm_cell_names</span><span class="p">,</span> <span class="n">output_seg</span><span class="p">,</span> <span class="n">plot_genes</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span>
+            <span class="n">n_cores</span>
+        <span class="p">)</span>
+
+    <span class="c1">#print(&quot;number of split folders:&quot;, len(out_dirs))</span>
+    <span class="k">return</span> <span class="n">out_dirs</span>
+
+
+<span class="k">def</span> <span class="nf">sample_data</span><span class="p">(</span><span class="n">data_list</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">number_sampling</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Randomly sample and split a list of data into multiple sublists.</span>
+
+<span class="sd">    This function takes a list of data and divides it into smaller sublists to facilitate</span>
+<span class="sd">    parallel processing or batching. It ensures that each sublist has roughly the same number</span>
+<span class="sd">    of elements, with the exception of the last sublist, which may contain fewer elements if</span>
+<span class="sd">    the total number of elements is not evenly divisible by `number_sampling`.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    data_list : List</span>
+<span class="sd">        A list of data to be split and sampled.</span>
+<span class="sd">    number_sampling : int</span>
+<span class="sd">        The desired number of member in each sublists to create.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    Tuple[int, List[List]]</span>
+<span class="sd">        The number of sublists created and a list of sublists containing randomly sampled elements from `data_list`.</span>
+<span class="sd">        The length of this list is equal to `number_sampling`, with each sublist containing approximately</span>
+<span class="sd">        len(data_list) / number_sampling elements. The last sublist may contain fewer elements if len(data_list) is</span>
+<span class="sd">        not evenly divisible by `number_sampling`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># calculate how many sublist will be create</span>
+    <span class="n">sampling_time</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span><span class="o">/</span><span class="n">number_sampling</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="c1">#check and handle if the data can be divide all equally or it have some remain</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span> <span class="o">%</span> <span class="n">number_sampling</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">random_list</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="n">sampling_time</span><span class="p">,</span><span class="n">number_sampling</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">random_list</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="n">sampling_time</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">number_sampling</span><span class="p">])</span>
+        <span class="n">random_list_remain</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">random_list</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+        <span class="n">random_list</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">random_list</span><span class="p">)</span>
+        <span class="n">random_list_remain</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">random_list_remain</span><span class="p">)</span>
+        <span class="n">random_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random_list_remain</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sampling_time</span><span class="p">,</span><span class="n">random_list</span>
+
+
+<div class="viewcode-block" id="adata_to_mtx_conversion">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.adata_to_mtx_conversion.html#thor.analy.adata_to_mtx_conversion">[docs]</a>
+<span class="k">def</span> <span class="nf">adata_to_mtx_conversion</span><span class="p">(</span><span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert AnnData object to matrix market format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : AnnData</span>
+<span class="sd">        Annotated data matrix.</span>
+<span class="sd">    save_path : str or None, optional</span>
+<span class="sd">        Directory to save the output files. Default is None. If None, data will be saved in the current working directory.</span>
+<span class="sd">    layer : str or None, optional</span>
+<span class="sd">        Name of the layer in `adata` to use as input data. Default is None. If None, the X layer will be used.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        Results are saved in the current working directory.</span>
+
+<span class="sd">        matrix.mtx : file</span>
+<span class="sd">            Matrix market format file containing gene expression data.</span>
+<span class="sd">        genes.tsv : file</span>
+<span class="sd">            Gene names file.</span>
+<span class="sd">        barcodes.tsv : file</span>
+<span class="sd">            Cell barcode names file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">get_adata_layer_array</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
+
+    <span class="c1"># Transpose matrix and create sparse CSR matrix</span>
+    <span class="n">gbm</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+    <span class="c1"># Set save path if not provided</span>
+    <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">current_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="n">folder_matrix_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">current_path</span><span class="si">}</span><span class="s2">/filtered_feature_bc_matrix&quot;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder_matrix_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">save_path</span> <span class="o">=</span> <span class="n">folder_matrix_path</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">folder_matrix_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">/filtered_feature_bc_matrix&quot;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder_matrix_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">save_path</span> <span class="o">=</span> <span class="n">folder_matrix_path</span>
+
+    <span class="c1"># Convert to a sparse matrix and save</span>
+    <span class="n">sparse_gbm</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="p">(</span><span class="n">gbm</span><span class="p">)</span>
+    <span class="n">mmwrite</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s2">&quot;matrix.mtx&quot;</span><span class="p">),</span> <span class="n">sparse_gbm</span><span class="p">)</span>
+
+    <span class="c1"># Save gene and cell names</span>
+    <span class="n">gene</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+    <span class="n">gene</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">gene</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s2">&quot;genes.tsv&quot;</span><span class="p">),</span>
+        <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s2">&quot;barcodes.tsv&quot;</span><span class="p">),</span>
+        <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">generate_copykat_r_script</span><span class="p">(</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">folder_matrix_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">id_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">ngene_chr</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+    <span class="n">win_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+    <span class="n">KS_cut</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> 
+    <span class="n">sam_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">distance</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">norm_cell_names</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">output_seg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">plot_genes</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">genome</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">n_cores</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create R copykat script for a subfolder.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    source : str</span>
+<span class="sd">        Main data source directory.</span>
+<span class="sd">    folder_matrix_path : str</span>
+<span class="sd">        Subfolder path.</span>
+<span class="sd">    id_type : str</span>
+<span class="sd">        Identifier type.</span>
+<span class="sd">    ngene_chr : int</span>
+<span class="sd">        Number of genes per chromosome.</span>
+<span class="sd">    win_size : int</span>
+<span class="sd">        Window size.</span>
+<span class="sd">    KS_cut : float</span>
+<span class="sd">        KS cut-off value.</span>
+<span class="sd">    sam_name : str</span>
+<span class="sd">        Sample name.</span>
+<span class="sd">    distance : str</span>
+<span class="sd">        Distance metric.</span>
+<span class="sd">    norm_cell_names : str</span>
+<span class="sd">        Normalized cell names.</span>
+<span class="sd">    output_seg : str</span>
+<span class="sd">        Output segment.</span>
+<span class="sd">    plot_genes : str</span>
+<span class="sd">        Plot genes.</span>
+<span class="sd">    genome : str</span>
+<span class="sd">        Genome name.</span>
+<span class="sd">    n_cores : int</span>
+<span class="sd">        Number of CPU cores to use.</span>
+
+<span class="sd">    Output Files</span>
+<span class="sd">    ------------</span>
+<span class="sd">    copykat_R.R : R script for running copykat.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create R script content</span>
+    <span class="n">R_content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    setwd(&quot;</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&quot;)</span>
+<span class="s2">    library(anndata)</span>
+<span class="s2">    library(Seurat)</span>
+<span class="s2">    data.dir = &quot;</span><span class="si">{</span><span class="n">folder_matrix_path</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="s2">    raw &lt;- Read10X(data.dir = &quot;</span><span class="si">{</span><span class="n">folder_matrix_path</span><span class="si">}</span><span class="s2">&quot;, gene.column = 1)</span>
+
+<span class="s2">    raw &lt;- CreateSeuratObject(counts = raw, project = &quot;copycat.</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">&quot;, min.cells = 0, min.features = 0)</span>
+<span class="s2">    exp.rawdata &lt;- as.matrix(raw@assays$RNA@counts)</span>
+<span class="s2">    dir &lt;- paste0(data.dir, &quot;/&quot;)</span>
+<span class="s2">    data.dir2 &lt;- paste0(dir, &quot;result&quot;)</span>
+<span class="s2">    if (!dir.exists(data.dir2)) </span><span class="se">{{</span>
+<span class="s2">        dir.create(data.dir2)</span>
+<span class="s2">    </span><span class="se">}}</span><span class="s2"> else </span><span class="se">{{</span>
+<span class="s2">        print(&quot;&quot;)</span>
+<span class="s2">    </span><span class="se">}}</span>
+<span class="s2">    setwd(data.dir2)</span>
+
+<span class="s2">    library(copykat)</span>
+<span class="s2">    copykat.</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2"> &lt;- copykat(rawmat = exp.rawdata, id.type = &quot;</span><span class="si">{</span><span class="n">id_type</span><span class="si">}</span><span class="s2">&quot;, ngene.chr = </span><span class="si">{</span><span class="n">ngene_chr</span><span class="si">}</span><span class="s2">, win.size = </span><span class="si">{</span><span class="n">win_size</span><span class="si">}</span><span class="s2">, </span>
+<span class="s2">    KS.cut = </span><span class="si">{</span><span class="n">KS_cut</span><span class="si">}</span><span class="s2">, sam.name = &quot;</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">&quot;, distance = &quot;</span><span class="si">{</span><span class="n">distance</span><span class="si">}</span><span class="s2">&quot;, norm.cell.names = &quot;</span><span class="si">{</span><span class="n">norm_cell_names</span><span class="si">}</span><span class="s2">&quot;, </span>
+<span class="s2">    output.seg = &quot;</span><span class="si">{</span><span class="n">output_seg</span><span class="si">}</span><span class="s2">&quot;, plot.genes = &quot;</span><span class="si">{</span><span class="n">plot_genes</span><span class="si">}</span><span class="s2">&quot;, genome = &quot;</span><span class="si">{</span><span class="n">genome</span><span class="si">}</span><span class="s2">&quot;, n.cores = </span><span class="si">{</span><span class="n">n_cores</span><span class="si">}</span><span class="s2">)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Write R script content to file</span>
+    <span class="n">R_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_matrix_path</span><span class="p">,</span> <span class="s2">&quot;copykat_R.R&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">R_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">r_file</span><span class="p">:</span>
+        <span class="n">r_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">R_content</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">merge_copykat_result</span><span class="p">(</span><span class="n">out_dirs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">copykat</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">sam_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merge CopyKat results from multiple subfolders into consolidated result files.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    out_dirs : List[str]</span>
+<span class="sd">        List of subfolder names.</span>
+<span class="sd">    source : str, optional</span>
+<span class="sd">        Directory of the main data source. Default is None.</span>
+<span class="sd">    copykat : bool, optional</span>
+<span class="sd">        Flag indicating whether CopyKAT was used. Default is False.</span>
+<span class="sd">    sam_name : str, optional</span>
+<span class="sd">        Sample name for creating output files. Default is an empty string.</span>
+
+<span class="sd">    Output Files</span>
+<span class="sd">    ------------</span>
+<span class="sd">    sam_name_copykat_CNA_results_all.parquet : pd.DataFrame</span>
+<span class="sd">        Merged CopyKat CNA results.</span>
+<span class="sd">    sam_name_copykat_CNA_raw_results_gene_by_cell_all.parquet : pd.DataFrame</span>
+<span class="sd">        Merged CopyKat raw CNA results.</span>
+<span class="sd">    sam_name_copykat_prediction_all.parquet : pd.DataFrame</span>
+<span class="sd">        Merged CopyKat predictions.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#print(&quot;merging copykat results...&quot;)</span>
+    <span class="c1"># Merge {sam_name}_copykat_CNA_results</span>
+    <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">source</span>
+    <span class="k">if</span> <span class="n">copykat</span><span class="p">:</span>
+ 
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">out_dirs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">/result/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_CNA_results.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">out_dirs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_CNA_results.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+
+    <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">CNA_results</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">folder_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_dirs</span><span class="p">)):</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">out_dirs</span><span class="p">[</span><span class="n">folder_ind</span><span class="p">]</span>
+        <span class="n">CNA_results_addin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">/result/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_CNA_results.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="k">del</span> <span class="n">CNA_results_addin</span><span class="p">[</span><span class="s2">&quot;chrompos&quot;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">CNA_results_addin</span><span class="p">[</span><span class="s2">&quot;abspos&quot;</span><span class="p">]</span>
+        <span class="n">CNA_results_addin</span> <span class="o">=</span> <span class="n">CNA_results_addin</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">CNA_results</span><span class="p">,</span> <span class="n">CNA_results_addin</span><span class="p">])</span>
+    <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">CNA_results</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="n">CNA_results</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_CNA_results_all.parquet&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Merge {sam_name}_copykat_CNA_raw_results_gene_by_cell</span>
+    <span class="k">if</span> <span class="n">copykat</span><span class="p">:</span>
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">out_dirs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">/result/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_CNA_raw_results_gene_by_cell.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">out_dirs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_CNA_raw_results_gene_by_cell.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+    <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">CNA_results</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">folder_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_dirs</span><span class="p">)):</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">out_dirs</span><span class="p">[</span><span class="n">folder_ind</span><span class="p">]</span>
+        <span class="n">CNA_results_addin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">/result/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_CNA_raw_results_gene_by_cell.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="k">del</span> <span class="n">CNA_results_addin</span><span class="p">[</span><span class="s1">&#39;start_position&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">CNA_results_addin</span><span class="p">[</span><span class="s1">&#39;end_position&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">CNA_results_addin</span><span class="p">[</span><span class="s1">&#39;band&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">CNA_results_addin</span><span class="p">[</span><span class="s1">&#39;ensembl_gene_id&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">CNA_results_addin</span><span class="p">[</span><span class="s1">&#39;chromosome_name&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">CNA_results_addin</span><span class="p">[</span><span class="s1">&#39;hgnc_symbol&#39;</span><span class="p">]</span>
+        <span class="n">CNA_results_addin</span> <span class="o">=</span> <span class="n">CNA_results_addin</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">CNA_results</span><span class="p">,</span> <span class="n">CNA_results_addin</span><span class="p">])</span>
+    <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">CNA_results</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="n">CNA_results</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_CNA_raw_results_gene_by_cell_all.parquet&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Merge {sam_name}_copykat_prediction</span>
+    <span class="k">if</span> <span class="n">copykat</span><span class="p">:</span>
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">out_dirs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">/result/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_prediction.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">out_dirs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_prediction.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+    <span class="k">for</span> <span class="n">folder_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_dirs</span><span class="p">)):</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">out_dirs</span><span class="p">[</span><span class="n">folder_ind</span><span class="p">]</span>
+        <span class="n">CNA_results_addin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">/result/</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_prediction.txt&quot;</span>
+            <span class="p">),</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">CNA_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">CNA_results</span><span class="p">,</span> <span class="n">CNA_results_addin</span><span class="p">])</span>
+    <span class="n">CNA_results</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sam_name</span><span class="si">}</span><span class="s2">_copykat_prediction_all.parquet&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

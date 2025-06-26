@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.plotting.deg &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.plotting.deg</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.plotting.deg</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="c1">#import textalloc as ta</span>
+
+
+<div class="viewcode-block" id="fringe">
+<a class="viewcode-back" href="../../../_autosummary/thor.pl.fringe.html#thor.pl.fringe">[docs]</a>
+<span class="k">def</span> <span class="nf">fringe</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">genes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+    <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">annotate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">annot_bbox</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">text_offset_x</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+    <span class="n">text_offset_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">text_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot log2foldchange of gene expression against distance from the baseline.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : Pandas DataFrame</span>
+<span class="sd">        Rows are windows/bins. Columns are `distance` and all the genes (Default value = None)</span>
+<span class="sd">    genes : List</span>
+<span class="sd">        List of genes for plotting (Default value = None)</span>
+<span class="sd">    cmap : Str</span>
+<span class="sd">        Colormap name in matplotlib for plotting the genes. (Default value = &#39;viridis&#39;)</span>
+<span class="sd">    lw : Numeric</span>
+<span class="sd">        line width. (Default value = 5)</span>
+<span class="sd">    annotate : Bool</span>
+<span class="sd">        Whether to annotate the lines with the gene names. (Default value = False)</span>
+<span class="sd">    text_offset_x : Numeric</span>
+<span class="sd">        Offset applied to the x position of the annotation texts. (Default value = 0.08)</span>
+<span class="sd">    text_offset_y : Numeric</span>
+<span class="sd">        Offset applied to the y position of the annotation texts. (Default value = 0)</span>
+<span class="sd">    text_size : Numeric</span>
+<span class="sd">        Size of the annotation texts. (Default value = 8)</span>
+<span class="sd">    ax : Matplotlib axis passed on for plotting</span>
+<span class="sd">         (Default value = None)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ax : Matplotlib axis</span>
+
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">edge_val</span> <span class="o">=</span> <span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">}</span>
+
+    <span class="n">vmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">edge_val</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="c1">#vmin = min(edge_val.values())</span>
+    <span class="n">vmin</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">cmap</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">i0</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">((</span><span class="n">edge_val</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">-</span> <span class="n">vmin</span><span class="p">)</span> <span class="o">/</span> <span class="n">vmax</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+
+    <span class="c1"># unused</span>
+    <span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genes</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">i0</span><span class="p">]</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">get_ydata</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">text_offset_y</span> <span class="o">*</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span><span class="p">))</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">text_offset_x</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+                <span class="n">g</span><span class="p">,</span>
+                <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">line</span><span class="o">.</span><span class="n">get_color</span><span class="p">(),</span>
+                <span class="n">xycoords</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis_transform</span><span class="p">(),</span>
+                <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;offset points&quot;</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="n">text_size</span><span class="p">,</span>
+                <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># fig = ax.get_figure()</span>
+        <span class="c1"># x_ = [0]*len(genes)</span>
+        <span class="c1"># y_ = [edge_val[g] for g in genes]</span>
+        <span class="c1"># ta.allocate_text(fig, ax, x_, y_, genes, x_scatter=x_, y_scatter=y_, textsize=10)</span>
+    <span class="k">if</span> <span class="n">annotate</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">i0</span><span class="p">]</span><span class="o">.</span><span class="n">get_color</span><span class="p">(),</span> <span class="n">keep_alpha</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">))]</span>
+        <span class="n">annotate_with_table</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">annot_bbox</span><span class="p">)</span>
+
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Distance from the edge (</span><span class="se">\u03bc</span><span class="s2">m)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;log2(fold change)&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">annotate_with_table</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]):</span>
+    <span class="c1"># Create a table for all data points with colored text</span>
+    <span class="k">def</span> <span class="nf">split_lists</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">display_rows</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+        <span class="n">left_over</span> <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="n">display_rows</span>
+        <span class="k">if</span> <span class="n">left_over</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fill</span> <span class="o">=</span> <span class="n">display_rows</span> <span class="o">-</span> <span class="n">left_over</span> 
+            <span class="n">lst</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">fill</span>
+
+        <span class="n">stops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">),</span> <span class="n">display_rows</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">lst_2d</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">display_rows</span><span class="p">):</span>
+            <span class="n">lst_2d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="n">stops</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">stops</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">lst_2d</span>
+
+    <span class="n">data_table</span> <span class="o">=</span> <span class="n">split_lists</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">split_lists</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">cellText</span><span class="o">=</span><span class="n">data_table</span><span class="p">,</span> <span class="n">cellLoc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+    <span class="n">table</span><span class="o">.</span><span class="n">auto_set_font_size</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#table.set_fontsize(10)</span>
+
+    <span class="c1"># Hide table borders</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">get_celld</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">visible_edges</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="deg">
+<a class="viewcode-back" href="../../../_autosummary/thor.pl.deg.html#thor.pl.deg">[docs]</a>
+<span class="k">def</span> <span class="nf">deg</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">genes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">baseline_from_edge</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">cmaps</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Oranges&#39;</span><span class="p">,</span> <span class="s1">&#39;Blues&#39;</span><span class="p">],</span>
+    <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">annotate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">text_offset_x</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+    <span class="n">text_offset_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">text_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">subplots_kwds</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot log2foldchange of gene expression against distance from the baseline.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pandas DataFrame</span>
+<span class="sd">        A DataFrame where rows represent windows/bins and columns include &#39;distance&#39; and gene expression data.</span>
+<span class="sd">    genes : tuple or list of two lists</span>
+<span class="sd">        Lists of up-regulated and down-regulated genes to plot.</span>
+<span class="sd">    cmaps : tuple or list, optional</span>
+<span class="sd">        Colormap names in matplotlib for plotting the genes. Default is [&#39;Oranges&#39;, &#39;Blues&#39;].</span>
+<span class="sd">    lw : numeric, optional</span>
+<span class="sd">        Line width for the plot. Default is 5.</span>
+<span class="sd">    annotate : bool, optional</span>
+<span class="sd">        Whether to annotate the lines with the gene names. Default is False.</span>
+<span class="sd">    text_offset_x : numeric, optional</span>
+<span class="sd">        Offset applied to the x position of the annotation texts. Default is 0.08.</span>
+<span class="sd">    text_offset_y : numeric, optional</span>
+<span class="sd">        Offset applied to the y position of the annotation texts. Default is 0.</span>
+<span class="sd">    text_size : numeric, optional</span>
+<span class="sd">        Size of the annotation texts. Default is 8.</span>
+<span class="sd">    **subplots_kwds : dict, optional</span>
+<span class="sd">        Keyword arguments for the matplotlib.pyplot subplots function.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function plots the log2foldchange of gene expression against the distance from the baseline for up-regulated and down-regulated genes separately.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        This function does not return any value. It generates the plot directly.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+
+<span class="sd">    &gt;&gt;&gt; # Assuming data is a pandas DataFrame with columns &#39;distance&#39;, &#39;gene1&#39;, &#39;gene2&#39;, etc.</span>
+<span class="sd">    &gt;&gt;&gt; data = pd.DataFrame(...)</span>
+<span class="sd">    &gt;&gt;&gt; up_genes = [&#39;gene1&#39;, &#39;gene3&#39;, &#39;gene5&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; down_genes = [&#39;gene2&#39;, &#39;gene4&#39;, &#39;gene6&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; genes = (up_genes, down_genes)</span>
+
+<span class="sd">    &gt;&gt;&gt; # Plot the log2foldchange of gene expression against distance using default settings.</span>
+<span class="sd">    &gt;&gt;&gt; fringe(data=data, genes=genes)</span>
+
+<span class="sd">    &gt;&gt;&gt; # Plot the log2foldchange of gene expression against distance with custom settings.</span>
+<span class="sd">    &gt;&gt;&gt; fringe(data=data, genes=genes, cmaps=[&#39;Reds&#39;, &#39;Greens&#39;], lw=2, annotate=True, text_offset_x=0.1)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">g_up</span><span class="p">,</span> <span class="n">g_down</span> <span class="o">=</span> <span class="n">genes</span>
+    <span class="n">cmap_up</span><span class="p">,</span> <span class="n">cmap_down</span> <span class="o">=</span> <span class="n">cmaps</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="o">**</span><span class="n">subplots_kwds</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fringe</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">genes</span><span class="o">=</span><span class="n">g_up</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_up</span><span class="p">,</span>
+        <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span>
+        <span class="n">annotate</span><span class="o">=</span><span class="n">annotate</span><span class="p">,</span>
+        <span class="n">annot_bbox</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">],</span>
+        <span class="n">text_offset_x</span><span class="o">=</span><span class="n">text_offset_x</span><span class="p">,</span>
+        <span class="n">text_offset_y</span><span class="o">=</span><span class="n">text_offset_y</span><span class="p">,</span>
+        <span class="n">text_size</span><span class="o">=</span><span class="n">text_size</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+    <span class="p">)</span>
+    <span class="n">fringe</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">genes</span><span class="o">=</span><span class="n">g_down</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_down</span><span class="p">,</span>
+        <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span>
+        <span class="n">annotate</span><span class="o">=</span><span class="n">annotate</span><span class="p">,</span>
+        <span class="n">annot_bbox</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">],</span>
+        <span class="n">text_offset_x</span><span class="o">=</span><span class="n">text_offset_x</span><span class="p">,</span>
+        <span class="n">text_offset_y</span><span class="o">=</span><span class="n">text_offset_y</span><span class="p">,</span>
+        <span class="n">text_size</span><span class="o">=</span><span class="n">text_size</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">baseline_from_edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">baseline_from_edge</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

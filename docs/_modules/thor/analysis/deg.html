@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.analysis.deg &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">thor.analysis.deg</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for thor.analysis.deg</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">savgol_filter</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">anndata</span> <span class="kn">import</span> <span class="n">AnnData</span>
+
+<span class="kn">from</span> <span class="nn">thor.pl</span> <span class="kn">import</span> <span class="n">deg</span>
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">convert_pixel_to_micron_visium</span><span class="p">,</span> <span class="n">get_adata_layer</span><span class="p">,</span> <span class="n">get_region</span><span class="p">,</span> <span class="n">row_normalize</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">read_polygon_ROI</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_expression_fc</span><span class="p">(</span><span class="n">arr_base</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the log2 fold change of gene expression between two arrays.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arr_base : np.ndarray</span>
+<span class="sd">        The baseline array of gene expression values.</span>
+<span class="sd">    arr : np.ndarray</span>
+<span class="sd">        The array of gene expression values to compare to the baseline.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        The 1d array of log2 fold change values for each gene.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The input arrays should have the following dimensions:</span>
+<span class="sd">    - rows correspond to cells</span>
+<span class="sd">    - columns correspond to genes</span>
+
+<span class="sd">    This function applies cell normalization to ensure that all cells have equal total expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tiny</span> <span class="o">=</span> <span class="mf">1E-6</span>
+    <span class="c1"># applying cell normalization (all cells have equal total expression)</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">row_normalize</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">arr_base</span> <span class="o">=</span> <span class="n">row_normalize</span><span class="p">(</span><span class="n">arr_base</span><span class="p">)</span>
+    <span class="n">arr_base</span> <span class="o">=</span> <span class="n">arr_base</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">arr</span> <span class="o">+</span> <span class="n">tiny</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">arr_base</span> <span class="o">+</span> <span class="n">tiny</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="analyze_gene_expression_gradient">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.analyze_gene_expression_gradient.html#thor.analy.analyze_gene_expression_gradient">[docs]</a>
+<span class="k">def</span> <span class="nf">analyze_gene_expression_gradient</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">img_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;fullres&quot;</span><span class="p">,</span>
+    <span class="n">layer_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">range_from_edge</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span>
+    <span class="n">baseline_from_edge</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">],</span>
+    <span class="n">bin_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">n_top_genes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">min_mean_gene_expression</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">tmpout_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;geg.json&#39;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analyze gene expression against a baseline in a selected region of interest (ROI).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : anndata.Anndata</span>
+<span class="sd">        The input data matrix.</span>
+<span class="sd">    img_key : str, optional</span>
+<span class="sd">        The key for the image where the json ROI is drawn. Default is &quot;fullres&quot;. Valid options are &quot;lowres&quot; (unlikely), &quot;hires&quot; (unlikely), and &quot;fullres&quot;.</span>
+<span class="sd">    layer_key : str, optional</span>
+<span class="sd">        The key for the layer data in `adata.layers`.</span>
+<span class="sd">    range_from_edge : Tuple[int, int], optional</span>
+<span class="sd">        The range of the ROI from the edge of the image.</span>
+<span class="sd">    baseline_from_edge : Tuple[int, int], optional</span>
+<span class="sd">        The range of the baseline from the edge of the image.</span>
+<span class="sd">    bin_size : int, optional</span>
+<span class="sd">        The size of the bins for computing the differential gene expression.</span>
+<span class="sd">    n_top_genes : int, optional</span>
+<span class="sd">        The number of top genes to plot.</span>
+<span class="sd">    min_mean_gene_expression : float, optional</span>
+<span class="sd">        The minimum mean gene expression to filter genes.</span>
+<span class="sd">    tmpout_path : str, optional</span>
+<span class="sd">        The path to the temporary output file.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[pd.DataFrame, np.ndarray, np.ndarray]</span>
+<span class="sd">        A tuple containing the differential gene expression dataframe, the ROI polygon, and the baseline polygon.</span>
+<span class="sd">   </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">roi_shape</span> <span class="o">=</span> <span class="n">read_polygon_ROI</span><span class="p">(</span><span class="n">tmpout_path</span><span class="p">,</span> <span class="n">adata</span><span class="p">,</span> <span class="n">img_key</span><span class="o">=</span><span class="n">img_key</span><span class="p">)</span>
+
+    <span class="c1"># Filter genes whose average expression &lt; 0.1</span>
+    <span class="n">adata_roi</span> <span class="o">=</span> <span class="n">get_region</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">roi_shape</span><span class="p">)</span>
+    <span class="n">gene_filter</span> <span class="o">=</span> <span class="n">adata_roi</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">layer_key</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span> <span class="o">&gt;</span> <span class="n">min_mean_gene_expression</span>
+
+    <span class="n">de_df</span><span class="p">,</span> <span class="n">roi_polygon</span><span class="p">,</span> <span class="n">baseline_polygon</span> <span class="o">=</span> <span class="n">compute_dge_against_baseline</span><span class="p">(</span>
+        <span class="n">adata</span><span class="p">[:,</span> <span class="n">gene_filter</span><span class="p">],</span>
+        <span class="n">roi_shape</span><span class="p">,</span>
+        <span class="n">layer_key</span><span class="o">=</span><span class="n">layer_key</span><span class="p">,</span>
+        <span class="n">range_from_edge</span><span class="o">=</span><span class="n">range_from_edge</span><span class="p">,</span>
+        <span class="n">baseline_from_edge</span><span class="o">=</span><span class="n">baseline_from_edge</span><span class="p">,</span>
+        <span class="n">bin_size</span><span class="o">=</span><span class="n">bin_size</span>
+    <span class="p">)</span>
+
+    <span class="n">de_df_to_smooth</span> <span class="o">=</span> <span class="n">de_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">fit_win</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">de_df_to_smooth</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">smoothed_arr</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span>
+        <span class="n">de_df_to_smooth</span><span class="p">,</span> <span class="n">fit_win</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="n">smoothed_de_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">smoothed_arr</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">de_df_to_smooth</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">smoothed_de_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">de_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">genes</span> <span class="o">=</span> <span class="n">get_top_genes</span><span class="p">(</span><span class="n">smoothed_de_df</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n_top_genes</span><span class="p">)</span>
+    <span class="n">deg</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">smoothed_de_df</span><span class="p">,</span>
+        <span class="n">baseline_from_edge</span><span class="o">=</span><span class="n">baseline_from_edge</span><span class="p">,</span>
+        <span class="n">genes</span><span class="o">=</span><span class="n">genes</span><span class="p">,</span>
+        <span class="n">cmaps</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Oranges&quot;</span><span class="p">,</span> <span class="s2">&quot;Blues&quot;</span><span class="p">],</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">annotate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">text_offset_x</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+        <span class="n">text_offset_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">text_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">de_df</span><span class="p">,</span> <span class="n">roi_polygon</span><span class="p">,</span> <span class="n">baseline_polygon</span></div>
+
+
+
+<div class="viewcode-block" id="compute_dge_between_regions">
+<a class="viewcode-back" href="../../../_autosummary/thor.analy.compute_dge_between_regions.html#thor.analy.compute_dge_between_regions">[docs]</a>
+<span class="k">def</span> <span class="nf">compute_dge_between_regions</span><span class="p">(</span>
+    <span class="n">ad_r1</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span>
+    <span class="n">ad_r2</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span>
+    <span class="n">test_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;t-test&#39;</span><span class="p">,</span>
+    <span class="n">pval_cutoff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">log2fc_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">log2fc_max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute differential gene expression (DGE) between two regions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ad_r1 : AnnData</span>
+<span class="sd">        Annotated data matrix for region 1.</span>
+<span class="sd">    ad_r2 : AnnData</span>
+<span class="sd">        Annotated data matrix for region 2.</span>
+<span class="sd">    test_method : str, optional</span>
+<span class="sd">        Statistical test method to use for DGE analysis. Valid options are &#39;logreg&#39;, &#39;t-test&#39;, &#39;wilcoxon&#39;, &#39;t-test_overestim_var&#39;. Default is &#39;t-test&#39;.</span>
+<span class="sd">    pval_cutoff : float, optional</span>
+<span class="sd">        P-value cutoff for significance, by default 0.01.</span>
+<span class="sd">    log2fc_min : float, optional</span>
+<span class="sd">        Minimum log2 fold change for significance, by default 1.</span>
+<span class="sd">    log2fc_max : float, optional</span>
+<span class="sd">        Maximum log2 fold change for significance, by default None.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        A numpy array containing the DGE results.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">adatas</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;r1&#39;</span><span class="p">:</span> <span class="n">ad_r1</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">:</span> <span class="n">ad_r2</span><span class="p">}</span>
+    <span class="n">ad</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">adatas</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">uns_merge</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">)</span>
+    <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span>
+        <span class="n">ad</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">test_method</span><span class="p">,</span> <span class="n">key_added</span><span class="o">=</span><span class="n">test_method</span>
+    <span class="p">)</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">rank_genes_groups_df</span><span class="p">(</span>
+        <span class="n">ad</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">test_method</span><span class="p">,</span> <span class="n">pval_cutoff</span><span class="o">=</span><span class="n">pval_cutoff</span><span class="p">,</span> <span class="n">log2fc_min</span><span class="o">=</span><span class="n">log2fc_min</span><span class="p">,</span> <span class="n">log2fc_max</span><span class="o">=</span><span class="n">log2fc_max</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">tt</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">compute_dge_against_baseline</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span>
+    <span class="n">roi_shape</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+    <span class="n">layer_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">range_from_edge</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span>
+    <span class="n">baseline_from_edge</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">],</span>
+    <span class="n">bin_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute differential gene expression against a baseline region of interest.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : AnnData</span>
+<span class="sd">        Annotated data matrix.</span>
+<span class="sd">    roi_shape : List[Tuple[float, float]]</span>
+<span class="sd">        List of (x, y) coordinates defining the shape of the region of interest in pixels (full resolution).</span>
+<span class="sd">    layer_key : str, optional</span>
+<span class="sd">        Key for the layer of the adata object to use for expression data. If None, use X.</span>
+<span class="sd">    range_from_edge : List[float], optional</span>
+<span class="sd">        Distance range from the edge of the region of interest in micrometers (microns). Default is [-150, 150].</span>
+<span class="sd">    baseline_from_edge : List[float], optional</span>
+<span class="sd">        Distance range from the edge of the region of interest to define the baseline region in micrometers (microns).</span>
+<span class="sd">        Default is [-150, -100].</span>
+<span class="sd">    bin_size : float, optional</span>
+<span class="sd">        Bin size in micrometers (microns) to use for computing differential expression. Default is 30.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[pd.DataFrame, Polygon, Polygon]</span>
+<span class="sd">        Tuple containing the differential gene expression dataframe, the polygon defining the region of interest,</span>
+<span class="sd">        and the polygon defining the baseline region.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">roi_shape</span><span class="p">)</span>
+
+    <span class="n">pixel_to_micron</span> <span class="o">=</span> <span class="n">convert_pixel_to_micron_visium</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="s2">&quot;fullres&quot;</span><span class="p">)</span>
+    <span class="n">micron_to_pixel</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">pixel_to_micron</span>
+    <span class="n">baseline_polygon</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span>
+        <span class="n">baseline_from_edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">micron_to_pixel</span>
+    <span class="p">)</span> <span class="o">-</span> <span class="n">poly</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">baseline_from_edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">micron_to_pixel</span><span class="p">)</span>
+    <span class="n">baseline_ad</span> <span class="o">=</span> <span class="n">get_region</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">baseline_polygon</span><span class="p">)</span>
+
+    <span class="n">roi_polygon</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span>
+        <span class="n">range_from_edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">micron_to_pixel</span>
+    <span class="p">)</span> <span class="o">-</span> <span class="n">poly</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">range_from_edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">micron_to_pixel</span><span class="p">)</span>
+    <span class="n">roi_ad</span> <span class="o">=</span> <span class="n">get_region</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">roi_polygon</span><span class="p">)</span>
+
+    <span class="n">baseline_expr</span> <span class="o">=</span> <span class="n">get_adata_layer</span><span class="p">(</span><span class="n">baseline_ad</span><span class="p">,</span> <span class="n">layer_key</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">baseline_ad</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">baseline_ad</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">roi_ad</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s2">%) cells in baseline compared to the whole selected region of interest.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="c1">#direction = np.sign(range_from_edge)</span>
+    <span class="n">coverage</span> <span class="o">=</span> <span class="n">range_from_edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">range_from_edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n_bins</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">coverage</span> <span class="o">/</span> <span class="n">bin_size</span><span class="p">)</span>
+
+    <span class="n">log2fc</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">bin_size_in_pixel</span> <span class="o">=</span> <span class="n">bin_size</span> <span class="o">*</span> <span class="n">micron_to_pixel</span>
+
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_bins</span><span class="p">):</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">bin_size</span> <span class="o">+</span> <span class="n">range_from_edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dist_in_pixel</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">*</span> <span class="n">micron_to_pixel</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distance to edge: </span><span class="si">{</span><span class="n">dist</span><span class="si">}</span><span class="s2"> um&quot;</span><span class="p">)</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span>
+            <span class="n">dist_in_pixel</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">bin_size_in_pixel</span>
+        <span class="p">)</span> <span class="o">-</span> <span class="n">poly</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">dist_in_pixel</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">bin_size_in_pixel</span><span class="p">)</span>
+        <span class="n">selected_ad</span> <span class="o">=</span> <span class="n">get_region</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">selected</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">selected_ad</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No cells at distance </span><span class="si">{</span><span class="n">dist</span><span class="si">}</span><span class="s2"> to edge.&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="n">selected_expr</span> <span class="o">=</span> <span class="n">get_adata_layer</span><span class="p">(</span><span class="n">selected_ad</span><span class="p">,</span> <span class="n">layer_key</span><span class="p">)</span>
+        <span class="n">cellsxgenes_expr</span> <span class="o">=</span> <span class="n">get_expression_fc</span><span class="p">(</span><span class="n">baseline_expr</span><span class="p">,</span> <span class="n">selected_expr</span><span class="p">)</span>
+        <span class="n">log2fc</span><span class="p">[</span><span class="n">dist</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cellsxgenes_expr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">de_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">log2fc</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">de_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;distance&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">de_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;distance&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#de_df = de_df.rolling(5, min_periods=1).mean()</span>
+    <span class="k">return</span> <span class="n">de_df</span><span class="p">,</span> <span class="n">roi_polygon</span><span class="p">,</span> <span class="n">baseline_polygon</span>
+
+
+<span class="k">def</span> <span class="nf">get_top_genes</span><span class="p">(</span><span class="n">de_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the top up-regulated and down-regulated genes from a differential expression DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    de_df : pd.DataFrame</span>
+<span class="sd">        A pandas DataFrame containing differential expression data.</span>
+<span class="sd">    n : int, optional</span>
+<span class="sd">        The number of genes to return for each category, by default 10.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[List[str], List[str]]</span>
+<span class="sd">        A tuple containing two lists of gene names, the first for up-regulated genes and the second for down-regulated genes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ddf</span> <span class="o">=</span> <span class="n">de_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>
+    <span class="n">sorted_ddf</span> <span class="o">=</span> <span class="n">ddf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+
+    <span class="n">genes_down</span> <span class="o">=</span> <span class="n">sorted_ddf</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">genes_down</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes_down</span> <span class="k">if</span> <span class="n">ddf</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">genes_up</span> <span class="o">=</span> <span class="n">sorted_ddf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">n</span><span class="p">:]</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">genes_up</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes_up</span> <span class="k">if</span> <span class="n">ddf</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">genes_up</span><span class="p">,</span> <span class="n">genes_down</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">genes</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thor.fineST &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="thor.pp.WholeSlideImage" href="thor.pp.WholeSlideImage.html" />
+    <link rel="prev" title="Classes" href="../API.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Classes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../API.html#prediction-of-in-silico-cell-gene-expression">Prediction of in silico cell gene expression</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">thor.fineST</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#thor.fineST"><code class="docutils literal notranslate"><span class="pre">fineST</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#preprocessing-of-wsi">Preprocessing of WSI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#preprocessing-of-spatial-transcriptomics">Preprocessing of spatial transcriptomics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#example-interface-with-external-r-packages">Example interface with external R packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../API.html">Classes</a></li>
+      <li class="breadcrumb-item active">thor.fineST</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/thor.fineST.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="thor-finest">
+<h1>thor.fineST<a class="headerlink" href="#thor-finest" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="thor.fineST">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thor.</span></span><span class="sig-name descname"><span class="pre">fineST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spot_adata_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">st_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_features_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_features_csv_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genes_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gene'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for in silico cell gene expression inference</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Path to the whole slide image which is aligned to the spatial transcriptomics.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Name of the sample.</p></li>
+<li><p><strong>spot_adata_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – <p>Path to the processed spatial transcriptomics data (e.g., from the Visium sequencing data) in the <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> format.</p>
+<p>The expression array (<code class="docutils literal notranslate"><span class="pre">.X</span></code>) and spots coordinates (<code class="docutils literal notranslate"><span class="pre">.obsm[&quot;spatial&quot;]</span></code>) are required. Expecting that <code class="docutils literal notranslate"><span class="pre">.X</span></code> is lognormalized.</p>
+<p>One of <code class="docutils literal notranslate"><span class="pre">spot_adata_path</span></code> or <code class="docutils literal notranslate"><span class="pre">st_dir</span></code> is needed. If <code class="docutils literal notranslate"><span class="pre">spot_adata_path</span></code> is provided, <code class="docutils literal notranslate"><span class="pre">st_dir</span></code> will be neglected.</p>
+</p></li>
+<li><p><strong>st_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – Directory to the SpaceRanger output directory, where the count matrix and spatial directory are located.</p></li>
+<li><p><strong>cell_features_csv_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – Path to the CSV file that stores the cell features. The first two columns are expected (exactly) to be the nuclei positions “x” and “y”.</p></li>
+<li><p><strong>cell_features_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional) – <dl>
+<dt>List of features to be used for generating the cell-cell graph.</dt><dd><p>The first two are expected (exactly) to be the nuclei positions “x” and “y”.</p>
+<p>By default, if no external features are provided, those features <code class="docutils literal notranslate"><span class="pre">[&quot;x&quot;,</span> <span class="pre">&quot;y&quot;,</span> <span class="pre">&quot;mean_gray&quot;,</span> <span class="pre">&quot;std_gray&quot;,</span> <span class="pre">&quot;entropy_img&quot;,</span> <span class="pre">&quot;mean_r&quot;,</span> <span class="pre">&quot;mean_g&quot;,</span> <span class="pre">&quot;mean_b&quot;,</span> <span class="pre">&quot;std_r&quot;,</span> <span class="pre">&quot;std_g&quot;,</span> <span class="pre">&quot;std_b&quot;]</span></code> are used.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>genes_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – <dl class="simple">
+<dt>Path to the file that contains a headless one column of the genes to be included.</dt><dd><p>The gene names or gene IDs should be consistent with the <code class="docutils literal notranslate"><span class="pre">self.adata.var_names</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the genes will be highly variable genes or set further by <code class="docutils literal notranslate"><span class="pre">self.set_genes_for_prediction</span></code>.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>save_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional) – Path to the directory of saving fineST prediction results.</p></li>
+<li><p><strong>recipe</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – Specifies the mode for predicting the gene expression. Valid options are: <code class="docutils literal notranslate"><span class="pre">(&quot;gene&quot;,</span> <span class="pre">&quot;reduced&quot;,</span> <span class="pre">&quot;mix&quot;)</span></code>.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, optional) – Keyword arguments for any additional attributes to be set for the class. This allows future loading of the saved json file to create a new instance of the class.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.copy" title="thor.fineST.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
+<td><p>Create a deep copy of the instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.get_reduced_genes" title="thor.fineST.get_reduced_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reduced_genes</span></code></a></p></td>
+<td><p>Get a reduced set of genes which were used to train the VAE model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.load" title="thor.fineST.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a></p></td>
+<td><p>Load a fineST instance from a JSON file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.load_genes" title="thor.fineST.load_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_genes</span></code></a></p></td>
+<td><p>Load the user-input genes to be used for prediction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.load_params" title="thor.fineST.load_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_params</span></code></a></p></td>
+<td><p>Load parameters from a JSON file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.load_result" title="thor.fineST.load_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_result</span></code></a></p></td>
+<td><p>Load the predicted gene expression data and create an <a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a> object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.load_vae_model" title="thor.fineST.load_vae_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_vae_model</span></code></a></p></td>
+<td><p>Load a pre-trained VAE model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.predict_gene_expression" title="thor.fineST.predict_gene_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_gene_expression</span></code></a></p></td>
+<td><p>Predict gene expression using Markov graph diffusion.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.prepare_input" title="thor.fineST.prepare_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_input</span></code></a></p></td>
+<td><p>Prepare the input for the fineST estimation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.prepare_recipe" title="thor.fineST.prepare_recipe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_recipe</span></code></a></p></td>
+<td><p>Prepare the recipe for gene expression prediction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.sanity_check" title="thor.fineST.sanity_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sanity_check</span></code></a></p></td>
+<td><p>Perform sanity checks on the input data and parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.save" title="thor.fineST.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a></p></td>
+<td><p>Save the current state of the instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.set_cell_features_csv_path" title="thor.fineST.set_cell_features_csv_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cell_features_csv_path</span></code></a></p></td>
+<td><p>Set the path to the CSV file containing cell features.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.set_cell_features_list" title="thor.fineST.set_cell_features_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cell_features_list</span></code></a></p></td>
+<td><p>Set the list of cell features to be used for graph construction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.set_genes_for_prediction" title="thor.fineST.set_genes_for_prediction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_genes_for_prediction</span></code></a></p></td>
+<td><p>Set genes to be used for prediction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.set_params" title="thor.fineST.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Set the parameters for the fineST estimation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.vae_training" title="thor.fineST.vae_training"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vae_training</span></code></a></p></td>
+<td><p>Train a VAE model for the spot-level transcriptome data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.visualize_cell_network" title="thor.fineST.visualize_cell_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_cell_network</span></code></a></p></td>
+<td><p>Visualize the cell-cell network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.write_adata" title="thor.fineST.write_adata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_adata</span></code></a></p></td>
+<td><p>Write an AnnData object to disk in the results directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.write_params" title="thor.fineST.write_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_params</span></code></a></p></td>
+<td><p>Write the current parameters to a JSON file.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.copy" title="Link to this definition"></a></dt>
+<dd><p>Create a deep copy of the instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new instance that is a deep copy of the current instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#thor.fineST" title="thor.fineST"><code class="xref py py-class docutils literal notranslate"><span class="pre">fineST</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.get_reduced_genes">
+<span class="sig-name descname"><span class="pre">get_reduced_genes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_mean_expression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.get_reduced_genes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.get_reduced_genes" title="Link to this definition"></a></dt>
+<dd><p>Get a reduced set of genes which were used to train the VAE model. This is because the genes used for VAE training may not be reconstructed faithfully to the same extent. Therefore, we will use the genes with high reconstruction
+quality (measured by cosine similarity with the input gene expression). One should be aware that the genes used for VAE training (<code class="docutils literal notranslate"><span class="pre">self.adata.var.used_for_vae</span></code>) are not the same as the genes used for thor prediction in reduced mode (<code class="docutils literal notranslate"><span class="pre">self.adata.var.used_for_reduced</span></code>; subset).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Fraction of genes to keep based on their importance in the VAE model for thor prediction in reduced mode. The genes are ranked according to the VAE reconstruction
+quality (measured by cosine similarity with the input gene expression). Default is 0.9.</p></li>
+<li><p><strong>min_mean_expression</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Minimum mean expression for genes to be considered. Note the expression values are log-transformed normalized expression. Default is 0.5.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The selected genes are marked in <code class="docutils literal notranslate"><span class="pre">self.adata.var.used_for_reduced</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.load">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.load" title="Link to this definition"></a></dt>
+<dd><p>Load a fineST instance from a JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Path to the JSON file containing the saved instance.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new instance loaded from the JSON file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#thor.fineST" title="thor.fineST"><code class="xref py py-class docutils literal notranslate"><span class="pre">fineST</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.load_genes">
+<span class="sig-name descname"><span class="pre">load_genes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">genes_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.load_genes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.load_genes" title="Link to this definition"></a></dt>
+<dd><p>Load the user-input genes to be used for prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>genes_file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Path to the csv file that contains the genes to be used for prediction. The genes should be in the first column of the csv file.
+Gene naming convention should match <code class="docutils literal notranslate"><span class="pre">self.adata.var_names</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The genes are loaded into the list <code class="docutils literal notranslate"><span class="pre">self.genes</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.load_params">
+<span class="sig-name descname"><span class="pre">load_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.load_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.load_params" title="Link to this definition"></a></dt>
+<dd><p>Load parameters from a JSON file. The loaded parameters will be merged with the current parameters in <code class="docutils literal notranslate"><span class="pre">self.run_params</span></code> and <code class="docutils literal notranslate"><span class="pre">self.graph_params</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Path to the JSON file containing the parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.load_result">
+<span class="sig-name descname"><span class="pre">load_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.load_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.load_result" title="Link to this definition"></a></dt>
+<dd><p>Load the predicted gene expression data and create an <a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Relative path to the file to load. The file should be in <code class="docutils literal notranslate"><span class="pre">self.save_dir</span></code>.</p></li>
+<li><p><strong>layer_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional) – Name of the layer to save the loaded gene expression. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, save the gene expression to <code class="docutils literal notranslate"><span class="pre">adata.X</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded <a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a> object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.load_vae_model">
+<span class="sig-name descname"><span class="pre">load_vae_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.load_vae_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.load_vae_model" title="Link to this definition"></a></dt>
+<dd><p>Load a pre-trained VAE model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional) – Path to the directory containing the VAE model. The model should be saved in the <cite>encoder</cite> and <cite>decoder</cite> subdirectories, with the filenames <cite>{self.name}_VAE_encoder.h5</cite> and <cite>{self.name}_VAE_decoder.h5</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The VAE model is loaded into the instance as <cite>self.generate</cite> and the model path is stored in <cite>self.model_path</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.predict_gene_expression">
+<span class="sig-name descname"><span class="pre">predict_gene_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.predict_gene_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.predict_gene_expression" title="Link to this definition"></a></dt>
+<dd><p>Predict gene expression using Markov graph diffusion.</p>
+<p>This method performs the following steps:
+1. Updates parameters using <a class="reference internal" href="#thor.fineST.set_params" title="thor.fineST.set_params"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_params()</span></code></a>
+2. Prepares the recipe based on the selected mode
+3. Optionally performs burn-in if transcriptome effects are included
+4. Initializes the cell graph and transition matrix
+5. Runs the Markov graph diffusion process
+6. Saves results and cleans up temporary files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Same parameters as accepted by <a class="reference internal" href="#thor.fineST.set_params" title="thor.fineST.set_params"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_params()</span></code></a>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Anndata object with predicted gene expression for cells.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#thor.fineST.set_params" title="thor.fineST.set_params"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_params()</span></code></a></dt><dd><p>For detailed parameter descriptions.</p>
+</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">thor.markov_graph_diffusion.estimate_expression_markov_graph_diffusion()</span></code></dt><dd><p>For the underlying implementation.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.prepare_input">
+<span class="sig-name descname"><span class="pre">prepare_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping_margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spot_identifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spot_barcodes'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.prepare_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.prepare_input" title="Link to this definition"></a></dt>
+<dd><p>Prepare the input for the fineST estimation.</p>
+<blockquote>
+<div><p>First, generate the cell-wise adata from the cell features and spot adata. In this step, the segmented cells will be read from the
+<code class="docutils literal notranslate"><span class="pre">self.cell_features_csv_path</span></code> and the outliers from the segmentation will be removed according to the distance between a cell and
+its nearest neighbor. Second, the spot gene expression is mapped to aligned nearest cells. Lastly, the spot heterogeneity will be
+computed using the image features for future construction of the cell-cell graph and the transition matrix.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mapping_margin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Margin for mapping the spot gene expression to the cells. Default is 10, which will attempt to map cells which are within 10- spot radius of any spot (so almost all identified cells are mapped to nearest spots).
+Decrease this number if you would like to eliminate isolated cells.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.prepare_recipe">
+<span class="sig-name descname"><span class="pre">prepare_recipe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.prepare_recipe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.prepare_recipe" title="Link to this definition"></a></dt>
+<dd><p>Prepare the recipe for gene expression prediction.</p>
+<p>This function sets up the appropriate genes and parameters based on the selected recipe. Supported recipes are:
+- “gene”: use all the user-provided genes for prediction. The user-provided genes should be in the <code class="docutils literal notranslate"><span class="pre">self.adata.var.used_for_prediction</span></code>.
+- “reduced”: use the VAE genes for prediction. The VAE genes should be in the <code class="docutils literal notranslate"><span class="pre">self.adata.var.used_for_vae</span></code> and used for prediction, ignoring <code class="docutils literal notranslate"><span class="pre">self.genes</span></code>.
+- “mix”: use both the VAE genes and the rest of the user-provided genes for prediction. The VAE genes should be in the <code class="docutils literal notranslate"><span class="pre">self.adata.var.used_for_vae</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The recipe-specific settings are applied to set <code class="docutils literal notranslate"><span class="pre">self.adata.var</span></code> columns for gene selection.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.sanity_check">
+<span class="sig-name descname"><span class="pre">sanity_check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.sanity_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.sanity_check" title="Link to this definition"></a></dt>
+<dd><p>Perform sanity checks on the input data and parameters.</p>
+<p>This function verifies that all necessary attributes and parameters are set correctly before running the fineST estimation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if all checks pass, otherwise <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['generate',</span> <span class="pre">'adata',</span> <span class="pre">'conn_csr_matrix']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.save" title="Link to this definition"></a></dt>
+<dd><p>Save the current state of the instance. The saved JSON file can be used to create a new instance of the class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exclude</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – List of attributes to exclude from saving. Default is [“generate”, “adata”, “conn_csr_matrix”].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The instance state is saved to a JSON file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.set_cell_features_csv_path">
+<span class="sig-name descname"><span class="pre">set_cell_features_csv_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell_features_csv_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.set_cell_features_csv_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.set_cell_features_csv_path" title="Link to this definition"></a></dt>
+<dd><p>Set the path to the CSV file containing cell features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cell_features_csv_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional) – Path to the CSV file containing cell features. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, the cell features csv file will be obtained from the WSI, which includes nuclei segmentation and feature extraction.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The file path is stored in <code class="docutils literal notranslate"><span class="pre">self.cell_features_csv_path</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.set_cell_features_list">
+<span class="sig-name descname"><span class="pre">set_cell_features_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell_features_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.set_cell_features_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.set_cell_features_list" title="Link to this definition"></a></dt>
+<dd><p>Set the list of cell features to be used for graph construction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cell_features_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional) – List of features to be used for generating the cell-cell graph. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, default features will be used:
+[“x”, “y”, “mean_gray”, “std_gray”, “entropy_img”, “mean_r”, “mean_g”, “mean_b”, “std_r”, “std_g”, “std_b”]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The feature names are stored in the list <code class="docutils literal notranslate"><span class="pre">self.cell_features_list</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.set_genes_for_prediction">
+<span class="sig-name descname"><span class="pre">set_genes_for_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">genes_selection_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'highly_variable'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.set_genes_for_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.set_genes_for_prediction" title="Link to this definition"></a></dt>
+<dd><p>Set genes to be used for prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>genes_selection_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – <p>Key for gene selection in <code class="docutils literal notranslate"><span class="pre">self.adata.var</span></code>. Default: “highly_variable”</p>
+<p>Valid options:</p>
+<ul class="simple">
+<li><p>”highly_variable”: Selects highly variable genes</p></li>
+<li><p>”all”: Selects all genes (not recommended)</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>: Uses genes specified in <code class="docutils literal notranslate"><span class="pre">self.genes</span></code></p></li>
+<li><p>Any key in <code class="docutils literal notranslate"><span class="pre">self.adata.var</span></code>: Uses that key for selection</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The selected genes are marked in <code class="docutils literal notranslate"><span class="pre">self.adata.var.used_for_prediction</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.set_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.set_params" title="Link to this definition"></a></dt>
+<dd><p>Set the parameters for the fineST estimation.</p>
+<p>This method allows you to configure both graph construction and Markov diffusion parameters.
+All parameters are optional and will update the default values.</p>
+<section class="parameter-group" id="graph-construction-parameters">
+<h2><strong>Graph Construction Parameters</strong><a class="headerlink" href="#graph-construction-parameters" title="Link to this heading"></a></h2>
+<dl>
+<dt>n_neighbors<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Number of neighbors for cell-cell graph construction. Default is 5.</p>
+</dd>
+<dt>obs_keys<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional</span></dt><dd><p>List of observation keys to use for graph construction. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, uses default features.</p>
+</dd>
+<dt>reduced_dimension_transcriptome_obsm_key<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Key in <code class="docutils literal notranslate"><span class="pre">obsm</span></code> for reduced dimension representation. Default is “X_pca”.</p>
+</dd>
+<dt>reduced_dimension_transcriptome_obsm_dims<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Number of dimensions to use from the reduced representation. Default is 2.</p>
+</dd>
+<dt>geom_morph_ratio<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional</span></dt><dd><p>Ratio between geometric and morphological distances. Default is 1.</p>
+</dd>
+<dt>geom_constraint<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional</span></dt><dd><p>Constraint on geometric distances. Default is 0.</p>
+</dd>
+<dt>snn_threshold<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional</span></dt><dd><p>Threshold for shared nearest neighbor graph. Default is 0.1.</p>
+</dd>
+<dt>node_features_obs_list<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, optional</span></dt><dd><p>List of node features to use. Default is [“spot_heterogeneity”].</p>
+</dd>
+<dt>balance_cell_quality<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, optional</span></dt><dd><p>Whether to balance cell quality. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p>
+</dd>
+<dt>bcq_IQR<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>, optional</span></dt><dd><p>Interquartile range for balancing cell quality. Default is (0.15, 0.85).</p>
+</dd>
+</dl>
+</section>
+<section class="parameter-group" id="transition-matrix-parameters">
+<h2><strong>Transition Matrix Parameters</strong><a class="headerlink" href="#transition-matrix-parameters" title="Link to this heading"></a></h2>
+<dl>
+<dt>preferential_flow<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, optional</span></dt><dd><p>Whether to use preferential flow in transition matrix. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p>
+</dd>
+<dt>weigh_cells<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, optional</span></dt><dd><p>Whether to weigh cells (nodes) by node features. The idea is to give more weight to the cells
+with higher quality (e.g. lower heterogeneity with surrounding cells). Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p>
+</dd>
+<dt>smoothing_scale<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional</span></dt><dd><p>Scale for smoothing when constructing the transition matrix. The lower the scale, the more
+self-transition (i.e. the more likely to stay in the same state). Default is 0.8.</p>
+<p>The diffusion transition matrix is defined as:</p>
+<div class="math notranslate nohighlight">
+\[T = I - \lambda \cdot K\]</div>
+<p>where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix, <span class="math notranslate nohighlight">\(K\)</span> is the connectivity matrix,
+and <span class="math notranslate nohighlight">\(\lambda\)</span> is the smoothing scale.</p>
+</dd>
+<dt>inflation_percentage<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional</span></dt><dd><p>Percentage for reverse diffusion scale relative to the forward diffusion scale <code class="docutils literal notranslate"><span class="pre">smoothing_scale</span></code>.
+Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> (no reverse diffusion). When enabled, the reverse diffusion will be performed right after the forward diffusion every iteration.</p>
+<p>The reverse diffusion transition matrix is defined as:</p>
+<div class="math notranslate nohighlight">
+\[T_{rev} = I - \mu \cdot K\]</div>
+<p>where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix, <span class="math notranslate nohighlight">\(K\)</span> is the connectivity matrix,
+and <span class="math notranslate nohighlight">\(\mu\)</span> is the reverse diffusion scale.
+<span class="math notranslate nohighlight">\(\mu = -\lambda \cdot (1 + \text{inflation_percentage} \cdot 100)\)</span></p>
+</dd>
+<dt>conn_csr_matrix<span class="classifier"><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix" title="(in SciPy v1.15.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.sparse.csr_matrix</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional</span></dt><dd><p>Pre-computed connectivity matrix. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</p>
+<ul class="simple">
+<li><p>If provided, the connectivity matrix will be used and the other parameters will be ignored.</p></li>
+<li><p>If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, the connectivity matrix will be computed from the cell-cell graph if it does not exist in <code class="docutils literal notranslate"><span class="pre">adata.obsp</span></code>; else the existing connectivity matrix will be used.</p></li>
+<li><p>If “force”, the connectivity matrix will be computed regardless of whether it already exists.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section class="parameter-group" id="markov-diffusion-parameters">
+<h2><strong>Markov Diffusion Parameters</strong><a class="headerlink" href="#markov-diffusion-parameters" title="Link to this heading"></a></h2>
+<dl>
+<dt>initialize<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, optional</span></dt><dd><p>Whether to initialize graph and transition matrix. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p>
+</dd>
+<dt>burn_in_steps<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Number of steps for burn-in period. Default is 5.</p>
+</dd>
+<dt>layer<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional</span></dt><dd><p>Layer in AnnData to use for gene expression. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> (use <code class="docutils literal notranslate"><span class="pre">.X</span></code>).</p>
+</dd>
+<dt>is_rawCount<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, optional</span></dt><dd><p>Whether the input data is raw counts. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p>
+</dd>
+<dt>regulate_expression_mean<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, optional</span></dt><dd><p>Whether to regulate expression mean. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p>
+</dd>
+<dt>stochastic_expression_neighbors_level<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Level for stochastic expression neighbors (“spot” or “cell”). Default is “spot”.</p>
+</dd>
+<dt>n_iter<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Number of iterations for Markov diffusion. Default is 20.</p>
+</dd>
+<dt>conn_key<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Key for connectivity matrix in <code class="docutils literal notranslate"><span class="pre">.obsp</span></code>. Default is “snn”.</p>
+</dd>
+<dt>write_freq<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Frequency of writing results to disk. Default is 10.</p>
+</dd>
+<dt>out_prefix<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Prefix for output files. Default is “y”.</p>
+</dd>
+<dt>sample_predicted_expression_fluctuation_scale<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional</span></dt><dd><p>Scale for fluctuation in predicted expression. Default is 1.</p>
+</dd>
+<dt>smooth_predicted_expression_steps<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Number of steps for smoothing predicted expression. Default is 0.</p>
+</dd>
+<dt>save_chain<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, optional</span></dt><dd><p>Whether to save the MCMC chain. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p>
+</dd>
+<dt>n_jobs<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Number of parallel jobs to run. Default is 1.</p>
+</dd>
+<dt>adjust_cell_network_by_transcriptome_scale<span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional</span></dt><dd><p>Scale for adjusting cell network by transcriptome. Default is 0.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#thor.fineST.predict_gene_expression" title="thor.fineST.predict_gene_expression"><code class="xref py py-meth docutils literal notranslate"><span class="pre">predict_gene_expression()</span></code></a></dt><dd><p>For using these parameters in prediction.</p>
+</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">thor.markov_graph_diffusion.markov_graph_diffusion_initialize()</span></code></dt><dd><p>For graph construction details.</p>
+</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">thor.markov_graph_diffusion.estimate_expression_markov_graph_diffusion()</span></code></dt><dd><p>For Markov diffusion details.</p>
+</dd>
+</dl>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.vae_training">
+<span class="sig-name descname"><span class="pre">vae_training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vae_genes_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_mean_expression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.vae_training"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.vae_training" title="Link to this definition"></a></dt>
+<dd><p>Train a VAE model for the spot-level transcriptome data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vae_genes_set</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, optional) – <dl class="simple">
+<dt>Set of genes to be used for VAE training.</dt><dd><p>If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, all the genes (<code class="docutils literal notranslate"><span class="pre">adata.var.used_for_prediction</span></code>, which are specified in the <a class="reference internal" href="#thor.fineST.prepare_input" title="thor.fineST.prepare_input"><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_input()</span></code></a>) with mean expression &gt; <code class="docutils literal notranslate"><span class="pre">min_mean_expression</span></code> will be used.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>min_mean_expression</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Minimum mean expression for the genes to be used for VAE training.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Keyword arguments for the <code class="xref py py-func docutils literal notranslate"><span class="pre">thor.VAE.train_vae()</span></code> function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">thor.VAE.train_vae()</span></code></dt><dd><p>For detailed parameter descriptions and usage.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.visualize_cell_network">
+<span class="sig-name descname"><span class="pre">visualize_cell_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.visualize_cell_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.visualize_cell_network" title="Link to this definition"></a></dt>
+<dd><p>Visualize the cell-cell network.</p>
+<p>This function internally calls <code class="xref py py-func docutils literal notranslate"><span class="pre">thor.plotting.graph.plot_cell_graph()</span></code> to create the visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Additional parameters for the visualization. See <code class="xref py py-func docutils literal notranslate"><span class="pre">thor.plotting.graph.plot_cell_graph()</span></code>
+for available options.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The network visualization is displayed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">thor.plotting.graph.plot_cell_graph()</span></code></dt><dd><p>For detailed parameter descriptions and usage.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.write_adata">
+<span class="sig-name descname"><span class="pre">write_adata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.write_adata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.write_adata" title="Link to this definition"></a></dt>
+<dd><p>Write an AnnData object to disk in the results directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Relative path to the file to write. The file will be saved in <code class="docutils literal notranslate"><span class="pre">self.save_dir</span></code>.</p></li>
+<li><p><strong>ad</strong> (<a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a>) – Cell-wise gene expression to save.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thor.fineST.write_params">
+<span class="sig-name descname"><span class="pre">write_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['conn_csr_matrix']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/finest.html#fineST.write_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.fineST.write_params" title="Link to this definition"></a></dt>
+<dd><p>Write the current parameters to a JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exclude</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – List of parameter names to exclude from writing. Default is <code class="docutils literal notranslate"><span class="pre">[&quot;conn_csr_matrix&quot;]</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parameters are written to a JSON file in <code class="docutils literal notranslate"><span class="pre">self.save_dir</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../API.html" class="btn btn-neutral float-left" title="Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thor.pp.WholeSlideImage.html" class="btn btn-neutral float-right" title="thor.pp.WholeSlideImage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
