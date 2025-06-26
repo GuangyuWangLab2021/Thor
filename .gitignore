@@ -1,16 +1,6 @@
-# Specific folders
-code_others
-src/thor/old/estimate_v2.ipynb
-src/thor/.vscode/
-
-# plots and large data file
-*.pdf
-*.h5ad
+# large data file
 *.RDataTmp
-*.tif
 *.pyc
-*.csv
-*.adata
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -36,10 +26,6 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 .cache
 
-# Sphinx documentation
-docs/_build/
-doc
-
 # Emacs, vim
 .#*
 *.swp
@@ -49,12 +35,3 @@ doc
 
 # Mac specific
 .DS_Store
-
-# Jupiter notebook
-notebooks/
-
-# Data
-data/
-test/
-tools/
-

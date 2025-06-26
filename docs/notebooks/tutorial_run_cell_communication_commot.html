@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cell cell communication &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="About Mjolnir" href="../Mjolnir.html" />
+    <link rel="prev" title="Run Thor on Visium HD data" href="tutorial_runThor_VisiumHD.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_runThor_VisiumHD.html">Run Thor on Visium HD data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cell cell communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Load-ligand-receptor-database">Load ligand-receptor database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Human-Heart-(spot-level)">Human Heart (spot level)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Use-Thor's-API:-run_commot-for-data-preprocessing-and-run-COMMOT">Use Thor’s API: run_commot for data preprocessing and run COMMOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#We-can-now-check-the-directions-of-VEGF-signals-via-a-streamplot-(spot-level)">We can now check the directions of VEGF signals via a streamplot (spot level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#With-the-original-spot-data,-VEGF-signals-are-observed-crossing-a-vessel-region">With the original spot data, VEGF signals are observed crossing a vessel region</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Human-Heart-(cell-level-based-on-Thor)">Human Heart (cell level based on Thor)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Use Thor’s API: run_commot for data preprocessing and run COMMOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#We-can-now-check-the-directions-of-VEGF-signals-via-a-streamplot-(cell-level)">We can now check the directions of VEGF signals via a streamplot (cell level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#With-Thor-inferred-data,-VEGF-signals-are-observed-initialized-from-a-vessel-region,-which-makes-more-sense">With Thor inferred data, VEGF signals are observed initialized from a vessel region, which makes more sense</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DEG-along-signaling-pathways">DEG along signaling pathways</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cell cell communication</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/tutorial_run_cell_communication_commot.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="admonition note">
+This page was generated from a Jupyter notebook. You can download the notebook
+<a href="javascript:void(0)" onclick="var link = document.createElement('a'); link.download = 'tutorial_run_cell_communication_commot.ipynb'; link.href = '../notebooks/tutorial_run_cell_communication_commot.ipynb'; link.click(); return false;">here</a> to run it locally in Jupyter.
+</div>
+
+<script>
+// Alternative download function in case the onclick method doesn't work
+function downloadNotebook(e) {
+    e.preventDefault();
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../notebooks/tutorial_run_cell_communication_commot.ipynb', true);
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+        if (this.status === 200) {
+            var blob = new Blob([this.response], {type: 'application/x-ipynb+json'});
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'tutorial_run_cell_communication_commot.ipynb';
+            link.click();
+            setTimeout(function() {
+                URL.revokeObjectURL(link.href);
+            }, 1500);
+        }
+    };
+    xhr.send();
+}
+
+// Add the event listener to all download links
+document.addEventListener('DOMContentLoaded', function() {
+    var link = document.querySelector('.admonition.note a');
+    if (link) {
+        link.addEventListener('click', downloadNotebook);
+    }
+});
+</script><section id="Cell-cell-communication">
+<h1>Cell cell communication<a class="headerlink" href="#Cell-cell-communication" title="Link to this heading"></a></h1>
+<p>In this notebook, we show how to use Thor’s built in module to study cell-cell communication infer cell-level spatial transcriptome on a sample from human heart failure patients with myocardial infarction.</p>
+<p>For installation of Thor, please refer to <a class="reference internal" href="../installation.html"><span class="doc">this installation guide</span></a>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current Time: </span><span class="si">{</span><span class="n">now</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">here</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current Directory: </span><span class="si">{</span><span class="n">here</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Current Time: 2025-02-03 14:43:46.021027
+Current Directory: /Users/pengzhizhang/FINEST/notebooks/CCC_HF
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">commot</span> <span class="k">as</span> <span class="nn">ct</span>
+<span class="kn">import</span> <span class="nn">thor</span>
+<span class="kn">from</span> <span class="nn">thor.analysis.ccc</span> <span class="kn">import</span> <span class="n">split_pathways</span><span class="p">,</span> <span class="n">run_commot</span><span class="p">,</span> <span class="n">plot_commot</span>
+
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+<section id="Load-ligand-receptor-database">
+<h2>Load ligand-receptor database<a class="headerlink" href="#Load-ligand-receptor-database" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">ligand_receptor_database</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;CellChat&#39;</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">)</span>
+<span class="n">cc</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>TGFB1</td>
+      <td>TGFBR1_TGFBR2</td>
+      <td>TGFb</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>TGFB2</td>
+      <td>TGFBR1_TGFBR2</td>
+      <td>TGFb</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>TGFB3</td>
+      <td>TGFBR1_TGFBR2</td>
+      <td>TGFb</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>TGFB1</td>
+      <td>ACVR1B_TGFBR2</td>
+      <td>TGFb</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>TGFB1</td>
+      <td>ACVR1C_TGFBR2</td>
+      <td>TGFb</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1194</th>
+      <td>UTS2B</td>
+      <td>UTS2R</td>
+      <td>UROTENSIN</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>1195</th>
+      <td>UTS2B</td>
+      <td>SSTR5</td>
+      <td>UROTENSIN</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>1196</th>
+      <td>BAG6</td>
+      <td>NCR3</td>
+      <td>BAG</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>1197</th>
+      <td>LGALS9</td>
+      <td>HAVCR2</td>
+      <td>GALECTIN</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>1198</th>
+      <td>LGALS9</td>
+      <td>CD44</td>
+      <td>GALECTIN</td>
+      <td>Secreted Signaling</td>
+    </tr>
+  </tbody>
+</table>
+<p>1199 rows × 4 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pathways_dict</span> <span class="o">=</span> <span class="n">split_pathways</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">name_col_index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">pathways_dict</span><span class="p">[</span><span class="s1">&#39;VEGF&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>589</th>
+      <td>VEGFA</td>
+      <td>FLT1</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>590</th>
+      <td>VEGFA</td>
+      <td>KDR</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>591</th>
+      <td>VEGFB</td>
+      <td>FLT1</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>592</th>
+      <td>VEGFC</td>
+      <td>FLT4</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>593</th>
+      <td>VEGFC</td>
+      <td>KDR</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>594</th>
+      <td>VEGFD</td>
+      <td>FLT4</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>595</th>
+      <td>VEGFD</td>
+      <td>KDR</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>596</th>
+      <td>PGF</td>
+      <td>FLT1</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>597</th>
+      <td>VEGFA</td>
+      <td>FLT1_KDR</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>598</th>
+      <td>VEGFC</td>
+      <td>FLT4_KDR</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+    <tr>
+      <th>599</th>
+      <td>VEGFD</td>
+      <td>FLT4_KDR</td>
+      <td>VEGF</td>
+      <td>Secreted Signaling</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Human-Heart-(spot-level)">
+<h2>Human Heart (spot level)<a class="headerlink" href="#Human-Heart-(spot-level)" title="Link to this heading"></a></h2>
+<p>The heart failure tissue sample is downloaded from <a class="reference external" href="https://doi.org/10.1038/s41586-022-05060-x">the study</a> in a Nature paper “Spatial multi-omic map of human myocardial infarction”.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span> <span class="o">=</span> <span class="s1">&#39;GT_IZ_P9_rep2&#39;</span>
+<span class="n">ad_spot_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sn</span><span class="si">}</span><span class="s2">_adata_spots_filtered_ref.h5ad&quot;</span>
+<span class="n">ad</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="n">ad_spot_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">convert_pixel_to_micron_visium</span>
+
+<span class="n">microns_per_pixel</span> <span class="o">=</span> <span class="n">convert_pixel_to_micron_visium</span><span class="p">(</span><span class="n">ad</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="s1">&#39;fullres&#39;</span><span class="p">,</span> <span class="n">spotDiameterinMicron</span><span class="o">=</span><span class="mi">65</span><span class="p">)</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># distance threshold in microns</span>
+<span class="n">distance_pixel</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">/</span> <span class="n">microns_per_pixel</span>
+</pre></div>
+</div>
+</div>
+<section id="Use-Thor's-API:-run_commot-for-data-preprocessing-and-run-COMMOT">
+<h3>Use Thor’s API: run_commot for data preprocessing and run COMMOT<a class="headerlink" href="#Use-Thor's-API:-run_commot-for-data-preprocessing-and-run-COMMOT" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database</span> <span class="o">=</span> <span class="s1">&#39;CellChat&#39;</span>
+<span class="n">pathway</span> <span class="o">=</span> <span class="s1">&#39;VEGF&#39;</span>
+
+<span class="n">ad_comm</span> <span class="o">=</span> <span class="n">run_commot</span><span class="p">(</span>
+    <span class="n">ad</span><span class="p">,</span>
+    <span class="n">database_name</span><span class="o">=</span><span class="n">database</span><span class="p">,</span>
+    <span class="n">df_ligrec</span><span class="o">=</span><span class="n">pathways_dict</span><span class="p">[</span><span class="n">pathway</span><span class="p">],</span>
+    <span class="n">dis_thr</span><span class="o">=</span><span class="n">distance_pixel</span><span class="p">,</span>
+    <span class="n">heteromeric</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">pathway_sum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="We-can-now-check-the-directions-of-VEGF-signals-via-a-streamplot-(spot-level)">
+<h3>We can now check the directions of VEGF signals via a streamplot (spot level)<a class="headerlink" href="#We-can-now-check-the-directions-of-VEGF-signals-via-a-streamplot-(spot-level)" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_commot</span><span class="p">(</span><span class="n">ad_comm</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="n">database</span><span class="p">,</span> <span class="n">pathway_name</span><span class="o">=</span><span class="n">pathway</span><span class="p">,</span> <span class="n">plot_method</span><span class="o">=</span><span class="s1">&#39;stream&#39;</span><span class="p">,</span> <span class="n">background_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ndsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">grid_density</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;sender&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">clustering</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Alphabet&#39;</span><span class="p">,</span>
+    <span class="n">normalize_v</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">normalize_v_quantile</span><span class="o">=</span><span class="mf">0.995</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_run_cell_communication_commot_14_0.png" class="no-scaled-link" src="../_images/notebooks_tutorial_run_cell_communication_commot_14_0.png" style="width: 515px; height: 389px;" />
+</div>
+</div>
+</section>
+<section id="With-the-original-spot-data,-VEGF-signals-are-observed-crossing-a-vessel-region">
+<h3>With the original spot data, VEGF signals are observed crossing a vessel region<a class="headerlink" href="#With-the-original-spot-data,-VEGF-signals-are-observed-crossing-a-vessel-region" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_commot</span><span class="p">(</span><span class="n">ad_comm</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="mi">5800</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">5500</span><span class="p">),</span> <span class="n">database_name</span><span class="o">=</span><span class="n">database</span><span class="p">,</span> <span class="n">pathway_name</span><span class="o">=</span><span class="n">pathway</span><span class="p">,</span> <span class="n">plot_method</span><span class="o">=</span><span class="s1">&#39;stream&#39;</span><span class="p">,</span> <span class="n">background_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ndsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">grid_density</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;sender&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">clustering</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Alphabet&#39;</span><span class="p">,</span>
+    <span class="n">normalize_v</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">normalize_v_quantile</span><span class="o">=</span><span class="mf">0.995</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_run_cell_communication_commot_16_0.png" class="no-scaled-link" src="../_images/notebooks_tutorial_run_cell_communication_commot_16_0.png" style="width: 515px; height: 389px;" />
+</div>
+</div>
+</section>
+</section>
+<section id="Human-Heart-(cell-level-based-on-Thor)">
+<h2>Human Heart (cell level based on Thor)<a class="headerlink" href="#Human-Heart-(cell-level-based-on-Thor)" title="Link to this heading"></a></h2>
+<p>Subsample 2 cells in every spot for efficiency</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad_thor</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s2">&quot;GT_IZ_P9_rep2_adata_cells.h5ad&quot;</span><span class="p">)</span>
+<span class="n">ad_thor</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 48556 × 3059
+    obs: &#39;n_counts&#39;, &#39;n_genes&#39;, &#39;percent.mt&#39;, &#39;Adipocyte&#39;, &#39;Cardiomyocyte&#39;, &#39;Endothelial&#39;, &#39;Fibroblast&#39;, &#39;Lymphoid&#39;, &#39;Mast&#39;, &#39;Myeloid&#39;, &#39;Neuronal&#39;, &#39;Pericyte&#39;, &#39;Cycling.cells&#39;, &#39;vSMCs&#39;, &#39;cell_type_original&#39;, &#39;assay_ontology_term_id&#39;, &#39;cell_type_ontology_term_id&#39;, &#39;development_stage_ontology_term_id&#39;, &#39;disease_ontology_term_id&#39;, &#39;self_reported_ethnicity_ontology_term_id&#39;, &#39;is_primary_data&#39;, &#39;organism_ontology_term_id&#39;, &#39;sex_ontology_term_id&#39;, &#39;tissue_ontology_term_id&#39;, &#39;donor_id&#39;, &#39;suspension_type&#39;, &#39;cell_type&#39;, &#39;assay&#39;, &#39;disease&#39;, &#39;organism&#39;, &#39;sex&#39;, &#39;tissue&#39;, &#39;self_reported_ethnicity&#39;, &#39;development_stage&#39;, &#39;spot_barcodes&#39;, &#39;x&#39;, &#39;y&#39;, &#39;mean_gray&#39;, &#39;std_gray&#39;, &#39;entropy_img&#39;, &#39;mean_r&#39;, &#39;mean_g&#39;, &#39;mean_b&#39;, &#39;std_r&#39;, &#39;std_g&#39;, &#39;std_b&#39;, &#39;spot_heterogeneity&#39;, &#39;node_weights&#39;, &#39;imagerow&#39;, &#39;imagecol&#39;
+    var: &#39;feature_is_filtered&#39;, &#39;feature_name&#39;, &#39;feature_reference&#39;, &#39;feature_biotype&#39;, &#39;highly_variable&#39;, &#39;means&#39;, &#39;dispersions&#39;, &#39;dispersions_norm&#39;, &#39;used_for_prediction&#39;, &#39;used_for_vae&#39;, &#39;used_for_reduced&#39;
+    uns: &#39;X_approximate_distribution&#39;, &#39;cell_image_props&#39;, &#39;default_embedding&#39;, &#39;hvg&#39;, &#39;log1p&#39;, &#39;schema_version&#39;, &#39;snn&#39;, &#39;spatial&#39;, &#39;title&#39;
+    obsm: &#39;X_pca&#39;, &#39;X_spatial&#39;, &#39;X_umap&#39;, &#39;spatial&#39;, &#39;spatial_distance&#39;
+    obsp: &#39;snn_connectivities&#39;, &#39;snn_knn_connectivities&#39;, &#39;snn_transition_matrix&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spot_barcodes</span> <span class="o">=</span> <span class="n">ad_thor</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">spot_barcodes</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">spot_barcodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;-1&#39;</span><span class="p">,</span> <span class="n">spot_barcodes</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">spot_barcodes</span><span class="p">)</span>
+<span class="n">ad_subsampled</span> <span class="o">=</span> <span class="n">ad_thor</span><span class="p">[</span><span class="n">ad_thor</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">spot_barcodes</span><span class="p">),</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">ad_subsampled</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 8180 × 3059
+    obs: &#39;n_counts&#39;, &#39;n_genes&#39;, &#39;percent.mt&#39;, &#39;Adipocyte&#39;, &#39;Cardiomyocyte&#39;, &#39;Endothelial&#39;, &#39;Fibroblast&#39;, &#39;Lymphoid&#39;, &#39;Mast&#39;, &#39;Myeloid&#39;, &#39;Neuronal&#39;, &#39;Pericyte&#39;, &#39;Cycling.cells&#39;, &#39;vSMCs&#39;, &#39;cell_type_original&#39;, &#39;assay_ontology_term_id&#39;, &#39;cell_type_ontology_term_id&#39;, &#39;development_stage_ontology_term_id&#39;, &#39;disease_ontology_term_id&#39;, &#39;self_reported_ethnicity_ontology_term_id&#39;, &#39;is_primary_data&#39;, &#39;organism_ontology_term_id&#39;, &#39;sex_ontology_term_id&#39;, &#39;tissue_ontology_term_id&#39;, &#39;donor_id&#39;, &#39;suspension_type&#39;, &#39;cell_type&#39;, &#39;assay&#39;, &#39;disease&#39;, &#39;organism&#39;, &#39;sex&#39;, &#39;tissue&#39;, &#39;self_reported_ethnicity&#39;, &#39;development_stage&#39;, &#39;spot_barcodes&#39;, &#39;x&#39;, &#39;y&#39;, &#39;mean_gray&#39;, &#39;std_gray&#39;, &#39;entropy_img&#39;, &#39;mean_r&#39;, &#39;mean_g&#39;, &#39;mean_b&#39;, &#39;std_r&#39;, &#39;std_g&#39;, &#39;std_b&#39;, &#39;spot_heterogeneity&#39;, &#39;node_weights&#39;, &#39;imagerow&#39;, &#39;imagecol&#39;
+    var: &#39;feature_is_filtered&#39;, &#39;feature_name&#39;, &#39;feature_reference&#39;, &#39;feature_biotype&#39;, &#39;highly_variable&#39;, &#39;means&#39;, &#39;dispersions&#39;, &#39;dispersions_norm&#39;, &#39;used_for_prediction&#39;, &#39;used_for_vae&#39;, &#39;used_for_reduced&#39;
+    uns: &#39;X_approximate_distribution&#39;, &#39;cell_image_props&#39;, &#39;default_embedding&#39;, &#39;hvg&#39;, &#39;log1p&#39;, &#39;schema_version&#39;, &#39;snn&#39;, &#39;spatial&#39;, &#39;title&#39;
+    obsm: &#39;X_pca&#39;, &#39;X_spatial&#39;, &#39;X_umap&#39;, &#39;spatial&#39;, &#39;spatial_distance&#39;
+    obsp: &#39;snn_connectivities&#39;, &#39;snn_knn_connectivities&#39;, &#39;snn_transition_matrix&#39;
+</pre></div></div>
+</div>
+<section id="id1">
+<h3>Use Thor’s API: run_commot for data preprocessing and run COMMOT<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad_thor_comm</span> <span class="o">=</span> <span class="n">run_commot</span><span class="p">(</span>
+    <span class="n">ad_subsampled</span><span class="p">,</span>
+    <span class="n">database_name</span><span class="o">=</span><span class="n">database</span><span class="p">,</span>
+    <span class="n">df_ligrec</span><span class="o">=</span><span class="n">pathways_dict</span><span class="p">[</span><span class="n">pathway</span><span class="p">],</span>
+    <span class="n">dis_thr</span><span class="o">=</span><span class="n">distance_pixel</span><span class="p">,</span>
+    <span class="n">heteromeric</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">pathway_sum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="We-can-now-check-the-directions-of-VEGF-signals-via-a-streamplot-(cell-level)">
+<h3>We can now check the directions of VEGF signals via a streamplot (cell level)<a class="headerlink" href="#We-can-now-check-the-directions-of-VEGF-signals-via-a-streamplot-(cell-level)" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_commot</span><span class="p">(</span><span class="n">ad_thor_comm</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="n">database</span><span class="p">,</span> <span class="n">pathway_name</span><span class="o">=</span><span class="n">pathway</span><span class="p">,</span> <span class="n">plot_method</span><span class="o">=</span><span class="s1">&#39;stream&#39;</span><span class="p">,</span> <span class="n">background_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ndsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">grid_density</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;sender&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">clustering</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Alphabet&#39;</span><span class="p">,</span>
+    <span class="n">normalize_v</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">normalize_v_quantile</span><span class="o">=</span><span class="mf">0.995</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_run_cell_communication_commot_24_0.png" class="no-scaled-link" src="../_images/notebooks_tutorial_run_cell_communication_commot_24_0.png" style="width: 515px; height: 389px;" />
+</div>
+</div>
+</section>
+<section id="With-Thor-inferred-data,-VEGF-signals-are-observed-initialized-from-a-vessel-region,-which-makes-more-sense">
+<h3>With Thor inferred data, VEGF signals are observed initialized from a vessel region, which makes more sense<a class="headerlink" href="#With-Thor-inferred-data,-VEGF-signals-are-observed-initialized-from-a-vessel-region,-which-makes-more-sense" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_commot</span><span class="p">(</span><span class="n">ad_thor_comm</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="mi">5800</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">5500</span><span class="p">),</span> <span class="n">database_name</span><span class="o">=</span><span class="n">database</span><span class="p">,</span> <span class="n">pathway_name</span><span class="o">=</span><span class="n">pathway</span><span class="p">,</span> <span class="n">plot_method</span><span class="o">=</span><span class="s1">&#39;stream&#39;</span><span class="p">,</span> <span class="n">background_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ndsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">grid_density</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;sender&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">clustering</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Alphabet&#39;</span><span class="p">,</span>
+    <span class="n">normalize_v</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">normalize_v_quantile</span><span class="o">=</span><span class="mf">0.995</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_run_cell_communication_commot_26_0.png" class="no-scaled-link" src="../_images/notebooks_tutorial_run_cell_communication_commot_26_0.png" style="width: 515px; height: 389px;" />
+</div>
+</div>
+</section>
+<section id="DEG-along-signaling-pathways">
+<h3>DEG along signaling pathways<a class="headerlink" href="#DEG-along-signaling-pathways" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad_thor_comm</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expm1</span><span class="p">(</span><span class="n">ad_thor_comm</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">df_deg</span><span class="p">,</span> <span class="n">df_yhat</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">communication_deg_detection</span><span class="p">(</span>
+    <span class="n">ad_thor_comm</span><span class="p">,</span>
+    <span class="n">database_name</span><span class="o">=</span><span class="n">database</span><span class="p">,</span>
+    <span class="n">pathway_name</span><span class="o">=</span><span class="n">pathway</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;receiver&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+  |                                                  | 0 % ~calculating   |+                                                 | 1 % ~01m 45s       |++                                                | 2 % ~01m 37s       |++                                                | 3 % ~01m 27s       |+++                                               | 5 % ~01m 19s       |+++                                               | 6 % ~01m 15s       |++++                                              | 7 % ~01m 19s       |++++                                              | 8 % ~01m 15s       |+++++                                             | 9 % ~01m 13s       |++++++                                            | 10% ~01m 15s       |++++++                                            | 11% ~01m 15s       |+++++++                                           | 12% ~01m 16s       |+++++++                                           | 14% ~01m 13s       |++++++++                                          | 15% ~01m 11s       |++++++++                                          | 16% ~01m 09s       |+++++++++                                         | 17% ~01m 07s       |++++++++++                                        | 18% ~01m 08s       |++++++++++                                        | 19% ~01m 06s       |+++++++++++                                       | 20% ~01m 05s       |+++++++++++                                       | 22% ~01m 04s       |++++++++++++                                      | 23% ~01m 02s       |++++++++++++                                      | 24% ~01m 01s       |+++++++++++++                                     | 25% ~60s           |++++++++++++++                                    | 26% ~59s           |++++++++++++++                                    | 27% ~57s           |+++++++++++++++                                   | 28% ~57s           |+++++++++++++++                                   | 30% ~57s           |++++++++++++++++                                  | 31% ~56s           |++++++++++++++++                                  | 32% ~55s           |+++++++++++++++++                                 | 33% ~54s           |++++++++++++++++++                                | 34% ~53s           |++++++++++++++++++                                | 35% ~52s           |+++++++++++++++++++                               | 36% ~51s           |+++++++++++++++++++                               | 38% ~50s           |++++++++++++++++++++                              | 39% ~49s           |++++++++++++++++++++                              | 40% ~48s           |+++++++++++++++++++++                             | 41% ~47s           |++++++++++++++++++++++                            | 42% ~46s           |++++++++++++++++++++++                            | 43% ~45s           |+++++++++++++++++++++++                           | 44% ~44s           |+++++++++++++++++++++++                           | 45% ~44s           |++++++++++++++++++++++++                          | 47% ~43s           |++++++++++++++++++++++++                          | 48% ~42s           |+++++++++++++++++++++++++                         | 49% ~41s           |+++++++++++++++++++++++++                         | 50% ~40s           |++++++++++++++++++++++++++                        | 51% ~39s           |+++++++++++++++++++++++++++                       | 52% ~38s           |+++++++++++++++++++++++++++                       | 53% ~38s           |++++++++++++++++++++++++++++                      | 55% ~37s           |++++++++++++++++++++++++++++                      | 56% ~36s           |+++++++++++++++++++++++++++++                     | 57% ~35s           |+++++++++++++++++++++++++++++                     | 58% ~34s           |++++++++++++++++++++++++++++++                    | 59% ~33s           |+++++++++++++++++++++++++++++++                   | 60% ~32s           |+++++++++++++++++++++++++++++++                   | 61% ~31s           |++++++++++++++++++++++++++++++++                  | 62% ~30s           |++++++++++++++++++++++++++++++++                  | 64% ~29s           |+++++++++++++++++++++++++++++++++                 | 65% ~28s           |+++++++++++++++++++++++++++++++++                 | 66% ~27s           |++++++++++++++++++++++++++++++++++                | 67% ~26s           |+++++++++++++++++++++++++++++++++++               | 68% ~25s           |+++++++++++++++++++++++++++++++++++               | 69% ~24s           |++++++++++++++++++++++++++++++++++++              | 70% ~24s           |++++++++++++++++++++++++++++++++++++              | 72% ~23s           |+++++++++++++++++++++++++++++++++++++             | 73% ~22s           |+++++++++++++++++++++++++++++++++++++             | 74% ~21s           |++++++++++++++++++++++++++++++++++++++            | 75% ~20s           |+++++++++++++++++++++++++++++++++++++++           | 76% ~19s           |+++++++++++++++++++++++++++++++++++++++           | 77% ~18s           |++++++++++++++++++++++++++++++++++++++++          | 78% ~17s           |++++++++++++++++++++++++++++++++++++++++          | 80% ~16s           |+++++++++++++++++++++++++++++++++++++++++         | 81% ~15s           |+++++++++++++++++++++++++++++++++++++++++         | 82% ~14s           |++++++++++++++++++++++++++++++++++++++++++        | 83% ~14s           |+++++++++++++++++++++++++++++++++++++++++++       | 84% ~13s           |+++++++++++++++++++++++++++++++++++++++++++       | 85% ~12s           |++++++++++++++++++++++++++++++++++++++++++++      | 86% ~11s           |++++++++++++++++++++++++++++++++++++++++++++      | 88% ~10s           |+++++++++++++++++++++++++++++++++++++++++++++     | 89% ~09s           |+++++++++++++++++++++++++++++++++++++++++++++     | 90% ~08s           |++++++++++++++++++++++++++++++++++++++++++++++    | 91% ~07s           |+++++++++++++++++++++++++++++++++++++++++++++++   | 92% ~06s           |+++++++++++++++++++++++++++++++++++++++++++++++   | 93% ~05s           |++++++++++++++++++++++++++++++++++++++++++++++++  | 94% ~04s           |++++++++++++++++++++++++++++++++++++++++++++++++  | 95% ~04s           |+++++++++++++++++++++++++++++++++++++++++++++++++ | 97% ~03s           |+++++++++++++++++++++++++++++++++++++++++++++++++ | 98% ~02s           |++++++++++++++++++++++++++++++++++++++++++++++++++| 99% ~01s           |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=01m 18s
+2 parameter combinations, 2 use sequential method, 2 use subsampling method
+Running Clustering on Parameter Combinations...
+done.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_deg_clus</span><span class="p">,</span> <span class="n">df_yhat_clus</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">communication_deg_clustering</span><span class="p">(</span><span class="n">df_deg</span><span class="p">,</span> <span class="n">df_yhat</span><span class="p">,</span> <span class="n">deg_clustering_res</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">top_de_genes_VEGF</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">plot_communication_dependent_genes</span><span class="p">(</span>
+    <span class="n">df_deg_clus</span><span class="p">,</span>
+    <span class="n">df_yhat_clus</span><span class="p">,</span>
+    <span class="n">top_ngene_per_cluster</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;./heatmap_deg_VEGF.pdf&#39;</span><span class="p">,</span>
+    <span class="n">font_scale</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">return_genes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_run_cell_communication_commot_29_0.png" class="no-scaled-link" src="../_images/notebooks_tutorial_run_cell_communication_commot_29_0.png" style="width: 976px; height: 976px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_genes</span><span class="p">(</span><span class="n">adata_dis500</span><span class="p">,</span> <span class="n">pathway</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">X_sc</span> <span class="o">=</span> <span class="n">adata_dis500</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">]</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">adata_dis500</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;commot-</span><span class="si">{</span><span class="n">database</span><span class="si">}</span><span class="s1">-sum-sender&#39;</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;s-</span><span class="si">{</span><span class="n">pathway</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_sc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">X_sc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">adata_dis500</span><span class="p">[:,</span><span class="n">genes</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_sc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">X_sc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">adata_dis500</span><span class="p">[:,</span><span class="n">genes</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_sc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">X_sc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Amount of received signal&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;An example negative DE gene (</span><span class="si">{</span><span class="n">genes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;An example positive DE gene (</span><span class="si">{</span><span class="n">genes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">plot_genes</span><span class="p">(</span><span class="n">ad_thor_comm</span><span class="p">,</span> <span class="n">pathway</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MELTF&#39;</span><span class="p">,</span> <span class="s1">&#39;IGFBP5&#39;</span><span class="p">],</span> <span class="n">database</span><span class="o">=</span><span class="n">database</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_run_cell_communication_commot_30_0.png" class="no-scaled-link" src="../_images/notebooks_tutorial_run_cell_communication_commot_30_0.png" style="width: 1241px; height: 380px;" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial_runThor_VisiumHD.html" class="btn btn-neutral float-left" title="Run Thor on Visium HD data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Mjolnir.html" class="btn btn-neutral float-right" title="About Mjolnir" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

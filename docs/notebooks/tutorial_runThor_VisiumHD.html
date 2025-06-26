@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run Thor on Visium HD data &mdash; Thor  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cell cell communication" href="tutorial_run_cell_communication_commot.html" />
+    <link rel="prev" title="Human heart failure" href="run_thor_analyses_HF.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Thor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Thor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Thor Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently asked questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../API.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API.html#api">API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="runThor_MOB.html">Mouse olfactory bulb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runThor_DCIS.html">Ductal carcinoma in situ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_thor_analyses_HF.html">Human heart failure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Run Thor on Visium HD data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Import-the-packages">Import the packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Predicting-cell-level-gene-expression-using-Markov-graph-diffusion">Predicting cell-level gene expression using Markov graph diffusion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Preprocessing-cell-level-spatial-transcriptome.">Preprocessing cell-level spatial transcriptome.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#We-need-to-use-a-new-function-tailor-to-Visium-HD-2-micrometer-square-bins-data-(less-than-cell-size).">We need to use a new function tailor to Visium HD 2 micrometer square bins data (less than cell size).</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Compare-gene-expression-profiles-between-the-Thor-results-with-VisiumHD-008μm-data-(close-to-the-actual-cell-size).">Compare gene expression profiles between the Thor results with VisiumHD 008μm data (close to the actual cell size).</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_run_cell_communication_commot.html">Cell cell communication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Mjolnir visualization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir.html">About Mjolnir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_installation.html">Mjolnir Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_video_tutorials.html">Mjolnir video tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mjolnir_test_data.html">Mjolnir test Data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Thor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Run Thor on Visium HD data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/tutorial_runThor_VisiumHD.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="admonition note">
+This page was generated from a Jupyter notebook. You can download the notebook
+<a href="javascript:void(0)" onclick="var link = document.createElement('a'); link.download = 'tutorial_runThor_VisiumHD.ipynb'; link.href = '../notebooks/tutorial_runThor_VisiumHD.ipynb'; link.click(); return false;">here</a> to run it locally in Jupyter.
+</div>
+
+<script>
+// Alternative download function in case the onclick method doesn't work
+function downloadNotebook(e) {
+    e.preventDefault();
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../notebooks/tutorial_runThor_VisiumHD.ipynb', true);
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+        if (this.status === 200) {
+            var blob = new Blob([this.response], {type: 'application/x-ipynb+json'});
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'tutorial_runThor_VisiumHD.ipynb';
+            link.click();
+            setTimeout(function() {
+                URL.revokeObjectURL(link.href);
+            }, 1500);
+        }
+    };
+    xhr.send();
+}
+
+// Add the event listener to all download links
+document.addEventListener('DOMContentLoaded', function() {
+    var link = document.querySelector('.admonition.note a');
+    if (link) {
+        link.addEventListener('click', downloadNotebook);
+    }
+});
+</script><section id="Run-Thor-on-Visium-HD-data">
+<h1>Run Thor on Visium HD data<a class="headerlink" href="#Run-Thor-on-Visium-HD-data" title="Link to this heading"></a></h1>
+<p>In this notebook, we show how to infer cell-level spatial transcriptome based on a Visium HD dataset of a bladder cancer patient sample.</p>
+<p>For installation of Thor, please refer to <a class="reference internal" href="../installation.html"><span class="doc">this installation guide</span></a>.</p>
+<section id="Import-the-packages">
+<h2>Import the packages<a class="headerlink" href="#Import-the-packages" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current Time: </span><span class="si">{</span><span class="n">now</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+root - INFO - Current Time: 2025-02-07 16:02:05.951716
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">scanpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">dpi_save</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">=</span> <span class="s1">&#39;error&#39;</span>
+
+
+<span class="kn">from</span> <span class="nn">thor.pp</span> <span class="kn">import</span> <span class="n">WholeSlideImage</span><span class="p">,</span> <span class="n">Spatial</span>
+<span class="kn">from</span> <span class="nn">thor.finest</span> <span class="kn">import</span> <span class="n">fineST</span>
+<span class="kn">from</span> <span class="nn">thor.pl</span> <span class="kn">import</span> <span class="n">single_molecule</span><span class="p">,</span> <span class="n">plot_spot</span><span class="p">,</span><span class="n">get_nuclei_pixels</span>
+<span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">get_adata_layer_array</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="o">.</span><span class="n">MAX_IMAGE_PIXELS</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+numexpr.utils - INFO - Note: NumExpr detected 12 cores but &#34;NUMEXPR_MAX_THREADS&#34; not set, so enforcing safe limit of 8.
+numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+</pre></div></div>
+</div>
+</section>
+<section id="Predicting-cell-level-gene-expression-using-Markov-graph-diffusion">
+<h2>Predicting cell-level gene expression using Markov graph diffusion<a class="headerlink" href="#Predicting-cell-level-gene-expression-using-Markov-graph-diffusion" title="Link to this heading"></a></h2>
+<p>The segmentation part will be skip because it will take some time without GPU. We will provide pre-computed segmentation folder (include both feature and segmentation files)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># name = &quot;D1_Johnson&quot;</span>
+<span class="c1"># image_path = f&quot;./{name}_Scan1.qptiff.tiff&quot;</span>
+
+<span class="c1"># wsi = WholeSlideImage(image_path, name=name)</span>
+<span class="c1"># wsi.process(method=&quot;stardist&quot;)</span>
+
+<span class="c1"># cell_mask_path = os.path.join(image_process_dir, &quot;nuclei_mask.npz&quot;)</span>
+<span class="c1"># wsi = WholeSlideImage(image_path, name=name, nuclei_seg_path=cell_mask_path, nuclei_seg_format=&#39;mask_array_npz&#39;)</span>
+<span class="c1"># wsi.process()</span>
+</pre></div>
+</div>
+</div>
+<section id="Preprocessing-cell-level-spatial-transcriptome.">
+<h3>Preprocessing cell-level spatial transcriptome.<a class="headerlink" href="#Preprocessing-cell-level-spatial-transcriptome." title="Link to this heading"></a></h3>
+<p>Using the standard SCANPY pipeline, we created the VisiumHD 002um bin <code class="docutils literal notranslate"><span class="pre">adata</span></code> from the Space Ranger output directory (<code class="docutils literal notranslate"><span class="pre">D1_Johnson</span></code>). This <code class="docutils literal notranslate"><span class="pre">adata</span></code> contains the expression matrix, bin locations mapped as pixel coordinates on the whole slide image (WSI), and both high and low-resolution images with their associated scale factors.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;D1_Johnson&quot;</span>
+<span class="n">outdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">image_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;../</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Scan1.qptiff.tiff&quot;</span>
+<span class="n">image_process_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;WSI_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">cell_mask_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_process_dir</span><span class="p">,</span> <span class="s2">&quot;nuclei_mask.npz&quot;</span><span class="p">)</span>
+<span class="n">cell_feature_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_process_dir</span><span class="p">,</span> <span class="s2">&quot;cell_features.csv&quot;</span><span class="p">)</span>
+<span class="n">spatial_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;./</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">spot_adata_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">spatial_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_processed_002um.h5ad&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cell_feature</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">cell_feature_path</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">spot</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="n">spot_adata_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="We-need-to-use-a-new-function-tailor-to-Visium-HD-2-micrometer-square-bins-data-(less-than-cell-size).">
+<h4>We need to use a new function tailor to Visium HD 2 micrometer square bins data (less than cell size).<a class="headerlink" href="#We-need-to-use-a-new-function-tailor-to-Visium-HD-2-micrometer-square-bins-data-(less-than-cell-size)." title="Link to this heading"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thor.utilities.VisiumHD_cell_mapping</span> <span class="kn">import</span> <span class="n">HD2cell</span>
+
+<span class="n">adata_cell</span><span class="p">,</span> <span class="n">assignments</span> <span class="o">=</span> <span class="n">HD2cell</span><span class="p">(</span><span class="n">adata_spot</span><span class="o">=</span><span class="n">spot</span><span class="p">,</span> <span class="n">node_feat</span><span class="o">=</span><span class="n">cell_feature</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The shape of the transformed cellxspot is:  (92514, 2482662)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">fineST</span><span class="p">(</span>
+    <span class="n">image_path</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">spot_adata_path</span><span class="o">=</span><span class="n">spot_adata_path</span><span class="p">,</span>
+    <span class="n">cell_features_csv_path</span><span class="o">=</span><span class="n">cell_feature_path</span>
+<span class="p">)</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">prepare_input</span><span class="p">(</span><span class="n">mapping_margin</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-cyan-fg">[02/07/25 15:37:06]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Please check alignment of cells and spots
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: The first two columns in the node_feat DataFrame need to be consistent with the spatial coordinates from
+<span class="ansi-cyan-fg">                    </span>         obsm<span class="ansi-bold">[</span><span class="ansi-green-fg">&#39;spatial&#39;</span><span class="ansi-bold">]</span>.
+<span class="ansi-cyan-fg">[02/07/25 15:37:10]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Mapping cells to the closest spots within <span class="ansi-cyan-intense-fg ansi-bold">10</span> x the spot radius
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_runThor_VisiumHD_12_1.png" class="no-scaled-link" src="../_images/notebooks_tutorial_runThor_VisiumHD_12_1.png" style="width: 964px; height: 857px;" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">normalize_total</span><span class="p">(</span><span class="n">adata_cell</span><span class="p">,</span><span class="n">target_sum</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata_cell</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">adata_cell</span><span class="o">.</span><span class="n">X</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">=</span> <span class="n">adata_cell</span><span class="o">.</span><span class="n">obs_names</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">genes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;VIM&quot;</span><span class="p">,</span>  <span class="c1"># Vimentin</span>
+    <span class="s2">&quot;ACTA2&quot;</span><span class="p">,</span>  <span class="c1"># Alpha Smooth Muscle Actin (αSMA)</span>
+    <span class="s2">&quot;CAV1&quot;</span><span class="p">,</span>  <span class="c1"># Caveolin 1</span>
+    <span class="s2">&quot;CAV2&quot;</span><span class="p">,</span>  <span class="c1"># Caveolin 2</span>
+    <span class="s2">&quot;PDGFRA&quot;</span><span class="p">,</span>  <span class="c1"># Platelet Derived Growth Factor Receptor Alpha</span>
+    <span class="s2">&quot;CD34&quot;</span><span class="p">,</span>  <span class="c1"># CD34 Molecule</span>
+    <span class="s2">&quot;GJA1&quot;</span><span class="p">,</span>  <span class="c1"># Gap Junction Protein Alpha 1 (Connexin 43)</span>
+    <span class="s2">&quot;KIT&quot;</span><span class="p">,</span>  <span class="c1"># KIT Proto-Oncogene, Receptor Tyrosine Kinase</span>
+    <span class="s2">&quot;CDH11&quot;</span><span class="p">,</span>  <span class="c1"># Cadherin 11</span>
+    <span class="s2">&quot;PDGFRB&quot;</span><span class="p">,</span>  <span class="c1"># Platelet Derived Growth Factor Receptor Beta</span>
+    <span class="s2">&quot;CSPG4&quot;</span><span class="p">,</span>  <span class="c1"># Chondroitin Sulfate Proteoglycan 4 (NG2)</span>
+    <span class="s2">&quot;PECAM1&quot;</span><span class="p">,</span>  <span class="c1"># Platelet And Endothelial Cell Adhesion Molecule 1 (CD31)</span>
+    <span class="s2">&quot;FAP&quot;</span><span class="p">,</span>  <span class="c1"># Fibroblast Activation Protein Alpha</span>
+    <span class="s2">&quot;TNC&quot;</span><span class="p">,</span>  <span class="c1"># Tenascin C</span>
+    <span class="s2">&quot;THY1&quot;</span><span class="p">,</span>  <span class="c1"># Thy-1 Cell Surface Antigen (CD90)</span>
+    <span class="s2">&quot;S100A4&quot;</span><span class="p">,</span>  <span class="c1"># S100 Calcium Binding Protein A4 (FSP1)</span>
+    <span class="s2">&quot;DLL4&quot;</span><span class="p">,</span>  <span class="c1"># Delta Like Canonical Notch Ligand 4</span>
+    <span class="s2">&quot;CCR7&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">set_genes_for_prediction</span><span class="p">(</span><span class="n">genes_selection_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="s1">&#39;gene&#39;</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span>
+    <span class="n">is_rawCount</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">out_prefix</span><span class="o">=</span><span class="s2">&quot;fineST&quot;</span><span class="p">,</span>
+    <span class="n">write_freq</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">n_iter</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">conn_csr_matrix</span><span class="o">=</span><span class="s2">&quot;force&quot;</span><span class="p">,</span>
+    <span class="n">smoothing_scale</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">node_features_obs_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;spot_heterogeneity&#39;</span><span class="p">],</span>
+    <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">geom_morph_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">geom_constraint</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">inflation_percentage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">regulate_expression_mean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">stochastic_expression_neighbors_level</span><span class="o">=</span><span class="s1">&#39;spot&#39;</span><span class="p">,</span>
+    <span class="n">smooth_predicted_expression_steps</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">reduced_dimension_transcriptome_obsm_key</span><span class="o">=</span><span class="s2">&quot;X_pca&quot;</span><span class="p">,</span>
+    <span class="n">adjust_cell_network_by_transcriptome_scale</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">predict_gene_expression</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-cyan-fg">[02/07/25 15:39:58]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Using mode gene
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Forcing to recalculate the connectivities.
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Construct SNN with morphological features: <span class="ansi-bold">[</span><span class="ansi-green-fg">&#39;mean_gray&#39;</span>, <span class="ansi-green-fg">&#39;std_gray&#39;</span>, <span class="ansi-green-fg">&#39;entropy_img&#39;</span>, <span class="ansi-green-fg">&#39;mean_r&#39;</span>, <span class="ansi-green-fg">&#39;mean_g&#39;</span>, <span class="ansi-green-fg">&#39;mean_b&#39;</span>,
+<span class="ansi-cyan-fg">                    </span>         <span class="ansi-green-fg">&#39;std_r&#39;</span>, <span class="ansi-green-fg">&#39;std_g&#39;</span>, <span class="ansi-green-fg">&#39;std_b&#39;</span><span class="ansi-bold">]</span>.
+<span class="ansi-cyan-fg">[02/07/25 15:40:03]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Finish constructing SNN
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Add adata.obsp<span class="ansi-bold">[</span><span class="ansi-green-fg">&#34;snn_connectivities&#34;</span><span class="ansi-bold">]</span>
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Add adata.obsp<span class="ansi-bold">[</span><span class="ansi-green-fg">&#34;knn_connectivities&#34;</span><span class="ansi-bold">]</span>
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Add adata.uns<span class="ansi-bold">[</span><span class="ansi-green-fg">&#34;snn&#34;</span><span class="ansi-bold">]</span>
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Weigh cells according to the spot heterogeneity.
+<span class="ansi-cyan-fg">[02/07/25 15:40:04]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Promote flow of information from more homogeneous cells to less.
+<span class="ansi-cyan-fg">[02/07/25 15:40:05]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Eliminate low quality edges <span class="ansi-bold">(</span>&lt;<span class="ansi-cyan-intense-fg ansi-bold">0.1</span><span class="ansi-bold">)</span> between cells.
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Compute transition matrix
+<span class="ansi-cyan-fg">                   </span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: self weight scale is set to: <span class="ansi-cyan-intense-fg ansi-bold">0.200</span>
+<span class="ansi-cyan-fg">[02/07/25 15:40:06]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Added transition matrix to adata.obsp<span class="ansi-bold">[</span><span class="ansi-green-fg">&#34;snn_transition_matrix&#34;</span><span class="ansi-bold">]</span>
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+... storing &#39;spot_barcodes&#39; as categorical
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-cyan-fg">[02/07/25 15:40:08]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: fineST estimation starts.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 20/20 [00:07&lt;00:00,  2.57it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-cyan-fg">[02/07/25 15:41:41]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: Saving gene expression matrices.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-cyan-fg">[02/07/25 15:41:50]</span><span class="ansi-cyan-fg"> </span><span class="ansi-blue-fg">INFO    </span> Thor: fineST estimation finished.
+<span class="ansi-cyan-fg">                    </span>
+<span class="ansi-cyan-fg">                    </span>
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad_thor</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">load_result</span><span class="p">(</span><span class="s1">&#39;fineST_20.npz&#39;</span><span class="p">)</span>
+<span class="n">ad_thor</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 92514 × 18
+    obs: &#39;in_tissue&#39;, &#39;array_row&#39;, &#39;array_col&#39;, &#39;n_genes_by_counts&#39;, &#39;total_counts&#39;, &#39;total_counts_mt&#39;, &#39;pct_counts_mt&#39;, &#39;n_counts&#39;, &#39;spot_barcodes&#39;, &#39;x&#39;, &#39;y&#39;, &#39;mean_gray&#39;, &#39;std_gray&#39;, &#39;entropy_img&#39;, &#39;mean_r&#39;, &#39;mean_g&#39;, &#39;mean_b&#39;, &#39;std_r&#39;, &#39;std_g&#39;, &#39;std_b&#39;, &#39;seg_label&#39;, &#39;spot_heterogeneity&#39;, &#39;node_weights&#39;
+    var: &#39;gene_ids&#39;, &#39;feature_types&#39;, &#39;genome&#39;, &#39;mt&#39;, &#39;n_cells_by_counts&#39;, &#39;mean_counts&#39;, &#39;pct_dropout_by_counts&#39;, &#39;total_counts&#39;, &#39;n_cells&#39;, &#39;used_for_prediction&#39;, &#39;used_for_reduced&#39;, &#39;used_for_vae&#39;
+    uns: &#39;log1p&#39;, &#39;spatial&#39;, &#39;cell_image_props&#39;, &#39;pca&#39;, &#39;snn&#39;
+    obsm: &#39;spatial&#39;, &#39;X_pca&#39;
+    varm: &#39;PCs&#39;
+    obsp: &#39;snn_connectivities&#39;, &#39;knn_connectivities&#39;, &#39;snn_distances&#39;, &#39;knn_distances&#39;, &#39;snn_transition_matrix&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save ad_thor</span>
+<span class="n">ad_thor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_finesST_20_result_002um.h5ad&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Compare-gene-expression-profiles-between-the-Thor-results-with-VisiumHD-008μm-data-(close-to-the-actual-cell-size).">
+<h3>Compare gene expression profiles between the Thor results with VisiumHD 008μm data (close to the actual cell size).<a class="headerlink" href="#Compare-gene-expression-profiles-between-the-Thor-results-with-VisiumHD-008μm-data-(close-to-the-actual-cell-size)." title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad_HD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_processed_008um.h5ad&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">ad_thor</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;CCR7&quot;</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_runThor_VisiumHD_24_0.png" class="no-scaled-link" src="../_images/notebooks_tutorial_runThor_VisiumHD_24_0.png" style="width: 290px; height: 269px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">ad_HD</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;CCR7&quot;</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial_runThor_VisiumHD_25_0.png" class="no-scaled-link" src="../_images/notebooks_tutorial_runThor_VisiumHD_25_0.png" style="width: 290px; height: 274px;" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="run_thor_analyses_HF.html" class="btn btn-neutral float-left" title="Human heart failure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_run_cell_communication_commot.html" class="btn btn-neutral float-right" title="Cell cell communication" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Wang Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
