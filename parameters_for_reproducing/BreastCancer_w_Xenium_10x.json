@@ -1,0 +1,37 @@
+{
+    "graph_params": {
+        "n_neighbors": 5,
+        "conn_key": "snn",
+        "obs_keys": null,
+        "reduced_dimension_transcriptome_obsm_key": "X_pca",
+        "reduced_dimension_transcriptome_obsm_dims": 2,
+        "geom_morph_ratio": 1,
+        "geom_constraint": 0,
+        "adjust_cell_network_by_transcriptome_scale": 0,
+        "snn_threshold": 0.1,
+        "smoothing_scale": 0.8,
+        "conn_csr_matrix": "force",
+        "inflation_percentage": 1,
+        "node_features_obs_list": ["spot_heterogeneity"],
+        "preferential_flow": true,
+        "weigh_cells": true,
+        "balance_cell_quality": false,
+        "bcq_IQR": [0.15, 0.85]
+    },
+    "run_params": {
+        "initialize": true,
+        "layer": null,
+        "is_rawCount": false,
+        "regulate_expression_mean": false,
+        "stochastic_expression_neighbors_level": "cell",
+        "n_iter": 20,
+        "conn_key": "snn",
+        "reduced_dimension_transcriptome_obsm_key": "X_pca",
+        "write_freq": 10,
+        "out_prefix": "y",
+        "sample_predicted_expression_fluctuation_scale": 1,
+        "smooth_predicted_expression_steps": 0,
+        "save_chain": false,
+        "n_jobs": 8
+    }
+}
