@@ -76,6 +76,8 @@ Usage
 ========================================================
 - Visit `Thor Website <https://wanglab.tech/thor>`_ for APIs and tutorials.
 
+- Launch Mjolnir web app for interactive visualization of your own WSI and data produced by Thor at https://wanglab.tech/mjolnir_launch/.
+
 - To reproduce the results in our paper, please refer to the tutorials and the parameters can be found in the directory `parameters/ <./parameters_for_reproducing/>`_.
 
 
