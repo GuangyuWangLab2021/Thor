@@ -116,16 +116,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nuclei_path : str</span>
+<span class="sd">    nuclei_path : :py:class:`str`</span>
 <span class="sd">        Path to the nuclei segmentation result file.</span>
-<span class="sd">    source_format : str</span>
+<span class="sd">    source_format : :py:class:`str`</span>
 <span class="sd">        Format of the nuclei segmentation result file. Options: &#39;cellprofiler&#39;, &#39;cellpose&#39;, &#39;mask_array_npz&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    labels : numpy array</span>
+<span class="sd">    labels : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei segmentation labels (numpy array: n_cells)</span>
-<span class="sd">    nuclei_centroids : numpy array</span>
+<span class="sd">    nuclei_centroids : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei positions (numpy array: n_cells x 2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -153,14 +153,14 @@
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nuclei_path : str</span>
+<span class="sd">    nuclei_path : :py:class:`str`</span>
 <span class="sd">        Path to the nuclei segmentation result file.</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    labels : numpy array</span>
+<span class="sd">    labels : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei segmentation labels (numpy array: n_cells)</span>
-<span class="sd">    nuclei_centroids : numpy array</span>
+<span class="sd">    nuclei_centroids : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei positions (numpy array: n_cells x 2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -178,14 +178,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nuclei_path : str</span>
+<span class="sd">    nuclei_path : :py:class:`str`</span>
 <span class="sd">        Path to the nuclei segmentation result file.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    labels : numpy array</span>
+<span class="sd">    labels : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei segmentation labels (numpy array: n_cells)</span>
-<span class="sd">    nuclei_centroids : numpy array</span>
+<span class="sd">    nuclei_centroids : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei positions (numpy array: n_cells x 2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -203,14 +203,14 @@
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nuclei_path : str</span>
+<span class="sd">    nuclei_path : :py:class:`str`</span>
 <span class="sd">        Path to the nuclei segmentation result file.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    labels : numpy array</span>
+<span class="sd">    labels : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei segmentation labels (numpy array: n_cells)</span>
-<span class="sd">    nuclei_centroids : numpy array</span>
+<span class="sd">    nuclei_centroids : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei positions (numpy array: n_cells x 2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cmask</span> <span class="o">=</span> <span class="n">load_npz</span><span class="p">(</span><span class="n">nuclei_path</span><span class="p">)</span>
@@ -224,14 +224,14 @@
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    cell_masks : numpy array</span>
+<span class="sd">    cell_masks : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei segmentation masks</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    labels : numpy array</span>
+<span class="sd">    labels : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei segmentation labels (numpy array: n_cells)</span>
-<span class="sd">    centroids : numpy array</span>
+<span class="sd">    centroids : :class:`numpy.ndarray`</span>
 <span class="sd">        Nuclei positions (numpy array: n_cells x 2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

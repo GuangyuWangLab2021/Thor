@@ -115,13 +115,13 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    name : str</span>
+<span class="sd">    name : :py:class:`str`</span>
 <span class="sd">        Name of the spatial transcriptomics data.</span>
-<span class="sd">    st_dir : str</span>
+<span class="sd">    st_dir : :py:class:`str`</span>
 <span class="sd">        Path to the directory containing the spatial transcriptomics data. This directory should contain the 10x spaceranger output.</span>
-<span class="sd">    image_path : str</span>
+<span class="sd">    image_path : :py:class:`str`, optional</span>
 <span class="sd">        Path to the full-size image file used for spatial transcriptomics.</span>
-<span class="sd">    save_dir : str</span>
+<span class="sd">    save_dir : :py:class:`str`, optional</span>
 <span class="sd">        Path to the directory where the processed spatial transcriptomics data will be saved.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -139,11 +139,26 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Process the spatial transcriptome data (sequence-based).</span>
 <span class="sd">        This function will read the 10x spaceranger output and perform basic preprocessing steps.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        perform_QC : :py:class:`bool`, optional</span>
+<span class="sd">            Whether to perform quality control. Default is :py:obj:`True`.</span>
+<span class="sd">        min_cells : :py:class:`int`, optional</span>
+<span class="sd">            Minimum number of cells. Default is 10.</span>
+<span class="sd">        min_counts : :py:class:`int`, optional</span>
+<span class="sd">            Minimum number of counts. Default is 1000.</span>
+<span class="sd">        max_counts : :py:class:`int`, optional</span>
+<span class="sd">            Maximum number of counts. Default is 35000.</span>
+<span class="sd">        max_mt_pct : :py:class:`float`, optional</span>
+<span class="sd">            Maximum percentage of mitochondrial genes. Default is 20.</span>
+<span class="sd">        max_rb_pct : :py:class:`float`, optional</span>
+<span class="sd">            Maximum percentage of ribosomal genes. Default is 100.</span>
+
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
 <span class="sd">        It is recommended that this preprocessing step is done by the users using Scanpy or Seurat.</span>
 <span class="sd">        This function only provides very basic level of preprocessing following Scanpy.</span>
-<span class="sd">        Please refer to the [Scanpy documentation](https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html).</span>
+<span class="sd">        Please refer to the `Scanpy documentation &lt;https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html&gt;`_.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transdir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st_dir</span>
         <span class="n">filtered_count_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
@@ -180,6 +195,26 @@
 <span class="k">def</span> <span class="nf">QC</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_counts</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">max_counts</span><span class="o">=</span><span class="mi">35000</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_mt_pct</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">max_rb_pct</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function will perform QC on the spatial transcriptomics data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : :class:`anndata.AnnData`</span>
+<span class="sd">        Annotated data matrix.</span>
+<span class="sd">    min_counts : :py:class:`int`, optional</span>
+<span class="sd">        Minimum number of counts. Default is 5000.</span>
+<span class="sd">    max_counts : :py:class:`int`, optional</span>
+<span class="sd">        Maximum number of counts. Default is 35000.</span>
+<span class="sd">    min_cells : :py:class:`int`, optional</span>
+<span class="sd">        Minimum number of cells. Default is 10.</span>
+<span class="sd">    max_mt_pct : :py:class:`float`, optional</span>
+<span class="sd">        Maximum percentage of mitochondrial genes. Default is 20.</span>
+<span class="sd">    max_rb_pct : :py:class:`float`, optional</span>
+<span class="sd">        Maximum percentage of ribosomal genes. Default is 100.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :class:`anndata.AnnData`</span>
+<span class="sd">        Filtered annotated data matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;mt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;MT-&quot;</span><span class="p">,</span> <span class="s2">&quot;mt-&quot;</span><span class="p">))</span>
     <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;rb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span>

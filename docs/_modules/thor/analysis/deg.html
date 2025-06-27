@@ -170,28 +170,28 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    adata : anndata.Anndata</span>
+<span class="sd">    adata : :class:`anndata.AnnData`</span>
 <span class="sd">        The input data matrix.</span>
-<span class="sd">    img_key : str, optional</span>
+<span class="sd">    img_key : :py:class:`str`, optional</span>
 <span class="sd">        The key for the image where the json ROI is drawn. Default is &quot;fullres&quot;. Valid options are &quot;lowres&quot; (unlikely), &quot;hires&quot; (unlikely), and &quot;fullres&quot;.</span>
-<span class="sd">    layer_key : str, optional</span>
+<span class="sd">    layer_key : :py:class:`str`, optional</span>
 <span class="sd">        The key for the layer data in `adata.layers`.</span>
-<span class="sd">    range_from_edge : Tuple[int, int], optional</span>
+<span class="sd">    range_from_edge : :py:class:`tuple` of :py:class:`int`, optional</span>
 <span class="sd">        The range of the ROI from the edge of the image.</span>
-<span class="sd">    baseline_from_edge : Tuple[int, int], optional</span>
+<span class="sd">    baseline_from_edge : :py:class:`tuple` of :py:class:`int`, optional</span>
 <span class="sd">        The range of the baseline from the edge of the image.</span>
-<span class="sd">    bin_size : int, optional</span>
+<span class="sd">    bin_size : :py:class:`int`, optional</span>
 <span class="sd">        The size of the bins for computing the differential gene expression.</span>
-<span class="sd">    n_top_genes : int, optional</span>
+<span class="sd">    n_top_genes : :py:class:`int`, optional</span>
 <span class="sd">        The number of top genes to plot.</span>
-<span class="sd">    min_mean_gene_expression : float, optional</span>
+<span class="sd">    min_mean_gene_expression : :py:class:`float`, optional</span>
 <span class="sd">        The minimum mean gene expression to filter genes.</span>
-<span class="sd">    tmpout_path : str, optional</span>
+<span class="sd">    tmpout_path : :py:class:`str`, optional</span>
 <span class="sd">        The path to the temporary output file.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Tuple[pd.DataFrame, np.ndarray, np.ndarray]</span>
+<span class="sd">    :py:class:`tuple` of (:class:`pandas.DataFrame`, :class:`numpy.ndarray`, :class:`numpy.ndarray`)</span>
 <span class="sd">        A tuple containing the differential gene expression dataframe, the ROI polygon, and the baseline polygon.</span>
 <span class="sd">   </span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -251,23 +251,23 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    ad_r1 : AnnData</span>
+<span class="sd">    ad_r1 : :class:`anndata.AnnData`</span>
 <span class="sd">        Annotated data matrix for region 1.</span>
-<span class="sd">    ad_r2 : AnnData</span>
+<span class="sd">    ad_r2 : :class:`anndata.AnnData`</span>
 <span class="sd">        Annotated data matrix for region 2.</span>
-<span class="sd">    test_method : str, optional</span>
+<span class="sd">    test_method : :py:class:`str`, optional</span>
 <span class="sd">        Statistical test method to use for DGE analysis. Valid options are &#39;logreg&#39;, &#39;t-test&#39;, &#39;wilcoxon&#39;, &#39;t-test_overestim_var&#39;. Default is &#39;t-test&#39;.</span>
-<span class="sd">    pval_cutoff : float, optional</span>
+<span class="sd">    pval_cutoff : :py:class:`float`, optional</span>
 <span class="sd">        P-value cutoff for significance, by default 0.01.</span>
-<span class="sd">    log2fc_min : float, optional</span>
+<span class="sd">    log2fc_min : :py:class:`float`, optional</span>
 <span class="sd">        Minimum log2 fold change for significance, by default 1.</span>
-<span class="sd">    log2fc_max : float, optional</span>
-<span class="sd">        Maximum log2 fold change for significance, by default None.</span>
+<span class="sd">    log2fc_max : :py:class:`float`, optional</span>
+<span class="sd">        Maximum log2 fold change for significance, by default :py:obj:`None`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    np.ndarray</span>
-<span class="sd">        A numpy array containing the DGE results.</span>
+<span class="sd">    :class:`pandas.DataFrame`</span>
+<span class="sd">        A pandas DataFrame containing the DGE results.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">adatas</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;r1&#39;</span><span class="p">:</span> <span class="n">ad_r1</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">:</span> <span class="n">ad_r2</span><span class="p">}</span>
@@ -295,23 +295,23 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    adata : AnnData</span>
+<span class="sd">    adata : :class:`anndata.AnnData`</span>
 <span class="sd">        Annotated data matrix.</span>
-<span class="sd">    roi_shape : List[Tuple[float, float]]</span>
+<span class="sd">    roi_shape : :py:class:`list` of :py:class:`tuple` of (:py:class:`float`, :py:class:`float`)</span>
 <span class="sd">        List of (x, y) coordinates defining the shape of the region of interest in pixels (full resolution).</span>
-<span class="sd">    layer_key : str, optional</span>
-<span class="sd">        Key for the layer of the adata object to use for expression data. If None, use X.</span>
-<span class="sd">    range_from_edge : List[float], optional</span>
+<span class="sd">    layer_key : :py:class:`str`, optional</span>
+<span class="sd">        Key for the layer of the adata object to use for expression data. If :py:obj:`None`, use X.</span>
+<span class="sd">    range_from_edge : :py:class:`list` of :py:class:`float`, optional</span>
 <span class="sd">        Distance range from the edge of the region of interest in micrometers (microns). Default is [-150, 150].</span>
-<span class="sd">    baseline_from_edge : List[float], optional</span>
+<span class="sd">    baseline_from_edge : :py:class:`list` of :py:class:`float`, optional</span>
 <span class="sd">        Distance range from the edge of the region of interest to define the baseline region in micrometers (microns).</span>
 <span class="sd">        Default is [-150, -100].</span>
-<span class="sd">    bin_size : float, optional</span>
+<span class="sd">    bin_size : :py:class:`float`, optional</span>
 <span class="sd">        Bin size in micrometers (microns) to use for computing differential expression. Default is 30.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Tuple[pd.DataFrame, Polygon, Polygon]</span>
+<span class="sd">    :py:class:`tuple` of (:class:`pandas.DataFrame`, :class:`shapely.geometry.Polygon`, :class:`shapely.geometry.Polygon`)</span>
 <span class="sd">        Tuple containing the differential gene expression dataframe, the polygon defining the region of interest,</span>
 <span class="sd">        and the polygon defining the baseline region.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -368,14 +368,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    de_df : pd.DataFrame</span>
+<span class="sd">    de_df : :class:`pandas.DataFrame`</span>
 <span class="sd">        A pandas DataFrame containing differential expression data.</span>
-<span class="sd">    n : int, optional</span>
+<span class="sd">    n : :py:class:`int`, optional</span>
 <span class="sd">        The number of genes to return for each category, by default 10.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Tuple[List[str], List[str]]</span>
+<span class="sd">    :py:class:`tuple` of (:py:class:`list` of :py:class:`str`, :py:class:`list` of :py:class:`str`)</span>
 <span class="sd">        A tuple containing two lists of gene names, the first for up-regulated genes and the second for down-regulated genes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ddf</span> <span class="o">=</span> <span class="n">de_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>

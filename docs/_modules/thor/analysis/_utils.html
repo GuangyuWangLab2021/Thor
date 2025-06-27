@@ -185,17 +185,17 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    json_path : str</span>
+<span class="sd">    json_path : :py:class:`str`</span>
 <span class="sd">        Path to json file.</span>
-<span class="sd">    adata : :class:`~anndata.AnnData`</span>
+<span class="sd">    adata : :class:`anndata.AnnData`</span>
 <span class="sd">        Annotated data matrix.</span>
-<span class="sd">    img_key : str, optional (default: None)</span>
-<span class="sd">        Key for image in `adata.uns[&#39;spatial&#39;]` where the ROI was drawn. None for full-resolution image. Valid keys are:</span>
+<span class="sd">    img_key : :py:class:`str`, optional</span>
+<span class="sd">        Key for image in `adata.uns[&#39;spatial&#39;]` where the ROI was drawn. :py:obj:`None` for full-resolution image. Valid keys are:</span>
 <span class="sd">        &#39;hires&#39;, &#39;lowres&#39;, &#39;fullres&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    roi_shape : np.ndarray</span>
+<span class="sd">    roi_shape : :class:`numpy.ndarray`</span>
 <span class="sd">        Numpy array of shape (n_vertices, 2) containing the coordinates of the ROI polygon.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

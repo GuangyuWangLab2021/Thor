@@ -123,15 +123,15 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    image_path : str</span>
+<span class="sd">    image_path : :py:class:`str`</span>
 <span class="sd">        Path to the full resolution image to segment.</span>
-<span class="sd">    save_dir : str</span>
+<span class="sd">    save_dir : :py:class:`str`, optional</span>
 <span class="sd">        Path to the directory where to save the segmentation mask.</span>
-<span class="sd">    tile_size : tuple </span>
+<span class="sd">    tile_size : :py:class:`tuple`, optional</span>
 <span class="sd">        Size of the tiles to use for stardist segmentation.</span>
-<span class="sd">    method : str</span>
+<span class="sd">    method : :py:class:`str`</span>
 <span class="sd">        Segmentation method to use. Can be &#39;stardist&#39;, &#39;cellpose&#39; or &#39;histocartography&#39;.</span>
-<span class="sd">    segment_kwds : dict</span>
+<span class="sd">    segment_kwds : :py:class:`dict`</span>
 <span class="sd">        Keyword arguments to pass to the segmentation function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -147,15 +147,15 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    im_array : np.ndarray</span>
+<span class="sd">    im_array : :class:`numpy.ndarray`</span>
 <span class="sd">        Image to segment.</span>
-<span class="sd">    save_dir : str, optional</span>
-<span class="sd">        Path to the directory where to save the segmentation mask. The default is None (saving to current directory).</span>
-<span class="sd">    tile_size : tuple, optional</span>
+<span class="sd">    save_dir : :py:class:`str`, optional</span>
+<span class="sd">        Path to the directory where to save the segmentation mask. The default is :py:obj:`None` (saving to current directory).</span>
+<span class="sd">    tile_size : :py:class:`tuple`, optional</span>
 <span class="sd">        Size of the tiles to use for stardist segmentation. The default is (1000, 1000).</span>
-<span class="sd">    method : str</span>
+<span class="sd">    method : :py:class:`str`</span>
 <span class="sd">        Segmentation method to use. Can be &#39;stardist&#39;, &#39;cellpose&#39; or &#39;histocartography&#39;.</span>
-<span class="sd">    segment_kwds : dict</span>
+<span class="sd">    segment_kwds : :py:class:`dict`</span>
 <span class="sd">        Keyword arguments to pass to the segmentation function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -194,17 +194,17 @@
 
 <span class="nd">@require_packages</span><span class="p">(</span><span class="s1">&#39;histocartography&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">histocartography_2d_he</span><span class="p">(</span><span class="n">image_array</span><span class="p">,</span> <span class="n">pretrained_model</span><span class="o">=</span><span class="s2">&quot;monusac&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; nuclei segmentation using histocartography pretrained model.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;nuclei segmentation using histocartography pretrained model.</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    image_array : np.ndarray</span>
+<span class="sd">    image_array : :class:`numpy.ndarray`</span>
 <span class="sd">        Image to segment.</span>
-<span class="sd">    pretrained_model : str</span>
+<span class="sd">    pretrained_model : :py:class:`str`</span>
 <span class="sd">        Name of the pretrained model to use. Can be &#39;monusac&#39; or &#39;pannuke&#39;.</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    cell_masks : np.ndarray</span>
+<span class="sd">    cell_masks : :class:`numpy.ndarray`</span>
 <span class="sd">        Segmentation mask of the image.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -217,6 +217,25 @@
 <span class="nd">@require_packages</span><span class="p">(</span><span class="s1">&#39;stardist&#39;</span><span class="p">)</span>
 <span class="c1"># Many thanks to squidpy developpers for providing examples for running nuclei segmentation from H&amp;E staining images.</span>
 <span class="k">def</span> <span class="nf">stardist_2D_versatile_he</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">nms_thresh</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prob_thresh</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">n_tiles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img : :class:`numpy.ndarray`</span>
+<span class="sd">        Image to segment.</span>
+<span class="sd">    nms_thresh : :py:class:`float`, optional</span>
+<span class="sd">        Non-maximum suppression threshold. Default is :py:obj:`None`.</span>
+<span class="sd">    prob_thresh : :py:class:`float`, optional</span>
+<span class="sd">        Probability threshold. Default is 0.3.</span>
+<span class="sd">    n_tiles : :py:class:`tuple`, optional</span>
+<span class="sd">        Number of tiles for segmentation. Default is :py:obj:`None`.</span>
+<span class="sd">    verbose : :py:class:`bool`, optional</span>
+<span class="sd">        Verbosity flag. Default is :py:obj:`True`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    labels : :class:`numpy.ndarray`</span>
+<span class="sd">        Segmentation mask labels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Import the StarDist 2D segmentation models.</span>
     <span class="kn">from</span> <span class="nn">stardist.models</span> <span class="kn">import</span> <span class="n">StarDist2D</span>
 
@@ -233,6 +252,27 @@
 
 <span class="nd">@require_packages</span><span class="p">(</span><span class="s1">&#39;cellpose&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">cellpose_he</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">flow_threshold</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">cellprob_threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">channel_cellpose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img : :class:`numpy.ndarray`</span>
+<span class="sd">        Image to segment.</span>
+<span class="sd">    min_size : :py:class:`int`, optional</span>
+<span class="sd">        Minimum size of objects. Default is 15.</span>
+<span class="sd">    flow_threshold : :py:class:`float`, optional</span>
+<span class="sd">        Flow threshold. Default is 0.4.</span>
+<span class="sd">    cellprob_threshold : :py:class:`float`, optional</span>
+<span class="sd">        Cell probability threshold. Default is 0.0.</span>
+<span class="sd">    channel_cellpose : :py:class:`int`, optional</span>
+<span class="sd">        Channel for cellpose. Default is 0.</span>
+<span class="sd">    use_gpu : :py:class:`bool`, optional</span>
+<span class="sd">        Whether to use GPU. Default is :py:obj:`True`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    res : :class:`numpy.ndarray`</span>
+<span class="sd">        Segmentation mask labels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">cellpose</span> <span class="kn">import</span> <span class="n">models</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Cellpose</span><span class="p">(</span><span class="n">model_type</span><span class="o">=</span><span class="s1">&#39;nuclei&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="n">use_gpu</span><span class="p">)</span>
     <span class="n">res</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>

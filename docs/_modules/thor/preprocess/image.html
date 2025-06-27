@@ -133,21 +133,21 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    image_path: str</span>
+<span class="sd">    image_path: :py:class:`str`</span>
 <span class="sd">        Path to the whole slide image.</span>
-<span class="sd">    name: str, optional</span>
+<span class="sd">    name: :py:class:`str`, optional</span>
 <span class="sd">        Name of the image.</span>
-<span class="sd">    color_image: bool</span>
-<span class="sd">        Whether the image is a color image. Default is True.</span>
-<span class="sd">    nuclei_seg_path: str, optional</span>
+<span class="sd">    color_image: :py:class:`bool`</span>
+<span class="sd">        Whether the image is a color image. Default is :py:obj:`True`.</span>
+<span class="sd">    nuclei_seg_path: :py:class:`str`, optional</span>
 <span class="sd">        Path to the nuclei segmentation result file.</span>
-<span class="sd">    nuclei_seg_format: str, optional</span>
+<span class="sd">    nuclei_seg_format: :py:class:`str`, optional</span>
 <span class="sd">        Format of the nuclei segmentation result file. Can be &#39;cellpose&#39;, &#39;mask_array_npz&#39; or &#39;cellprofiler&#39;.</span>
-<span class="sd">    nuclei_remove_outlier: bool, optional</span>
-<span class="sd">        Whether to remove outlier cells. Default is True.</span>
-<span class="sd">    external_cell_features_csv_path: str, optional</span>
+<span class="sd">    nuclei_remove_outlier: :py:class:`bool`, optional</span>
+<span class="sd">        Whether to remove outlier cells. Default is :py:obj:`True`.</span>
+<span class="sd">    external_cell_features_csv_path: :py:class:`str`, optional</span>
 <span class="sd">        Pre-extracted cell features from the image. If provided, the cell features will be loaded from the csv file. Note, the externally provided cell features need to be paired with the nuclei segmentation results. The indices of the nuclei should be the segmentation labels.</span>
-<span class="sd">    save_dir: str</span>
+<span class="sd">    save_dir: :py:class:`str`, optional</span>
 <span class="sd">        Path to save the results.</span>
 
 <span class="sd">    Examples</span>
@@ -216,14 +216,14 @@
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        spot_adata_path : str</span>
+<span class="sd">        spot_adata_path : :py:class:`str`</span>
 <span class="sd">            Path to the spot adata object.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        LB : tuple</span>
+<span class="sd">        LB : :py:class:`tuple`</span>
 <span class="sd">            Lower bound of the image (lower left corner).</span>
-<span class="sd">        UB : tuple</span>
+<span class="sd">        UB : :py:class:`tuple`</span>
 <span class="sd">            Upper bound of the image (upper right corner).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ad_spot</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="n">spot_adata_path</span><span class="p">)</span>
@@ -288,9 +288,9 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        exclusive : bool, default=False</span>
-<span class="sd">            If True, only use external features (must include &#39;x&#39; and &#39;y&#39; coordinates in the first two columns).</span>
-<span class="sd">            If False, join external features with the default cell features.</span>
+<span class="sd">        exclusive : :py:class:`bool`, default: :py:obj:`False`</span>
+<span class="sd">            If :py:obj:`True`, only use external features (must include &#39;x&#39; and &#39;y&#39; coordinates in the first two columns).</span>
+<span class="sd">            If :py:obj:`False`, join external features with the default cell features.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>

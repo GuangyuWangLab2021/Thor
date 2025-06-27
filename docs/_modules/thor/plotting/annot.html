@@ -101,10 +101,7 @@
   <h1>Source code for thor.plotting.annot</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-
 <span class="kn">from</span> <span class="nn">thor.utils</span> <span class="kn">import</span> <span class="n">get_ROI_tuple_from_polygon</span>
-
 
 <div class="viewcode-block" id="annotate_ROI">
 <a class="viewcode-back" href="../../../_autosummary/thor.pl.annotate_ROI.html#thor.pl.annotate_ROI">[docs]</a>
@@ -113,13 +110,13 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    im : 2D array</span>
+<span class="sd">    im : :class:`numpy.ndarray`</span>
 <span class="sd">        The image to be annotated.</span>
-<span class="sd">    ROI_polygon : shapely.geometry.Polygon</span>
+<span class="sd">    ROI_polygon : :class:`shapely.geometry.Polygon`</span>
 <span class="sd">        The ROI polygon.</span>
-<span class="sd">    baseline_polygon : shapely.geometry.Polygon</span>
+<span class="sd">    baseline_polygon : :class:`shapely.geometry.Polygon`</span>
 <span class="sd">        The baseline polygon.</span>
-<span class="sd">    lw : int</span>
+<span class="sd">    lw : :py:class:`float`</span>
 <span class="sd">        The line width of the annotation.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

@@ -123,21 +123,21 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    adata : AnnData</span>
+<span class="sd">    adata : :class:`anndata.AnnData`</span>
 <span class="sd">        Annotated data matrix</span>
-<span class="sd">    layer : str, optional</span>
+<span class="sd">    layer : :py:class:`str`, optional</span>
 <span class="sd">        Layer to use for the calculation</span>
-<span class="sd">    net_df : pd.DataFrame, optional</span>
-<span class="sd">        Dataframe with the network information. It should contain the following columns:</span>
+<span class="sd">    net_df : :class:`pandas.DataFrame`, optional</span>
+<span class="sd">        DataFrame with the network information. It should contain the following columns:</span>
 <span class="sd">        - geneset: name of the geneset</span>
 <span class="sd">        - genesymbol: name of the gene</span>
 <span class="sd">        - weight: weight of the gene in the geneset (optional)</span>
-<span class="sd">    smooth_radius : float, optional</span>
+<span class="sd">    smooth_radius : :py:class:`float`, optional</span>
 <span class="sd">        Radius for the smoothing. Default is 200.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    AnnData</span>
+<span class="sd">    :class:`anndata.AnnData`</span>
 <span class="sd">        Annotated data matrix with the pathway as the var_names and the pathway score as the X</span>
 
 <span class="sd">    Notes</span>
@@ -200,18 +200,18 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    msigdb : pandas.DataFrame</span>
-<span class="sd">        A pandas dataframe containing gene set collections and their corresponding gene symbols.</span>
-<span class="sd">    adata : AnnData object</span>
+<span class="sd">    msigdb : :class:`pandas.DataFrame`</span>
+<span class="sd">        A pandas DataFrame containing gene set collections and their corresponding gene symbols.</span>
+<span class="sd">    adata : :class:`anndata.AnnData`</span>
 <span class="sd">        An annotated data matrix containing gene expression data.</span>
-<span class="sd">    kw_list : list</span>
+<span class="sd">    kw_list : :py:class:`list` of :py:class:`str`</span>
 <span class="sd">        A list of keywords to search for in the gene set collections.</span>
-<span class="sd">    smooth_radius : float, optional</span>
+<span class="sd">    smooth_radius : :py:class:`float`, optional</span>
 <span class="sd">        Radius for the smoothing. Default is 200 in the spatial unit.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    acts_bp_sel : AnnData object</span>
+<span class="sd">    :class:`anndata.AnnData`</span>
 <span class="sd">        An annotated data matrix containing the pathway scores for each cell type.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bp</span> <span class="o">=</span> <span class="n">msigdb</span><span class="p">[</span><span class="n">msigdb</span><span class="p">[</span><span class="s1">&#39;collection&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;go_biological_process&#39;</span><span class="p">]</span>
@@ -230,16 +230,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    msigdb : pandas.DataFrame</span>
-<span class="sd">        A pandas dataframe containing gene set collections.</span>
-<span class="sd">    adata : anndata.AnnData</span>
+<span class="sd">    msigdb : :class:`pandas.DataFrame`</span>
+<span class="sd">        A pandas DataFrame containing gene set collections.</span>
+<span class="sd">    adata : :class:`anndata.AnnData`</span>
 <span class="sd">        An AnnData object containing gene expression data.</span>
-<span class="sd">    coll : str, optional</span>
+<span class="sd">    coll : :py:class:`str`, optional</span>
 <span class="sd">        The name of the gene set collection to use. Default is &#39;hallmark&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    anndata.AnnData</span>
+<span class="sd">    :class:`anndata.AnnData`</span>
 <span class="sd">        An AnnData object containing pathway scores for the specified gene set collection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bp_sel</span> <span class="o">=</span> <span class="n">msigdb</span><span class="p">[</span><span class="n">msigdb</span><span class="p">[</span><span class="s1">&#39;collection&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">coll</span><span class="p">]</span>
@@ -258,21 +258,21 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    adata : AnnData</span>
+<span class="sd">    adata : :class:`anndata.AnnData`</span>
 <span class="sd">        Annotated data matrix</span>
-<span class="sd">    layer : str, optional</span>
+<span class="sd">    layer : :py:class:`str`, optional</span>
 <span class="sd">        Layer to use for the calculation</span>
-<span class="sd">    net_df : pd.DataFrame, optional</span>
-<span class="sd">        Dataframe with the network information. It should contain the following columns:</span>
+<span class="sd">    net_df : :class:`pandas.DataFrame`, optional</span>
+<span class="sd">        DataFrame with the network information. It should contain the following columns:</span>
 <span class="sd">        - source: name of the TF</span>
 <span class="sd">        - target: name of the regulated gene</span>
 <span class="sd">        - weight: weight of the gene </span>
-<span class="sd">    smooth_radius : float, optional</span>
+<span class="sd">    smooth_radius : :py:class:`float`, optional</span>
 <span class="sd">        Radius for the smoothing. Default is 200.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    AnnData</span>
+<span class="sd">    :class:`anndata.AnnData`</span>
 <span class="sd">        Annotated data matrix with the TF as the var_names and the score as the X</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

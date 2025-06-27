@@ -124,10 +124,10 @@ This class is used to minimally process spatial transcriptomics data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the spatial transcriptomics data.</p></li>
-<li><p><strong>st_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the directory containing the spatial transcriptomics data. This directory should contain the 10x spaceranger output.</p></li>
-<li><p><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the full-size image file used for spatial transcriptomics.</p></li>
-<li><p><strong>save_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the directory where the processed spatial transcriptomics data will be saved.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Name of the spatial transcriptomics data.</p></li>
+<li><p><strong>st_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Path to the directory containing the spatial transcriptomics data. This directory should contain the 10x spaceranger output.</p></li>
+<li><p><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – Path to the full-size image file used for spatial transcriptomics.</p></li>
+<li><p><strong>save_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – Path to the directory where the processed spatial transcriptomics data will be saved.</p></li>
 </ul>
 </dd>
 </dl>
@@ -144,11 +144,23 @@ This class is used to minimally process spatial transcriptomics data.</p>
 <span class="sig-name descname"><span class="pre">process_transcriptome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">perform_QC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cells</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_counts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_counts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">35000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_mt_pct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_rb_pct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thor/preprocess/st.html#Spatial.process_transcriptome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thor.pp.Spatial.process_transcriptome" title="Link to this definition"></a></dt>
 <dd><p>Process the spatial transcriptome data (sequence-based).
 This function will read the 10x spaceranger output and perform basic preprocessing steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>perform_QC</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, optional) – Whether to perform quality control. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
+<li><p><strong>min_cells</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Minimum number of cells. Default is 10.</p></li>
+<li><p><strong>min_counts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Minimum number of counts. Default is 1000.</p></li>
+<li><p><strong>max_counts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Maximum number of counts. Default is 35000.</p></li>
+<li><p><strong>max_mt_pct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Maximum percentage of mitochondrial genes. Default is 20.</p></li>
+<li><p><strong>max_rb_pct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, optional) – Maximum percentage of ribosomal genes. Default is 100.</p></li>
+</ul>
+</dd>
+</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is recommended that this preprocessing step is done by the users using Scanpy or Seurat.
 This function only provides very basic level of preprocessing following Scanpy.
-Please refer to the [Scanpy documentation](<a class="reference external" href="https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html">https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html</a>).</p>
+Please refer to the <a class="reference external" href="https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html">Scanpy documentation</a>.</p>
 </div>
 </dd></dl>
 
