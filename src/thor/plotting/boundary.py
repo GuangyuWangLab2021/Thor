@@ -9,17 +9,17 @@ def plot_segmented_polygons(polygons, fill_values, show_boundaries=False, **kwar
 
     Parameters
     ----------
-    polygons: list of list of tuple
+    polygons: :py:class:`list` of :py:class:`list` of :py:class:`tuple`
         List of polygons, where each polygon is represented as a list of vertices (tuples).
-    fill_values: list of float
+    fill_values: :py:class:`list` of :py:class:`float`
         List of fill values for each polygon.
-    show_boundaries: bool, optional
-        Whether to show cell boundaries. Defaults to False.
+    show_boundaries: :py:class:`bool`, optional
+        Whether to show cell boundaries. Defaults to :py:obj:`False`.
     **kwargs
         Additional keyword arguments for customizing colormap normalization (vmin, vmax).
 
     Returns:
-        None
+        :py:obj:`None`
     """
     fig, ax = plt.subplots(figsize=(8, 8))
 
@@ -51,18 +51,18 @@ def plot_cell_boundaries(polygons, ax=None, show=False, **kwargs):
 
     Parameters
     ----------
-    polygons : list of list of tuple
+    polygons : :py:class:`list` of :py:class:`list` of :py:class:`tuple`
         List of polygons, where each polygon is represented as a list of vertices (tuples).
-    ax : matplotlib.axes.Axes, optional
-        Axes on which to plot the cell boundaries. If None, a new figure and axes will be created. Defaults to None.
-    show : bool, optional
-        Whether to show the plot. Defaults to False. `ax` will be returned if `show` is False.
+    ax : :class:`matplotlib.axes.Axes`, optional
+        Axes on which to plot the cell boundaries. If :py:obj:`None`, a new figure and axes will be created. Defaults to :py:obj:`None`.
+    show : :py:class:`bool`, optional
+        Whether to show the plot. Defaults to :py:obj:`False`. `ax` will be returned if `show` is :py:obj:`False`.
     **kwargs
         Additional keyword arguments for customizing the plot taken by `matplotlib.pyplot.plot`.
     
     Returns
     -------
-    `ax` if show is False, else None
+    `ax` if show is :py:obj:`False`, else :py:obj:`None`
     """
 
     if 'linewidth' not in kwargs:

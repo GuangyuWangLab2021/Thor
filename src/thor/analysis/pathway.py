@@ -20,21 +20,21 @@ def get_pathway_score(
 
     Parameters
     ----------
-    adata : AnnData
+    adata : :class:`anndata.AnnData`
         Annotated data matrix
-    layer : str, optional
+    layer : :py:class:`str`, optional
         Layer to use for the calculation
-    net_df : pd.DataFrame, optional
-        Dataframe with the network information. It should contain the following columns:
+    net_df : :class:`pandas.DataFrame`, optional
+        DataFrame with the network information. It should contain the following columns:
         - geneset: name of the geneset
         - genesymbol: name of the gene
         - weight: weight of the gene in the geneset (optional)
-    smooth_radius : float, optional
+    smooth_radius : :py:class:`float`, optional
         Radius for the smoothing. Default is 200.
 
     Returns
     -------
-    AnnData
+    :class:`anndata.AnnData`
         Annotated data matrix with the pathway as the var_names and the pathway score as the X
 
     Notes
@@ -96,18 +96,18 @@ def get_celltype_specific_pathways(msigdb: pd.DataFrame, adata: anndata.AnnData,
 
     Parameters
     ----------
-    msigdb : pandas.DataFrame
-        A pandas dataframe containing gene set collections and their corresponding gene symbols.
-    adata : AnnData object
+    msigdb : :class:`pandas.DataFrame`
+        A pandas DataFrame containing gene set collections and their corresponding gene symbols.
+    adata : :class:`anndata.AnnData`
         An annotated data matrix containing gene expression data.
-    kw_list : list
+    kw_list : :py:class:`list` of :py:class:`str`
         A list of keywords to search for in the gene set collections.
-    smooth_radius : float, optional
+    smooth_radius : :py:class:`float`, optional
         Radius for the smoothing. Default is 200 in the spatial unit.
 
     Returns
     -------
-    acts_bp_sel : AnnData object
+    :class:`anndata.AnnData`
         An annotated data matrix containing the pathway scores for each cell type.
     """
     bp = msigdb[msigdb['collection'] == 'go_biological_process']
@@ -126,16 +126,16 @@ def get_collection_pathways(msigdb: pd.DataFrame, adata: anndata.AnnData, coll: 
 
     Parameters
     ----------
-    msigdb : pandas.DataFrame
-        A pandas dataframe containing gene set collections.
-    adata : anndata.AnnData
+    msigdb : :class:`pandas.DataFrame`
+        A pandas DataFrame containing gene set collections.
+    adata : :class:`anndata.AnnData`
         An AnnData object containing gene expression data.
-    coll : str, optional
+    coll : :py:class:`str`, optional
         The name of the gene set collection to use. Default is 'hallmark'.
 
     Returns
     -------
-    anndata.AnnData
+    :class:`anndata.AnnData`
         An AnnData object containing pathway scores for the specified gene set collection.
     """
     bp_sel = msigdb[msigdb['collection'] == coll]
@@ -152,21 +152,21 @@ def get_tf_activity(adata: anndata.AnnData, layer: Optional[str] = None, net_df:
 
     Parameters
     ----------
-    adata : AnnData
+    adata : :class:`anndata.AnnData`
         Annotated data matrix
-    layer : str, optional
+    layer : :py:class:`str`, optional
         Layer to use for the calculation
-    net_df : pd.DataFrame, optional
-        Dataframe with the network information. It should contain the following columns:
+    net_df : :class:`pandas.DataFrame`, optional
+        DataFrame with the network information. It should contain the following columns:
         - source: name of the TF
         - target: name of the regulated gene
         - weight: weight of the gene 
-    smooth_radius : float, optional
+    smooth_radius : :py:class:`float`, optional
         Radius for the smoothing. Default is 200.
 
     Returns
     -------
-    AnnData
+    :class:`anndata.AnnData`
         Annotated data matrix with the TF as the var_names and the score as the X
 
     """

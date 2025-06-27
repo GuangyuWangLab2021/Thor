@@ -46,45 +46,46 @@ def deconvolution_plot(
     show=True,
 ):
     """\
-    Clustering plot for sptial transcriptomics data.
+    Clustering plot for spatial transcriptomics data.
 
     Parameters
     ----------
-    adata
+    adata : :class:`anndata.AnnData`
         Annotated data matrix.
-    library_id
+    library_id : :py:class:`str`
         Library id stored in AnnData.
-    use_label
+    use_label : :py:class:`str`
         Use label result of cluster method.
-    list_cluster
+    list_cluster : :py:class:`list`
         Choose set of clusters that will display in the plot.
-    data_alpha
+    data_alpha : :py:class:`float`
         Opacity of the spot.
-    tissue_alpha
+    tissue_alpha : :py:class:`float`
         Opacity of the tissue.
-    spot_size
+    spot_size : :py:class:`float`
         Size of the spot.
-    show_axis
+    show_axis : :py:class:`bool`
         Show axis or not.
-    show_legend
+    show_legend : :py:class:`bool`
         Show legend or not.
-    show_donut
+    show_donut : :py:class:`bool`
         Whether to show the donut plot or not.
-    show_trajectory
+    show_trajectory : :py:class:`bool`
         Show the spatial trajectory or not. It requires stlearn.spatial.trajectory.pseudotimespace.
-    show_subcluster
+    show_subcluster : :py:class:`bool`
         Show subcluster or not. It requires stlearn.spatial.trajectory.global_level.
-    name
+    name : :py:class:`str`
         Name of the output figure file.
-    dpi
+    dpi : :py:class:`int`
         DPI of the output figure.
-    output
+    output : :py:class:`str`
         Save the figure as file or not.
-    copy
+    copy : :py:class:`bool`
         Return a copy instead of writing to adata.
     Returns
     -------
-    Nothing
+    :py:obj:`None`
+        Nothing
     """
 
     # plt.rcParams['figure.dpi'] = dpi
@@ -163,7 +164,22 @@ def plot_colorbar(
     dpi=300,
     output='colorbar.pdf'
 ):
+    """Plot a colorbar for the palette.
 
+    Parameters
+    ----------
+    palette_dict : :py:class:`dict`
+        Dictionary mapping labels to colors.
+    dpi : :py:class:`int`, optional
+        DPI of the output figure. Default is 300.
+    output : :py:class:`str`, optional
+        Output file path. Default is 'colorbar.pdf'.
+
+    Returns
+    -------
+    :py:obj:`None`
+        Nothing
+    """
 
     # Continuous legend using colorbar
     my_order = [

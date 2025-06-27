@@ -30,21 +30,21 @@ class WholeSlideImage:
 
     Parameters
     ----------
-    image_path: str
+    image_path: :py:class:`str`
         Path to the whole slide image.
-    name: str, optional
+    name: :py:class:`str`, optional
         Name of the image.
-    color_image: bool
-        Whether the image is a color image. Default is True.
-    nuclei_seg_path: str, optional
+    color_image: :py:class:`bool`
+        Whether the image is a color image. Default is :py:obj:`True`.
+    nuclei_seg_path: :py:class:`str`, optional
         Path to the nuclei segmentation result file.
-    nuclei_seg_format: str, optional
+    nuclei_seg_format: :py:class:`str`, optional
         Format of the nuclei segmentation result file. Can be 'cellpose', 'mask_array_npz' or 'cellprofiler'.
-    nuclei_remove_outlier: bool, optional
-        Whether to remove outlier cells. Default is True.
-    external_cell_features_csv_path: str, optional
+    nuclei_remove_outlier: :py:class:`bool`, optional
+        Whether to remove outlier cells. Default is :py:obj:`True`.
+    external_cell_features_csv_path: :py:class:`str`, optional
         Pre-extracted cell features from the image. If provided, the cell features will be loaded from the csv file. Note, the externally provided cell features need to be paired with the nuclei segmentation results. The indices of the nuclei should be the segmentation labels.
-    save_dir: str
+    save_dir: :py:class:`str`, optional
         Path to save the results.
 
     Examples
@@ -108,14 +108,14 @@ class WholeSlideImage:
         
         Parameters
         ----------
-        spot_adata_path : str
+        spot_adata_path : :py:class:`str`
             Path to the spot adata object.
 
         Returns
         -------
-        LB : tuple
+        LB : :py:class:`tuple`
             Lower bound of the image (lower left corner).
-        UB : tuple
+        UB : :py:class:`tuple`
             Upper bound of the image (upper right corner).
         """
         ad_spot = sc.read_h5ad(spot_adata_path)
@@ -174,9 +174,9 @@ class WholeSlideImage:
 
         Parameters
         ----------
-        exclusive : bool, default=False
-            If True, only use external features (must include 'x' and 'y' coordinates in the first two columns).
-            If False, join external features with the default cell features.
+        exclusive : :py:class:`bool`, default: :py:obj:`False`
+            If :py:obj:`True`, only use external features (must include 'x' and 'y' coordinates in the first two columns).
+            If :py:obj:`False`, join external features with the default cell features.
 
         Raises
         ------

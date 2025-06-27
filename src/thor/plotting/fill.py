@@ -36,47 +36,47 @@ def single(
 
     Parameters
     ----------
-    var_name : str
+    var_name : :py:class:`str`
         Name of the variable to color the cells or nuclei. For example, a gene name, cell type, etc.
-    img_mask : numpy array
+    img_mask : :class:`numpy.ndarray`
         Image mask filled with the variable values. Should have the same size as `full_res_im`.
-    ax : matplotlib.axes._subplots.AxesSubplot, optional
-        The Axes object to plot the gene mask. If None, a new figure and Axes will be created.
-    vor : scipy.spatial.Voronoi object, optional
+    ax : :class:`matplotlib.axes.Axes`, optional
+        The Axes object to plot the gene mask. If :py:obj:`None`, a new figure and Axes will be created.
+    vor : :class:`scipy.spatial.Voronoi`, optional
         The Voronoi diagram object.
-    full_res_im : numpy array, optional
+    full_res_im : :class:`numpy.ndarray`, optional
         The full-size image where the gene expression mask should be plotted.
-    ROI_tuple : tuple, optional
+    ROI_tuple : :py:class:`tuple`, optional
         A tuple (left, bottom, width, height) representing the region of interest (ROI)
-        where the gene expression mask should be displayed. If None, the entire `img_mask` will be plotted.
-    img_alpha : float, optional
+        where the gene expression mask should be displayed. If :py:obj:`None`, the entire `img_mask` will be plotted.
+    img_alpha : :py:class:`float`, optional
         Alpha value (transparency) of the `full_res_im` if provided. Default is 1 (fully opaque).
-    figsize : tuple, optional
+    figsize : :py:class:`tuple`, optional
         Figure size in inches (width, height). Default is (5, 5).
-    dpi : int, optional
+    dpi : :py:class:`int`, optional
         Dots per inch for the figure. Default is 500.
-    show_cbar : bool, optional
-        Whether to show the colorbar. Default is True.
-    cbar_loc : list, optional
+    show_cbar : :py:class:`bool`, optional
+        Whether to show the colorbar. Default is :py:obj:`True`.
+    cbar_loc : :py:class:`list`, optional
         The location of the colorbar as [left, bottom, width, height]. Default is [1.04, 0.02, 0.05, 0.15].
-    return_fig : bool, optional
-        If True, return the Figure object. Default is False.
-    show : bool, optional
-        If True, display the plot. If False, return the Axes object without displaying the plot. Default is False.
-    **imshow_kwds : dict, optional
+    return_fig : :py:class:`bool`, optional
+        If :py:obj:`True`, return the Figure object. Default is :py:obj:`False`.
+    show : :py:class:`bool`, optional
+        If :py:obj:`True`, display the plot. If :py:obj:`False`, return the Axes object without displaying the plot. Default is :py:obj:`False`.
+    **imshow_kwds : :py:class:`dict`, optional
         Additional keyword arguments for customizing the imshow function, such as 'cmap', 'vmin', 'vmax', etc.
 
     Returns
     -------
-    matplotlib.axes._subplots.AxesSubplot or matplotlib.figure.Figure, optional
-        If `return_fig` is False and `show` is False, the function returns the Axes object.
-        If `return_fig` is True, the function returns the Figure object.
-        If `show` is True, the function displays the plot and returns None.
+    :class:`matplotlib.axes.Axes` or :class:`matplotlib.figure.Figure`, optional
+        If `return_fig` is :py:obj:`False` and `show` is :py:obj:`False`, the function returns the Axes object.
+        If `return_fig` is :py:obj:`True`, the function returns the Figure object.
+        If `show` is :py:obj:`True`, the function displays the plot and returns :py:obj:`None`.
 
     Notes
     -----
     This function plots the gene expression mask within a specified region of interest (ROI) or the entire `img_mask`
-    if `ROI_tuple` is None. The function can overlay the gene expression mask on a full-size image (`full_res_im`) and/or
+    if `ROI_tuple` is :py:obj:`None`. The function can overlay the gene expression mask on a full-size image (`full_res_im`) and/or
     a Voronoi diagram (`vor`) if provided.
 
     The function allows customization of the colormap using the `use_global_vmax` and `use_global_vmin` parameters,
@@ -173,50 +173,50 @@ def multiple(
     
     Parameters
     ----------
-    vars_list : list
+    vars_list : :py:class:`list`
         List of variable names to color the cells or nuclei.
-    img_masks_list : list of numpy arrays
+    img_masks_list : :py:class:`list` of :class:`numpy.ndarray`
         List of image masks filled with the variable values. Each mask should have the same size as `full_res_im`.
-    ax : matplotlib.axes._subplots.AxesSubplot, optional
-        The Axes object to plot the gene masks. If None, a new figure and Axes will be created.
-    vor : scipy.spatial.Voronoi object, optional
+    ax : :class:`matplotlib.axes.Axes`, optional
+        The Axes object to plot the gene masks. If :py:obj:`None`, a new figure and Axes will be created.
+    vor : :class:`scipy.spatial.Voronoi`, optional
         The Voronoi diagram object.
-    palette : str or list or tuple or numpy array, optional
+    palette : :py:class:`str` or :py:class:`list` or :py:class:`tuple` or :class:`numpy.ndarray`, optional
         The color palette to use for coloring variables. Can be a valid matplotlib colormap name, or a list/tuple/array of colors.
-    full_res_im : numpy array, optional
+    full_res_im : :class:`numpy.ndarray`, optional
         The full-size image where the gene expression masks should be plotted.
-    ROI_tuple : tuple, optional
+    ROI_tuple : :py:class:`tuple`, optional
         A tuple (left, bottom, width, height) representing the region of interest (ROI) where the gene expression masks should be displayed.
-    img_alpha : float, optional
+    img_alpha : :py:class:`float`, optional
         Alpha value (transparency) of the `full_res_im` if provided. Default is 1 (fully opaque).
-    figsize : tuple, optional
+    figsize : :py:class:`tuple`, optional
         Figure size in inches (width, height). Default is (5, 5).
-    dpi : int, optional
+    dpi : :py:class:`int`, optional
         Dots per inch for the figure. Default is 150.
-    show_legend : bool, optional
-        Whether to show the legend indicating variables. Default is True.
-    legend_loc : str, optional
+    show_legend : :py:class:`bool`, optional
+        Whether to show the legend indicating variables. Default is :py:obj:`True`.
+    legend_loc : :py:class:`str`, optional
         Location for the legend. Default is 'upper left'.
-    show_cbar : bool, optional
-        Whether to show the colorbar. Default is False.
-    return_fig : bool, optional
-        If True, return the Figure object. Default is False.
-    show : bool, optional
-        If True, display the plot. If False, return the Axes object without displaying the plot. Default is False.
-    **imshow_kwds : dict, optional
+    show_cbar : :py:class:`bool`, optional
+        Whether to show the colorbar. Default is :py:obj:`False`.
+    return_fig : :py:class:`bool`, optional
+        If :py:obj:`True`, return the Figure object. Default is :py:obj:`False`.
+    show : :py:class:`bool`, optional
+        If :py:obj:`True`, display the plot. If :py:obj:`False`, return the Axes object without displaying the plot. Default is :py:obj:`False`.
+    **imshow_kwds : :py:class:`dict`, optional
         Additional keyword arguments for customizing the imshow function, such as 'cmap', 'vmin', 'vmax', etc.
 
     Returns
     -------
-    matplotlib.axes._subplots.AxesSubplot or matplotlib.figure.Figure, optional
-        If `return_fig` is False and `show` is False, the function returns the Axes object.
-        If `return_fig` is True, the function returns the Figure object.
-        If `show` is True, the function displays the plot and returns None.
+    :class:`matplotlib.axes.Axes` or :class:`matplotlib.figure.Figure`, optional
+        If `return_fig` is :py:obj:`False` and `show` is :py:obj:`False`, the function returns the Axes object.
+        If `return_fig` is :py:obj:`True`, the function returns the Figure object.
+        If `show` is :py:obj:`True`, the function displays the plot and returns :py:obj:`None`.
 
     Notes
     -----
     This function plots multiple gene expression masks within a specified region of interest (ROI) or the entire `img_masks_list`
-    if `ROI_tuple` is None. Each variable's mask is color-coded using the provided palette.
+    if `ROI_tuple` is :py:obj:`None`. Each variable's mask is color-coded using the provided palette.
 
     The function supports showing either a legend indicating the variables (`show_legend=True`) or a single colorbar
     (`show_cbar=True`) for the entire plot. Both options cannot be selected simultaneously.

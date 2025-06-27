@@ -21,28 +21,29 @@ def fringe(
 
     Parameters
     ----------
-    data : Pandas DataFrame
-        Rows are windows/bins. Columns are `distance` and all the genes (Default value = None)
-    genes : List
-        List of genes for plotting (Default value = None)
-    cmap : Str
+    data : :class:`pandas.DataFrame`
+        Rows are windows/bins. Columns are `distance` and all the genes (Default value = :py:obj:`None`)
+    genes : :py:class:`list`
+        List of genes for plotting (Default value = :py:obj:`None`)
+    cmap : :py:class:`str`
         Colormap name in matplotlib for plotting the genes. (Default value = 'viridis')
-    lw : Numeric
+    lw : :py:class:`float`
         line width. (Default value = 5)
-    annotate : Bool
-        Whether to annotate the lines with the gene names. (Default value = False)
-    text_offset_x : Numeric
+    annotate : :py:class:`bool`
+        Whether to annotate the lines with the gene names. (Default value = :py:obj:`False`)
+    text_offset_x : :py:class:`float`
         Offset applied to the x position of the annotation texts. (Default value = 0.08)
-    text_offset_y : Numeric
+    text_offset_y : :py:class:`float`
         Offset applied to the y position of the annotation texts. (Default value = 0)
-    text_size : Numeric
+    text_size : :py:class:`float`
         Size of the annotation texts. (Default value = 8)
-    ax : Matplotlib axis passed on for plotting
-         (Default value = None)
+    ax : :class:`matplotlib.axes.Axes`
+        Matplotlib axis passed on for plotting (Default value = :py:obj:`None`)
 
     Returns
     -------
-    ax : Matplotlib axis
+    :class:`matplotlib.axes.Axes`
+        Matplotlib axis
 
     
     """
@@ -140,23 +141,23 @@ def deg(
 
     Parameters
     ----------
-    data : pandas DataFrame
+    data : :class:`pandas.DataFrame`
         A DataFrame where rows represent windows/bins and columns include 'distance' and gene expression data.
-    genes : tuple or list of two lists
+    genes : :py:class:`tuple` or :py:class:`list` of two :py:class:`list`
         Lists of up-regulated and down-regulated genes to plot.
-    cmaps : tuple or list, optional
+    cmaps : :py:class:`tuple` or :py:class:`list`, optional
         Colormap names in matplotlib for plotting the genes. Default is ['Oranges', 'Blues'].
-    lw : numeric, optional
+    lw : :py:class:`float`, optional
         Line width for the plot. Default is 5.
-    annotate : bool, optional
-        Whether to annotate the lines with the gene names. Default is False.
-    text_offset_x : numeric, optional
+    annotate : :py:class:`bool`, optional
+        Whether to annotate the lines with the gene names. Default is :py:obj:`False`.
+    text_offset_x : :py:class:`float`, optional
         Offset applied to the x position of the annotation texts. Default is 0.08.
-    text_offset_y : numeric, optional
+    text_offset_y : :py:class:`float`, optional
         Offset applied to the y position of the annotation texts. Default is 0.
-    text_size : numeric, optional
+    text_size : :py:class:`float`, optional
         Size of the annotation texts. Default is 8.
-    **subplots_kwds : dict, optional
+    **subplots_kwds : :py:class:`dict`, optional
         Keyword arguments for the matplotlib.pyplot subplots function.
 
     Notes
@@ -165,7 +166,7 @@ def deg(
 
     Returns
     -------
-    None
+    :py:obj:`None`
         This function does not return any value. It generates the plot directly.
 
     Examples

@@ -67,28 +67,28 @@ def analyze_gene_expression_gradient(
 
     Parameters
     ----------
-    adata : anndata.Anndata
+    adata : :class:`anndata.AnnData`
         The input data matrix.
-    img_key : str, optional
+    img_key : :py:class:`str`, optional
         The key for the image where the json ROI is drawn. Default is "fullres". Valid options are "lowres" (unlikely), "hires" (unlikely), and "fullres".
-    layer_key : str, optional
+    layer_key : :py:class:`str`, optional
         The key for the layer data in `adata.layers`.
-    range_from_edge : Tuple[int, int], optional
+    range_from_edge : :py:class:`tuple` of :py:class:`int`, optional
         The range of the ROI from the edge of the image.
-    baseline_from_edge : Tuple[int, int], optional
+    baseline_from_edge : :py:class:`tuple` of :py:class:`int`, optional
         The range of the baseline from the edge of the image.
-    bin_size : int, optional
+    bin_size : :py:class:`int`, optional
         The size of the bins for computing the differential gene expression.
-    n_top_genes : int, optional
+    n_top_genes : :py:class:`int`, optional
         The number of top genes to plot.
-    min_mean_gene_expression : float, optional
+    min_mean_gene_expression : :py:class:`float`, optional
         The minimum mean gene expression to filter genes.
-    tmpout_path : str, optional
+    tmpout_path : :py:class:`str`, optional
         The path to the temporary output file.
 
     Returns
     -------
-    Tuple[pd.DataFrame, np.ndarray, np.ndarray]
+    :py:class:`tuple` of (:class:`pandas.DataFrame`, :class:`numpy.ndarray`, :class:`numpy.ndarray`)
         A tuple containing the differential gene expression dataframe, the ROI polygon, and the baseline polygon.
    
     """
@@ -145,23 +145,23 @@ def compute_dge_between_regions(
 
     Parameters
     ----------
-    ad_r1 : AnnData
+    ad_r1 : :class:`anndata.AnnData`
         Annotated data matrix for region 1.
-    ad_r2 : AnnData
+    ad_r2 : :class:`anndata.AnnData`
         Annotated data matrix for region 2.
-    test_method : str, optional
+    test_method : :py:class:`str`, optional
         Statistical test method to use for DGE analysis. Valid options are 'logreg', 't-test', 'wilcoxon', 't-test_overestim_var'. Default is 't-test'.
-    pval_cutoff : float, optional
+    pval_cutoff : :py:class:`float`, optional
         P-value cutoff for significance, by default 0.01.
-    log2fc_min : float, optional
+    log2fc_min : :py:class:`float`, optional
         Minimum log2 fold change for significance, by default 1.
-    log2fc_max : float, optional
-        Maximum log2 fold change for significance, by default None.
+    log2fc_max : :py:class:`float`, optional
+        Maximum log2 fold change for significance, by default :py:obj:`None`.
 
     Returns
     -------
-    np.ndarray
-        A numpy array containing the DGE results.
+    :class:`pandas.DataFrame`
+        A pandas DataFrame containing the DGE results.
 
     """
     adatas = {'r1': ad_r1, 'r2': ad_r2}
@@ -188,23 +188,23 @@ def compute_dge_against_baseline(
 
     Parameters
     ----------
-    adata : AnnData
+    adata : :class:`anndata.AnnData`
         Annotated data matrix.
-    roi_shape : List[Tuple[float, float]]
+    roi_shape : :py:class:`list` of :py:class:`tuple` of (:py:class:`float`, :py:class:`float`)
         List of (x, y) coordinates defining the shape of the region of interest in pixels (full resolution).
-    layer_key : str, optional
-        Key for the layer of the adata object to use for expression data. If None, use X.
-    range_from_edge : List[float], optional
+    layer_key : :py:class:`str`, optional
+        Key for the layer of the adata object to use for expression data. If :py:obj:`None`, use X.
+    range_from_edge : :py:class:`list` of :py:class:`float`, optional
         Distance range from the edge of the region of interest in micrometers (microns). Default is [-150, 150].
-    baseline_from_edge : List[float], optional
+    baseline_from_edge : :py:class:`list` of :py:class:`float`, optional
         Distance range from the edge of the region of interest to define the baseline region in micrometers (microns).
         Default is [-150, -100].
-    bin_size : float, optional
+    bin_size : :py:class:`float`, optional
         Bin size in micrometers (microns) to use for computing differential expression. Default is 30.
 
     Returns
     -------
-    Tuple[pd.DataFrame, Polygon, Polygon]
+    :py:class:`tuple` of (:class:`pandas.DataFrame`, :class:`shapely.geometry.Polygon`, :class:`shapely.geometry.Polygon`)
         Tuple containing the differential gene expression dataframe, the polygon defining the region of interest,
         and the polygon defining the baseline region.
     """
@@ -261,14 +261,14 @@ def get_top_genes(de_df: pd.DataFrame, n: int = 10) -> Tuple[List[str], List[str
 
     Parameters
     ----------
-    de_df : pd.DataFrame
+    de_df : :class:`pandas.DataFrame`
         A pandas DataFrame containing differential expression data.
-    n : int, optional
+    n : :py:class:`int`, optional
         The number of genes to return for each category, by default 10.
 
     Returns
     -------
-    Tuple[List[str], List[str]]
+    :py:class:`tuple` of (:py:class:`list` of :py:class:`str`, :py:class:`list` of :py:class:`str`)
         A tuple containing two lists of gene names, the first for up-regulated genes and the second for down-regulated genes.
     """
     ddf = de_df.iloc[-1, 1:]

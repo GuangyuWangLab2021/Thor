@@ -95,7 +95,7 @@ class fineST:
     genes_path : :py:class:`str`, optional
         Path to the file that contains a headless one column of the genes to be included.
             The gene names or gene IDs should be consistent with the ``self.adata.var_names``.
-            If ``None``, the genes will be highly variable genes or set further by ``self.set_genes_for_prediction``.
+            If :py:obj:`None`, the genes will be highly variable genes or set further by ``self.set_genes_for_prediction``.
     save_dir : :py:class:`str` or :py:obj:`None`, optional
         Path to the directory of saving fineST prediction results.
     recipe : :py:class:`str`, optional
@@ -644,7 +644,7 @@ class fineST:
 
     def write_adata(self, file_name, ad):
         """Write an AnnData object to disk in the results directory.
-
+        
         Parameters
         ----------
         file_name : :py:class:`str`

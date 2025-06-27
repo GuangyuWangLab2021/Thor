@@ -82,17 +82,17 @@ def read_polygon_ROI(json_path, adata, img_key=None):
 
     Parameters
     ----------
-    json_path : str
+    json_path : :py:class:`str`
         Path to json file.
-    adata : :class:`~anndata.AnnData`
+    adata : :class:`anndata.AnnData`
         Annotated data matrix.
-    img_key : str, optional (default: None)
-        Key for image in `adata.uns['spatial']` where the ROI was drawn. None for full-resolution image. Valid keys are:
+    img_key : :py:class:`str`, optional
+        Key for image in `adata.uns['spatial']` where the ROI was drawn. :py:obj:`None` for full-resolution image. Valid keys are:
         'hires', 'lowres', 'fullres'
 
     Returns
     -------
-    roi_shape : np.ndarray
+    roi_shape : :class:`numpy.ndarray`
         Numpy array of shape (n_vertices, 2) containing the coordinates of the ROI polygon.
     """
 

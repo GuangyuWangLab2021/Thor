@@ -47,12 +47,11 @@ def create_colorbar(ax, colormap, norm):
 def quantile_to_number(input_str, arr):
     """ Convert quantile to number
     Args:
-        input_str (str): input string, which has to be 'p' followed by a number
-        arr (np.ndarray): 1D expression array of a gene
+        input_str (:py:class:`str`): input string, which has to be 'p' followed by a number
+        arr (:class:`numpy.ndarray`): 1D expression array of a gene
     Returns:
-        float: quantile value
+        :py:class:`float`: quantile value
 
-    By Pengzhi Zhang
     """
 
     assert isinstance(input_str, str), "input_str has to be 'p' followed by a number between 0 and 100"
@@ -69,36 +68,36 @@ def plot_spot(im, centers, diameter, colors, ROI_tuple=None, cmap='viridis', alp
 
     Parameters
     ----------
-    im : np.ndarray
+    im : :class:`numpy.ndarray`
         Full resolution image.
-    centers : np.ndarray
+    centers : :class:`numpy.ndarray`
         Spot coordinates in pixels in the original image.
-    diameter : float
+    diameter : :py:class:`float`
         Diameter of the spots in pixels in the original image.
-    colors : np.ndarray
+    colors : :class:`numpy.ndarray`
         Values used to color the spots. It is set to be the gene expression values.
-    ROI_tuple : tuple, optional, default: None
-        A tuple of (left, bottom, width, height) of the region of interest (ROI) to plot. If None, the whole image will be plotted.
-    cmap : str, optional, default: 'viridis'
+    ROI_tuple : :py:class:`tuple`, optional, default: :py:obj:`None`
+        A tuple of (left, bottom, width, height) of the region of interest (ROI) to plot. If :py:obj:`None`, the whole image will be plotted.
+    cmap : :py:class:`str`, optional, default: 'viridis'
         Colormap to use for the spots.
-    alpha : float, optional, default: 1
+    alpha : :py:class:`float`, optional, default: 1
         Transparency of the spots.
-    local : bool, optional, default: False
-        Whether to use the local color scale for the spots. If True, the color scale will be based on the spots within the ROI.
-    vmin : float or str, optional, default: None
-        Minimum value of the color scale. If None, the minimum value of the colors will be used. If it is a string, it has to be 'p' followed by a number between 0 and 100, which will be converted to the quantile of the colors.
-    vmax : float or str, optional, default: None
-        Maximum value of the color scale. If None, the maximum value of the colors will be used. If it is a string, it has to be 'p' followed by a number between 0 and 100, which will be converted to the quantile of the colors.
-    img_alpha : float, optional, default: 1
+    local : :py:class:`bool`, optional, default: :py:obj:`False`
+        Whether to use the local color scale for the spots. If :py:obj:`True`, the color scale will be based on the spots within the ROI.
+    vmin : :py:class:`float` or :py:class:`str`, optional, default: :py:obj:`None`
+        Minimum value of the color scale. If :py:obj:`None`, the minimum value of the colors will be used. If it is a string, it has to be 'p' followed by a number between 0 and 100, which will be converted to the quantile of the colors.
+    vmax : :py:class:`float` or :py:class:`str`, optional, default: :py:obj:`None`
+        Maximum value of the color scale. If :py:obj:`None`, the maximum value of the colors will be used. If it is a string, it has to be 'p' followed by a number between 0 and 100, which will be converted to the quantile of the colors.
+    img_alpha : :py:class:`float`, optional, default: 1
         Transparency of the full resolution image.
-    show_colorbar : bool, optional, default: True
+    show_colorbar : :py:class:`bool`, optional, default: :py:obj:`True`
         Whether to show the colorbar.
-    save_path : str, optional, default: None
-        If not None, the plot will be saved to the path. Otherwise return the matplotlib figure object.
+    save_path : :py:class:`str`, optional, default: :py:obj:`None`
+        If not :py:obj:`None`, the plot will be saved to the path. Otherwise return the matplotlib figure object.
 
     Returns
     -------
-    matplotlib.figure.Figure
+    :class:`matplotlib.figure.Figure`
         The matplotlib figure object.
 
     Examples

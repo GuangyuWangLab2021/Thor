@@ -55,16 +55,16 @@ def convert_pixel_to_micron_visium(adata, res='fullres', spotDiameterinMicron=65
     """Convert pixel to micron for Visium data.
     Parameters
     ----------
-    adata: AnnData
+    adata: :class:`anndata.AnnData`
         Annotated data matrix.
-    res: str    
+    res: :py:class:`str`    
         Resolution of the image. Valid options are 'fullres', 'hires', or 'lowres'.
-    spotDiameterinMicron: int or float (read only)
+    spotDiameterinMicron: :py:class:`int` or :py:class:`float` (read only)
         Spot diameter in micron. default: 65 for Visium data.
     
     Returns
     -------
-    microPerPixel: float
+    :py:class:`float`
         Micron per pixel in given resolution of the image.
     """
 
@@ -84,14 +84,14 @@ def get_gene_symbols(adata, gene_names_list=None, gene_symbols=None):
     """Get gene symbols from adata. Suppose `gene_names_list` are the same as `adata.var_names`.
     Parameters
     ----------
-    adata: AnnData
+    adata: :class:`anndata.AnnData`
         Annotated data matrix.
-    gene_names: list
+    gene_names: :py:class:`list`
         List of gene names.
     
     Returns
     -------
-    genes: list
+    :py:class:`list`
         List of gene symbols.
     """
 
@@ -110,12 +110,12 @@ def split_obs_coords(obs_coords, n_rows, n_cols):
     The returned booleans can be used to split the adata object to subsets. 
     Parameters:
     -----------
-    obs_coords: numpy array
+    obs_coords: :class:`numpy.ndarray`
         Nuclei/cells centroids.
 
     Returns:
     --------
-    subsets: Dictionary
+    :py:class:`dict`
         keys are names of the subsets, values are boolean arrays of the obs_coords.
 
     """

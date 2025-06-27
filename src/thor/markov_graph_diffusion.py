@@ -56,48 +56,48 @@ def markov_graph_diffusion_initialize(
 
     Parameters
     ----------
-    adata_input : AnnData
+    adata_input : :class:`anndata.AnnData`
         Annotated data matrix. 
-    n_neighbors : int, optional
+    n_neighbors : :py:class:`int`, optional
         The number of neighbors for the Nearest Neighbors graph construction. Defaults to 5.
-    conn_key : str, optional
+    conn_key : :py:class:`str`, optional
         The prefix of the key for storing the cell-cell adjacency matrix and transition matrix in adata.obsp. Defaults to "snn".
-    geom_morph_ratio : float, optional
+    geom_morph_ratio : :py:class:`float`, optional
         The ratio of geometric distance and morphological distance for the Nearest Neighbors graph construction. Defaults to 1. Meaningful range
-        is between 0 (neglect geometic constraint) to infinity (depends only on physical locations).
-    geom_constraint : float, optional
-        The geometric constraint for the Nearest Neighbors graph construction. Defaults to 0. Meaningful range is between 0 (neglect geometic constraint) to
+        is between 0 (neglect geometric constraint) to infinity (depends only on physical locations).
+    geom_constraint : :py:class:`float`, optional
+        The geometric constraint for the Nearest Neighbors graph construction. Defaults to 0. Meaningful range is between 0 (neglect geometric constraint) to
         infinity (depends only on physical locations).
-    obs_keys : list, optional
-        The list of keys in adata.obs for morphological features to be used for the Nearest Neighbors graph construction. Defaults to `None`,
+    obs_keys : :py:class:`list`, optional
+        The list of keys in adata.obs for morphological features to be used for the Nearest Neighbors graph construction. Defaults to :py:obj:`None`,
         and adata.uns["cell_image_props"] will be used.
-    reduced_dimension_transcriptome_obsm_key : str, optional
+    reduced_dimension_transcriptome_obsm_key : :py:class:`str`, optional
         The key in adata.obsm for low-dimension embedding of the transcriptomic data to be used for the Nearest Neighbors graph construction.
         Defaults to "X_pca".
-    reduced_dimension_transcriptome_obsm_dims : int, optional
+    reduced_dimension_transcriptome_obsm_dims : :py:class:`int`, optional
         The number of dimensions for the low-dimension embedding of the transcriptomic data to be used for the Nearest Neighbors graph construction.
         Defaults to 2.
-    adjust_cell_network_by_transcriptome_scale : float, optional
+    adjust_cell_network_by_transcriptome_scale : :py:class:`float`, optional
         The scale of the transcriptome-based cell-cell adjacency matrix to be used for the Nearest Neighbors graph construction. Defaults to
         0 (not used).
-    snn_threshold : float, optional
+    snn_threshold : :py:class:`float`, optional
         The threshold for the cell-cell adjacency matrix to be used for the Nearest Neighbors graph construction. Defaults to 0.1.
-    conn_csr_matrix : scipy.sparse.csr_matrix or str, optional
+    conn_csr_matrix : :class:`scipy.sparse.csr_matrix` or :py:class:`str`, optional
         The cell-cell adjacency matrix in compressed sparse row format. If set to "force", the function will force to recalculate the
-        connectivities. Defaults to `None`.
-    smoothing_scale : float, optional
+        connectivities. Defaults to :py:obj:`None`.
+    smoothing_scale : :py:class:`float`, optional
         The extent of smoothing for the transition matrix. Defaults to 0.8.
-    inflation_percentage : float, optional
-        The percentage of inflation for the reverse transition matrix. Defaults to `None` (no inflation).
-    node_features_obs_list : list, optional
+    inflation_percentage : :py:class:`float`, optional
+        The percentage of inflation for the reverse transition matrix. Defaults to :py:obj:`None` (no inflation).
+    node_features_obs_list : :py:class:`list`, optional
         The list of keys in adata.obs for node features to be used for the transition matrix. Defaults to ["spot_heterogeneity"].
-    preferential_flow : bool, optional
-        Whether to use preferential flow for the transition matrix. Defaults to `True`.
-    weigh_cells : bool, optional
-        Whether to weigh cells for the transition matrix (diagonal). Defaults to `True`.
-    balance_cell_quality : bool, optional
-        Whether to balance cell quality for the transition matrix. Defaults to `False`.
-    bcq_IQR : tuple, optional
+    preferential_flow : :py:class:`bool`, optional
+        Whether to use preferential flow for the transition matrix. Defaults to :py:obj:`True`.
+    weigh_cells : :py:class:`bool`, optional
+        Whether to weigh cells for the transition matrix (diagonal). Defaults to :py:obj:`True`.
+    balance_cell_quality : :py:class:`bool`, optional
+        Whether to balance cell quality for the transition matrix. Defaults to :py:obj:`False`.
+    bcq_IQR : :py:class:`tuple`, optional
         The interquartile range for the cell quality balancing. Defaults to (0.15, 0.85).
     """
 

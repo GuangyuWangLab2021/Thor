@@ -20,15 +20,15 @@ def nuclei_segmentation(image_path, save_dir=None, tile_size=(1000, 1000), metho
 
     Parameters
     ----------
-    image_path : str
+    image_path : :py:class:`str`
         Path to the full resolution image to segment.
-    save_dir : str
+    save_dir : :py:class:`str`, optional
         Path to the directory where to save the segmentation mask.
-    tile_size : tuple 
+    tile_size : :py:class:`tuple`, optional
         Size of the tiles to use for stardist segmentation.
-    method : str
+    method : :py:class:`str`
         Segmentation method to use. Can be 'stardist', 'cellpose' or 'histocartography'.
-    segment_kwds : dict
+    segment_kwds : :py:class:`dict`
         Keyword arguments to pass to the segmentation function.
     """
 
@@ -43,15 +43,15 @@ def nuclei_segmentation_from_image_array(im_array, save_dir=None, tile_size=(100
 
     Parameters
     ----------
-    im_array : np.ndarray
+    im_array : :class:`numpy.ndarray`
         Image to segment.
-    save_dir : str, optional
-        Path to the directory where to save the segmentation mask. The default is None (saving to current directory).
-    tile_size : tuple, optional
+    save_dir : :py:class:`str`, optional
+        Path to the directory where to save the segmentation mask. The default is :py:obj:`None` (saving to current directory).
+    tile_size : :py:class:`tuple`, optional
         Size of the tiles to use for stardist segmentation. The default is (1000, 1000).
-    method : str
+    method : :py:class:`str`
         Segmentation method to use. Can be 'stardist', 'cellpose' or 'histocartography'.
-    segment_kwds : dict
+    segment_kwds : :py:class:`dict`
         Keyword arguments to pass to the segmentation function.
     """
 
@@ -90,17 +90,17 @@ def nuclei_segmentation_from_image_array(im_array, save_dir=None, tile_size=(100
 
 @require_packages('histocartography')
 def histocartography_2d_he(image_array, pretrained_model="monusac"):
-    """ nuclei segmentation using histocartography pretrained model.
+    """nuclei segmentation using histocartography pretrained model.
     Parameters
     ----------
-    image_array : np.ndarray
+    image_array : :class:`numpy.ndarray`
         Image to segment.
-    pretrained_model : str
+    pretrained_model : :py:class:`str`
         Name of the pretrained model to use. Can be 'monusac' or 'pannuke'.
     
     Returns
     -------
-    cell_masks : np.ndarray
+    cell_masks : :class:`numpy.ndarray`
         Segmentation mask of the image.
     """
 
@@ -113,6 +113,25 @@ def histocartography_2d_he(image_array, pretrained_model="monusac"):
 @require_packages('stardist')
 # Many thanks to squidpy developpers for providing examples for running nuclei segmentation from H&E staining images.
 def stardist_2D_versatile_he(img, nms_thresh=None, prob_thresh=0.3, n_tiles=None, verbose=True):
+    """
+    Parameters
+    ----------
+    img : :class:`numpy.ndarray`
+        Image to segment.
+    nms_thresh : :py:class:`float`, optional
+        Non-maximum suppression threshold. Default is :py:obj:`None`.
+    prob_thresh : :py:class:`float`, optional
+        Probability threshold. Default is 0.3.
+    n_tiles : :py:class:`tuple`, optional
+        Number of tiles for segmentation. Default is :py:obj:`None`.
+    verbose : :py:class:`bool`, optional
+        Verbosity flag. Default is :py:obj:`True`.
+
+    Returns
+    -------
+    labels : :class:`numpy.ndarray`
+        Segmentation mask labels.
+    """
     # Import the StarDist 2D segmentation models.
     from stardist.models import StarDist2D
 
@@ -129,6 +148,27 @@ def stardist_2D_versatile_he(img, nms_thresh=None, prob_thresh=0.3, n_tiles=None
 
 @require_packages('cellpose')
 def cellpose_he(img, min_size=15, flow_threshold=0.4, cellprob_threshold=0.0, channel_cellpose=0, use_gpu=True):
+    """
+    Parameters
+    ----------
+    img : :class:`numpy.ndarray`
+        Image to segment.
+    min_size : :py:class:`int`, optional
+        Minimum size of objects. Default is 15.
+    flow_threshold : :py:class:`float`, optional
+        Flow threshold. Default is 0.4.
+    cellprob_threshold : :py:class:`float`, optional
+        Cell probability threshold. Default is 0.0.
+    channel_cellpose : :py:class:`int`, optional
+        Channel for cellpose. Default is 0.
+    use_gpu : :py:class:`bool`, optional
+        Whether to use GPU. Default is :py:obj:`True`.
+
+    Returns
+    -------
+    res : :class:`numpy.ndarray`
+        Segmentation mask labels.
+    """
     from cellpose import models
     model = models.Cellpose(model_type='nuclei', gpu=use_gpu)
     res, _, _, _ = model.eval(

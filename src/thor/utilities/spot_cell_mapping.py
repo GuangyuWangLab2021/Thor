@@ -21,20 +21,20 @@ def adata_spot_to_cell(adata_spot, node_feat, obs_features=None, margin=2):
     
     Parameters
     ----------
-    adata_spot: AnnData
+    adata_spot: :class:`anndata.AnnData`
         The AnnData object containing the spot data.
-    node_feat: pd.DataFrame
-        The dataframe containing the cell features.
-    obs_features: list
+    node_feat: :class:`pandas.DataFrame`
+        The DataFrame containing the cell features.
+    obs_features: :py:class:`list`
         The sublist of cell features (node_feat) to be kept in the resulting cell adata. Default is to keep all features.
-    margin: float
+    margin: :py:class:`float`
         The distance threshold to find the closest spot specified in the unit of spot radius. Default: 2.
 
     Returns
     -------
-    adata_cell: AnnData
+    adata_cell: :class:`anndata.AnnData`
         The AnnData object containing the cell data.
-    spot_to_cell: list
+    spot_to_cell: :py:class:`list`
         The list of spot indices that are mapped to cells.
     """
 
@@ -135,18 +135,18 @@ def superimpose_spot_adata(spot_pos, cell_pos):
 
 
 def get_list_in_reference(lst, lst_ref):
-    """Get the intersection of two lists. Perserving the order of the first list.
+    """Get the intersection of two lists. Preserving the order of the first list.
 
     Parameters
     ----------
-    lst: list
+    lst: :py:class:`list`
         The list to be filtered.
-    lst_ref: list
+    lst_ref: :py:class:`list`
         The reference list.
 
     Returns
     -------
-    lst_in: list
+    lst_in: :py:class:`list`
         The intersection of the two lists.
     """
 
@@ -169,12 +169,12 @@ def get_labels_entropy(labels):
     """Calculate the entropy of the labels.
     Parameters
     ----------
-    labels: list of str
+    labels: :py:class:`list` of :py:class:`str`
         The labels of the cells.
     
     Returns
     -------
-    entropy: float
+    :py:class:`float`
         The entropy of the labels.
     """
     value, counts = np.unique(labels, return_counts=True)
@@ -186,16 +186,16 @@ def get_spot_heterogeneity_entropy(df, cell_group_key='clusters', spot_identifie
     
     Parameters
     ----------
-    df: pd.DataFrame
-        cell-level dataframe
-    cell_group_key: str
+    df: :class:`pandas.DataFrame`
+        cell-level DataFrame
+    cell_group_key: :py:class:`str`
         The column name of the cell group. Default: 'clusters'
-    spot_identifier: str
+    spot_identifier: :py:class:`str`
         The column name of the spot identifier. Default: 'spot_barcodes'
     
     Returns
     -------
-    hetero_series: pd.Series
+    :class:`pandas.Series`
         The heterogeneity of the cell groups in each spot casted to all cells with the same index of the input Pandas DataFrame.
     """
     entropy_series = df.groupby([spot_identifier]

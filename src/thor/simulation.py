@@ -19,11 +19,11 @@ def call_cells_TopUMI(ad, quantile=0.5, clusters=None):
     """ Select cells with top UMI counts in each cluster
     Parameters
     ----------
-    ad: AnnData
+    ad: :class:`anndata.AnnData`
         AnnData object with adata.obs["clusters"] and adata.obs["UMI"]
-    quantile: float
+    quantile: :py:class:`float`
         quantile of UMI counts to select cells
-    clusters: list-like
+    clusters: :py:class:`list`
         list of cluster labels to select cells
     """
 
@@ -61,13 +61,13 @@ def find_sep(x):
     """ Find the nearest distance between cells or spots
     Parameters
     ----------
-    x: n_cells x n_dims (2) array
-        Sptaial coordinates of cells or spots
+    x: :class:`numpy.ndarray` (n_cells, n_dims)
+        Spatial coordinates of cells or spots
 
     Returns
     -------
-    beads_sep: float
-        Mininum distance between neighboring cells or spots
+    :py:class:`float`
+        Minimum distance between neighboring cells or spots
     """
 
     adj = kneighbors_graph(
@@ -82,12 +82,12 @@ def find_sep_most_probable(x):
     """ Find the most probable distance between neighboring cells or spots
     Parameters
     ----------
-    x: n_cells x n_dims (2) array
-        Sptaial coordinates of cells or spots
+    x: :class:`numpy.ndarray` (n_cells, n_dims)
+        Spatial coordinates of cells or spots
 
     Returns
     -------
-    beads_sep: float
+    :py:class:`float`
         Most probable distance between neighboring cells or spots
     """
     adj = kneighbors_graph(
@@ -106,13 +106,13 @@ def find_bound(x):
 
     Parameters
     ----------
-    x: n_cells x n_dims (2) array
+    x: :class:`numpy.ndarray` (n_cells, n_dims)
         Spatial coordinates of a cell (pixels)
 
     Returns
     -------
-    (xmin, xmax, ymin, ymax): tuple of floats
-        Boundary of the cells
+    :py:class:`tuple` of :py:class:`float`
+        Boundary of the cells (xmin, xmax, ymin, ymax)
     """
 
     xmin, ymin = np.min(x, axis=0)

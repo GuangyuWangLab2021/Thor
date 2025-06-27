@@ -12,13 +12,13 @@ class Spatial:
 
     Parameters
     ----------
-    name : str
+    name : :py:class:`str`
         Name of the spatial transcriptomics data.
-    st_dir : str
+    st_dir : :py:class:`str`
         Path to the directory containing the spatial transcriptomics data. This directory should contain the 10x spaceranger output.
-    image_path : str
+    image_path : :py:class:`str`, optional
         Path to the full-size image file used for spatial transcriptomics.
-    save_dir : str
+    save_dir : :py:class:`str`, optional
         Path to the directory where the processed spatial transcriptomics data will be saved.
 
     """
@@ -34,11 +34,26 @@ class Spatial:
         """Process the spatial transcriptome data (sequence-based).
         This function will read the 10x spaceranger output and perform basic preprocessing steps.
 
+        Parameters
+        ----------
+        perform_QC : :py:class:`bool`, optional
+            Whether to perform quality control. Default is :py:obj:`True`.
+        min_cells : :py:class:`int`, optional
+            Minimum number of cells. Default is 10.
+        min_counts : :py:class:`int`, optional
+            Minimum number of counts. Default is 1000.
+        max_counts : :py:class:`int`, optional
+            Maximum number of counts. Default is 35000.
+        max_mt_pct : :py:class:`float`, optional
+            Maximum percentage of mitochondrial genes. Default is 20.
+        max_rb_pct : :py:class:`float`, optional
+            Maximum percentage of ribosomal genes. Default is 100.
+
         Note
         ----
         It is recommended that this preprocessing step is done by the users using Scanpy or Seurat.
         This function only provides very basic level of preprocessing following Scanpy.
-        Please refer to the [Scanpy documentation](https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html).
+        Please refer to the `Scanpy documentation <https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html>`_.
         """
         transdir = self.st_dir
         filtered_count_file_path = os.path.join(
@@ -73,6 +88,26 @@ class Spatial:
 def QC(adata, min_counts=5000, max_counts=35000, min_cells=10, max_mt_pct=20, max_rb_pct=100):
     """
     This function will perform QC on the spatial transcriptomics data.
+
+    Parameters
+    ----------
+    adata : :class:`anndata.AnnData`
+        Annotated data matrix.
+    min_counts : :py:class:`int`, optional
+        Minimum number of counts. Default is 5000.
+    max_counts : :py:class:`int`, optional
+        Maximum number of counts. Default is 35000.
+    min_cells : :py:class:`int`, optional
+        Minimum number of cells. Default is 10.
+    max_mt_pct : :py:class:`float`, optional
+        Maximum percentage of mitochondrial genes. Default is 20.
+    max_rb_pct : :py:class:`float`, optional
+        Maximum percentage of ribosomal genes. Default is 100.
+
+    Returns
+    -------
+    :class:`anndata.AnnData`
+        Filtered annotated data matrix.
     """
     adata.var["mt"] = adata.var_names.str.startswith(("MT-", "mt-"))
     adata.var["rb"] = adata.var_names.str.startswith(

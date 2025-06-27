@@ -14,17 +14,19 @@ def create_subset_ad(adata, adata_bg, n_hists=10, relate='>='):
 
     Parameters
     ----------
-    adata :
+    adata : :class:`anndata.AnnData`
         
-    adata_bg :
+    adata_bg : :class:`anndata.AnnData`
         
-    n_hists :
+    n_hists : :py:class:`int`
          (Default value = 10)
-    relate :
+    relate : :py:class:`str`
          (Default value = '>=')
 
     Returns
     -------
+    :py:class:`tuple`
+        Tuple of (ad_subsets, ad_subsets_bg)
 
     """
 
@@ -67,31 +69,33 @@ def boxplot_cluster(
 
     Parameters
     ----------
-    ad :
+    ad : :class:`anndata.AnnData`
         
-    layer_key :
-         (Default value = None)
-    genes_list :
-         (Default value = None)
-    cell_list :
-         (Default value = None)
-    ax :
-         (Default value = None)
-    return_data :
-         (Default value = True)
-    y :
+    layer_key : :py:class:`str`, optional
+         (Default value = :py:obj:`None`)
+    genes_list : :py:class:`list`, optional
+         (Default value = :py:obj:`None`)
+    cell_list : :py:class:`list`, optional
+         (Default value = :py:obj:`None`)
+    ax : :class:`matplotlib.axes.Axes`, optional
+         (Default value = :py:obj:`None`)
+    return_data : :py:class:`bool`, optional
+         (Default value = :py:obj:`True`)
+    y : :py:class:`str`, optional
          (Default value = 'expression')
-    x :
+    x : :py:class:`str`, optional
          (Default value = 'marker')
-    hue :
+    hue : :py:class:`str`, optional
          (Default value = 'cluster')
-    calculate_only :
-         (Default value = False)
-    sample_label :
-         (Default value = None)
+    calculate_only : :py:class:`bool`, optional
+         (Default value = :py:obj:`False`)
+    sample_label : :py:class:`str`, optional
+         (Default value = :py:obj:`None`)
 
     Returns
     -------
+    :class:`matplotlib.axes.Axes` or :py:class:`tuple`
+        If return_data is :py:obj:`True`, returns (ax, df), otherwise returns ax
 
     """
 
@@ -171,27 +175,26 @@ def boxplot_group(
 
     Parameters
     ----------
-    ad :
+    ad : :class:`anndata.AnnData`
         
-    ad_bg :
+    ad_bg : :class:`anndata.AnnData`
         
-    hetero :
+    hetero : :py:class:`float`, optional
          (Default value = 0.0)
-    layer_key :
+    layer_key : :py:class:`str`, optional
          (Default value = 'y_50')
-    ncols :
+    ncols : :py:class:`int`, optional
          (Default value = 3)
-    figsize :
-         (Default value = (20)
-    4) :
-        
-    label :
-         (Default value = None)
-    **kwargs :
+    figsize : :py:class:`tuple`, optional
+         (Default value = (20, 4))
+    label : :py:class:`str`, optional
+         (Default value = :py:obj:`None`)
+    **kwargs : :py:class:`dict`
         
 
     Returns
     -------
+    :py:obj:`None`
 
     """
 
@@ -222,19 +225,20 @@ def boxplot_all(ad_sub, layer_key=None, relate=">=", title="", ylim=None):
 
     Parameters
     ----------
-    ad_sub :
+    ad_sub : :py:class:`dict`
         
-    layer_key :
-         (Default value = None)
-    relate :
+    layer_key : :py:class:`str`, optional
+         (Default value = :py:obj:`None`)
+    relate : :py:class:`str`, optional
          (Default value = ">=")
-    title :
+    title : :py:class:`str`, optional
          (Default value = "")
-    ylim :
-         (Default value = None)
+    ylim : :py:class:`tuple`, optional
+         (Default value = :py:obj:`None`)
 
     Returns
     -------
+    :py:obj:`None`
 
     """
     hetero_thresholds = sorted(list(ad_sub.keys()))
@@ -262,17 +266,16 @@ def check_PCA(ad_true, ad_sc_out, layers=['y_50', 'y_100']):
 
     Parameters
     ----------
-    ad_true :
+    ad_true : :class:`anndata.AnnData`
         
-    ad_sc_out :
+    ad_sc_out : :class:`anndata.AnnData`
         
-    layers :
-         (Default value = ['y_50')
-    'y_100'] :
-        
+    layers : :py:class:`list`, optional
+         (Default value = ['y_50', 'y_100'])
 
     Returns
     -------
+    :py:obj:`None`
 
     """
 
@@ -281,11 +284,12 @@ def check_PCA(ad_true, ad_sc_out, layers=['y_50', 'y_100']):
 
         Parameters
         ----------
-        lst :
+        lst : :py:class:`list`
             
 
         Returns
         -------
+        :py:class:`list`
 
         """
         ml = []
@@ -354,6 +358,22 @@ def grouped_obs_mean(
     adata, group_key, layer=None, sample_label=None
 ):
     """mean values according to cell labels.
+
+    Parameters
+    ----------
+    adata : :class:`anndata.AnnData`
+        Annotated data matrix.
+    group_key : :py:class:`str`
+        Key for grouping observations.
+    layer : :py:class:`str`, optional
+        Layer to use for expression data. Default is :py:obj:`None`.
+    sample_label : :py:class:`str`, optional
+        Sample label for metagene calculation. Default is :py:obj:`None`.
+
+    Returns
+    -------
+    :class:`pandas.DataFrame`
+        DataFrame with mean expression values grouped by cell labels.
     """
 
     if layer is not None:
@@ -395,13 +415,15 @@ def get_relative_distance(a, b):
 
     Parameters
     ----------
-    a :
+    a : :class:`numpy.ndarray`
         
-    b :
+    b : :class:`numpy.ndarray`
         
 
     Returns
     -------
+    :py:class:`float`
+        Relative distance between a and b.
 
     """
     return np.linalg.norm(a - b) / np.linalg.norm(a)

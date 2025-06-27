@@ -13,16 +13,16 @@ def load_nuclei(nuclei_path=None, source_format='cellpose'):
 
     Parameters
     ----------
-    nuclei_path : str
+    nuclei_path : :py:class:`str`
         Path to the nuclei segmentation result file.
-    source_format : str
+    source_format : :py:class:`str`
         Format of the nuclei segmentation result file. Options: 'cellprofiler', 'cellpose', 'mask_array_npz'.
 
     Returns
     -------
-    labels : numpy array
+    labels : :class:`numpy.ndarray`
         Nuclei segmentation labels (numpy array: n_cells)
-    nuclei_centroids : numpy array
+    nuclei_centroids : :class:`numpy.ndarray`
         Nuclei positions (numpy array: n_cells x 2)
     """
 
@@ -47,14 +47,14 @@ def load_cellpose(nuclei_path):
     
     Parameters
     ----------
-    nuclei_path : str
+    nuclei_path : :py:class:`str`
         Path to the nuclei segmentation result file.
     
     Returns
     -------
-    labels : numpy array
+    labels : :class:`numpy.ndarray`
         Nuclei segmentation labels (numpy array: n_cells)
-    nuclei_centroids : numpy array
+    nuclei_centroids : :class:`numpy.ndarray`
         Nuclei positions (numpy array: n_cells x 2)
     """
 
@@ -69,14 +69,14 @@ def load_cellprofiler(nuclei_path):
 
     Parameters
     ----------
-    nuclei_path : str
+    nuclei_path : :py:class:`str`
         Path to the nuclei segmentation result file.
 
     Returns
     -------
-    labels : numpy array
+    labels : :class:`numpy.ndarray`
         Nuclei segmentation labels (numpy array: n_cells)
-    nuclei_centroids : numpy array
+    nuclei_centroids : :class:`numpy.ndarray`
         Nuclei positions (numpy array: n_cells x 2)
     """
 
@@ -91,14 +91,14 @@ def load_mask_npz(nuclei_path):
     
     Parameters
     ----------
-    nuclei_path : str
+    nuclei_path : :py:class:`str`
         Path to the nuclei segmentation result file.
 
     Returns
     -------
-    labels : numpy array
+    labels : :class:`numpy.ndarray`
         Nuclei segmentation labels (numpy array: n_cells)
-    nuclei_centroids : numpy array
+    nuclei_centroids : :class:`numpy.ndarray`
         Nuclei positions (numpy array: n_cells x 2)
     """
     cmask = load_npz(nuclei_path)
@@ -111,14 +111,14 @@ def get_nuclei_centroids(cell_masks):
     
     Parameters
     ----------
-    cell_masks : numpy array
+    cell_masks : :class:`numpy.ndarray`
         Nuclei segmentation masks
     
     Returns
     -------
-    labels : numpy array
+    labels : :class:`numpy.ndarray`
         Nuclei segmentation labels (numpy array: n_cells)
-    centroids : numpy array
+    centroids : :class:`numpy.ndarray`
         Nuclei positions (numpy array: n_cells x 2)
     """
 

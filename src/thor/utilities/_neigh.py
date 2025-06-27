@@ -17,18 +17,18 @@ def spatial_smooth(pos, attr, n_neighbors=100, radius=None):
 
     Parameters
     ----------
-    pos: numpy array (n_cells, 2)
+    pos: :class:`numpy.ndarray` (n_cells, 2)
         spatial coordinates of cells
-    attr: numpy array (n_cells, n_vars)
+    attr: :class:`numpy.ndarray` (n_cells, n_vars)
         data to be smoothed
-    n_neighbors: int
+    n_neighbors: :py:class:`int`
         number of neighbours to use for smoothing
-    radius: float
-        radius of the neighbourhood to use for smoothing. If n_neighbors is not None, this will be ignored.
+    radius: :py:class:`float`
+        radius of the neighbourhood to use for smoothing. If n_neighbors is not :py:obj:`None`, this will be ignored.
 
     Returns
     -------
-    attr_smooth: numpy array (n_cells, n_vars)
+    :class:`numpy.ndarray` (n_cells, n_vars)
         smoothed data
     """
 
@@ -62,11 +62,11 @@ def nn_to_dict(nn):
     """ Convert neighbour graph array to dictionary
     Parameters
     ----------
-    nn:     csr_matrix
+    nn: :class:`scipy.sparse.csr_matrix`
             cell-cell neighbours matrix
     Returns
     -------
-    NNdict: dict
+    :py:class:`dict`
             dictionary of neighbours
     """
 
@@ -81,11 +81,11 @@ def getNN2_dict(nn):
     """ Get the second level neighbouring cells of each cell
     Parameters
     ----------
-    nn:     csr_matrix
+    nn: :class:`scipy.sparse.csr_matrix`
             cell-cell neighbours matrix
     Returns
     -------
-    NN2_dict:   dict
+    :py:class:`dict`
                 dictionary of second level neighbours
     """
 
@@ -101,11 +101,11 @@ def dict_to_nn(NN_dict):
     """ Convert dictionary of neighbours to neighbour graph array
     Parameters
     ----------
-    NN_dict:    dict
+    NN_dict: :py:class:`dict`
                 dictionary of neighbours
     Returns
     -------
-    NN_graph:   csr_matrix
+    :class:`scipy.sparse.csr_matrix`
                 cell-cell neighbours matrix
     """
 
@@ -131,13 +131,13 @@ def get_2nd_spot_neigh_graph(nn, cellxspot):
     """ Get the spots in which at least one of their cells are first or second level neighbours of a cell.
     Parameters
     ----------
-    nn:         csr_matrix
+    nn: :class:`scipy.sparse.csr_matrix`
                 cell-cell neighbours matrix
-    cellxspot:  csr_matrix
+    cellxspot: :class:`scipy.sparse.csr_matrix`
                 cell-spot mapping sparse matrix
     Returns
     -------
-    cellxspot2: csr_matrix
+    :class:`scipy.sparse.csr_matrix`
                 immediate and second-level neighboring spots (neighbor graph)
     """
     NN2_dict = getNN2_dict(nn)
@@ -154,15 +154,15 @@ def get_stats_in_neighboring_cells(x, nn):
     """ Get the mean and standard deviation of gene expression in neighboring cells
     Parameters
     ----------
-    x:      numpy array (n_cells, n_genes)
+    x: :class:`numpy.ndarray` (n_cells, n_genes)
             gene expression
-    nn:     csr_matrix
+    nn: :class:`scipy.sparse.csr_matrix`
             cell-cell neighbours matrix
     Returns
     -------
-    x_:     numpy array (n_cells, n_genes)
+    x_: :class:`numpy.ndarray` (n_cells, n_genes)
             mean gene expression in neighboring cells
-    x_sigma: numpy array (n_cells, n_genes)
+    x_sigma: :class:`numpy.ndarray` (n_cells, n_genes)
             standard deviation of gene expression in neighboring cells
     """
 
@@ -178,13 +178,13 @@ def get_2nd_spot_neighbours(nn, cellxspot):
     """ Get the second level neighbouring cells of each cell
     Parameters
     ----------
-    nn:         csr_matrix
+    nn: :class:`scipy.sparse.csr_matrix`
                 cell-cell neighbours matrix
-    cellxspot:  csr_matrix
+    cellxspot: :class:`scipy.sparse.csr_matrix`
                 cell-spot mapping sparse matrix
     Returns
     -------
-    cellxspot2xcell:    csr_matrix
+    :class:`scipy.sparse.csr_matrix`
                         cell-cell neighbours matrix of second-level spot neighbours
     """
     # get the second level neighbouring spots of each cell
@@ -201,11 +201,11 @@ def get_2nd_cell_neighbours(nn):
     """ Get the second level neighbouring cells of each cell
     Parameters
     ----------
-    nn:         csr_matrix
+    nn: :class:`scipy.sparse.csr_matrix`
                 cell-cell neighbours matrix
     Returns
     -------
-    NN2_graph:  csr_matrix
+    :class:`scipy.sparse.csr_matrix`
                 cell-cell neighbours matrix of second-level neighbours
     """
     NN2_dict = getNN2_dict(nn)

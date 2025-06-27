@@ -38,43 +38,43 @@ def prepare_and_run_copykat(
 
     Parameters
     ----------
-    adata : AnnData
+    adata : :class:`anndata.AnnData`
         Gene expression data.
-    datadir : str, optional
-        Directory where data will be saved. Default is None. If None, data will be saved in the current working directory.
-    layer : str, optional
-        Name of the layer in `adata` to use as input data. Default is None. If None, the X layer will be used.
-    batch_size : int
+    datadir : :py:class:`str`, optional
+        Directory where data will be saved. Default is :py:obj:`None`. If :py:obj:`None`, data will be saved in the current working directory.
+    layer : :py:class:`str`, optional
+        Name of the layer in `adata` to use as input data. Default is :py:obj:`None`. If :py:obj:`None`, the X layer will be used.
+    batch_size : :py:class:`int`
         Number of subfolders to process in parallel. Default is 10.
-    id_type : str
+    id_type : :py:class:`str`
         CopyKAT parameter `id.type`. Gene identification type. Default is "S"("s"), which refers to gene symbol. Other option is "E"("e") for Ensembl ID. 
-    ngene_chr : int
+    ngene_chr : :py:class:`int`
         CopyKAT parameter `ngene.chr`. Minimal number of genes per chromosome for cell filtering. Default is 5.
-    win_size : int
+    win_size : :py:class:`int`
         CopyKAT parameter `win.size`. Minimal window sizes for segmentation. Default is 25.
-    KS_cut : float
+    KS_cut : :py:class:`float`
         CopyKAT parameter `KS.cut`. Segmentation parameter ranging from 0 to 1; larger value means looser criteria. Default is 0.1.
-    sam_name : str
+    sam_name : :py:class:`str`
         CopyKAT parameter `sam.name`. Sample name. Default is "".
-    distance : str
+    distance : :py:class:`str`
         CopyKAT parameter `distance`. Distance metric. Default is "euclidean". Other options are "pearson" and "spearman".
-    norm_cell_names : str
+    norm_cell_names : :py:class:`str`
         CopyKAT parameter `norm.cell.names`. A vector of normal cell names. Default is "".
-    output_seg : str 
+    output_seg : :py:class:`str` 
         CopyKAT parameter `output.seg`. Whether to output segmentation results for IGV visualization. Default is "FALSE". Other option is
         "TRUE". Note that it is a string and not a boolean.
-    plot_genes : str
+    plot_genes : :py:class:`str`
         CopyKAT parameter `plot.genes`. Whether to output heatmap of CNAs with genename labels. Default is "TRUE". Other option is "FALSE". Note that it is a string and not a boolean.
-    genome : str
+    genome : :py:class:`str`
         CopyKAT parameter `genome`. Genome name. Default is "hg20" for human genome version 20. Other option is "mm10" for mouse genome version 10.
-    n_cores : int
+    n_cores : :py:class:`int`
         CopyKAT parameter `n.cores`. Number of CPU cores for parallel computing. Default is 1. Recommended to use 1 core if batch_size > 1.
-    copykat : bool
+    copykat : :py:class:`bool`
         Whether to run the CopyKAT analysis. Default is True. If False, the function will only split the data into smaller chunks and prepare the R script for CopyKAT.
 
     Returns
     -------
-    None
+    :py:obj:`None`
         Results are saved in the current working directory.
 
     """
@@ -136,38 +136,38 @@ def prepare_data_for_parallel_processing(
 
     Parameters
     ----------
-    adata : AnnData object
+    adata : :class:`anndata.AnnData`
         Annotated data matrix.
-    source : str
+    source : :py:class:`str`
         Directory where subfolders will be created.
-    layer : str or None, optional
-        Name of the layer in 'adata' to use as input data. Default is None.
-    id_type : str, optional
+    layer : :py:class:`str` or :py:obj:`None`, optional
+        Name of the layer in 'adata' to use as input data. Default is :py:obj:`None`.
+    id_type : :py:class:`str`, optional
         Identifier type. Default is "S".
-    ngene_chr : int, optional
+    ngene_chr : :py:class:`int`, optional
         Number of genes per chromosome. Default is 5.
-    win_size : int, optional
+    win_size : :py:class:`int`, optional
         Window size. Default is 25.
-    KS_cut : float, optional
+    KS_cut : :py:class:`float`, optional
         KS cut-off value. Default is 0.1.
-    sam_name : str, optional
+    sam_name : :py:class:`str`, optional
         Sample name. Default is "".
-    distance : str, optional
+    distance : :py:class:`str`, optional
         Distance metric. Default is "euclidean".
-    norm_cell_names : str, optional
+    norm_cell_names : :py:class:`str`, optional
         Normalized cell names. Default is "".
-    output_seg : str, optional
+    output_seg : :py:class:`str`, optional
         Output segment. Default is "FALSE".
-    plot_genes : str, optional
+    plot_genes : :py:class:`str`, optional
         Plot genes. Default is "TRUE".
-    genome : str, optional
+    genome : :py:class:`str`, optional
         Genome name. Default is "hg20".
-    n_cores : int, optional
+    n_cores : :py:class:`int`, optional
         Number of CPU cores to use. Default is 1.
 
     Returns
     -------
-    out_dirs : list
+    :py:class:`list` of :py:class:`str`
         List of subfolder names.
     """
     
@@ -257,16 +257,16 @@ def adata_to_mtx_conversion(adata: AnnData, save_path: Optional[str] = None, lay
 
     Parameters
     ----------
-    adata : AnnData
+    adata : :class:`anndata.AnnData`
         Annotated data matrix.
-    save_path : str or None, optional
-        Directory to save the output files. Default is None. If None, data will be saved in the current working directory.
-    layer : str or None, optional
-        Name of the layer in `adata` to use as input data. Default is None. If None, the X layer will be used.
+    save_path : :py:class:`str` or :py:obj:`None`, optional
+        Directory to save the output files. Default is :py:obj:`None`. If :py:obj:`None`, data will be saved in the current working directory.
+    layer : :py:class:`str` or :py:obj:`None`, optional
+        Name of the layer in `adata` to use as input data. Default is :py:obj:`None`. If :py:obj:`None`, the X layer will be used.
 
     Returns
     -------
-    None
+    :py:obj:`None`
         Results are saved in the current working directory.
 
         matrix.mtx : file
@@ -334,31 +334,31 @@ def generate_copykat_r_script(
 
     Parameters
     ----------
-    source : str
+    source : :py:class:`str`
         Main data source directory.
-    folder_matrix_path : str
+    folder_matrix_path : :py:class:`str`
         Subfolder path.
-    id_type : str
+    id_type : :py:class:`str`
         Identifier type.
-    ngene_chr : int
+    ngene_chr : :py:class:`int`
         Number of genes per chromosome.
-    win_size : int
+    win_size : :py:class:`int`
         Window size.
-    KS_cut : float
+    KS_cut : :py:class:`float`
         KS cut-off value.
-    sam_name : str
+    sam_name : :py:class:`str`
         Sample name.
-    distance : str
+    distance : :py:class:`str`
         Distance metric.
-    norm_cell_names : str
+    norm_cell_names : :py:class:`str`
         Normalized cell names.
-    output_seg : str
+    output_seg : :py:class:`str`
         Output segment.
-    plot_genes : str
+    plot_genes : :py:class:`str`
         Plot genes.
-    genome : str
+    genome : :py:class:`str`
         Genome name.
-    n_cores : int
+    n_cores : :py:class:`int`
         Number of CPU cores to use.
 
     Output Files
@@ -402,27 +402,27 @@ def merge_copykat_result(out_dirs: List[str], source: str = None, copykat: bool 
 
     Parameters
     ----------
-    out_dirs : List[str]
+    out_dirs : :py:class:`list` of :py:class:`str`
         List of subfolder names.
-    source : str, optional
-        Directory of the main data source. Default is None.
-    copykat : bool, optional
+    source : :py:class:`str`, optional
+        Directory of the main data source. Default is :py:obj:`None`.
+    copykat : :py:class:`bool`, optional
         Flag indicating whether CopyKAT was used. Default is False.
-    sam_name : str, optional
+    sam_name : :py:class:`str`, optional
         Sample name for creating output files. Default is an empty string.
 
     Output Files
     ------------
-    sam_name_copykat_CNA_results_all.parquet : pd.DataFrame
+    sam_name_copykat_CNA_results_all.parquet : :class:`pandas.DataFrame`
         Merged CopyKat CNA results.
-    sam_name_copykat_CNA_raw_results_gene_by_cell_all.parquet : pd.DataFrame
+    sam_name_copykat_CNA_raw_results_gene_by_cell_all.parquet : :class:`pandas.DataFrame`
         Merged CopyKat raw CNA results.
-    sam_name_copykat_prediction_all.parquet : pd.DataFrame
+    sam_name_copykat_prediction_all.parquet : :class:`pandas.DataFrame`
         Merged CopyKat predictions.
 
     Returns
     -------
-    None
+    :py:obj:`None`
 
     """
     #print("merging copykat results...")

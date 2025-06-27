@@ -25,14 +25,14 @@ def map_nuclei_pixels(cm, ad_cell_pos):
 
     Parameters
     ----------
-    cm : numpy array, shape (n_pixels_row, n_pixels_col)
+    cm : :class:`numpy.ndarray`, shape (n_pixels_row, n_pixels_col)
         The numpy array representing identified "nuclei" from an H&E image.
-    ad_cell_pos : numpy array, shape (n_cells, 2)
+    ad_cell_pos : :class:`numpy.ndarray`, shape (n_cells, 2)
         The pixel locations of all cells.
 
     Returns
     -------
-    nuclei_region_pixels : list
+    :py:class:`list`
         A list of tuples, each containing the pixel coordinates of a "nuclei" region
         that matches with the given cell positions in `ad_cell_pos`.
         The format of the tuples is (row_coordinates, column_coordinates).
@@ -85,18 +85,18 @@ def get_cells_voronoi(pos, ROI_tuple):
 
     Parameters
     ----------
-    pos : numpy array, shape (n_cells, 2)
+    pos : :class:`numpy.ndarray`, shape (n_cells, 2)
         The pixel locations of all nuclei.
-    ROI_tuple : tuple
+    ROI_tuple : :py:class:`tuple`
         A tuple (xmin, ymin, width, height) representing the region of interest (ROI) where the Voronoi
         diagram should be computed and clipped.
 
     Returns
     -------
-    cells_pixels : list
+    cells_pixels : :py:class:`list`
         A list of tuples, each containing the pixel coordinates of the Voronoi region associated with a cell.
         The format of the tuples is (row_coordinates, column_coordinates).
-    vor : scipy.spatial.Voronoi object
+    vor : :class:`scipy.spatial.Voronoi`
         The Voronoi diagram object for all provided cells in the ROI.
 
     Notes
@@ -197,16 +197,16 @@ def paint_regions(image_shape, matched_regions, cell_colors_list):
 
     Parameters
     ----------
-    image_shape : tuple
+    image_shape : :py:class:`tuple`
         shape of the image
-    matched_regions : list
+    matched_regions : :py:class:`list`
         list of regions to be painted. Each region is a 2d numpy array (npixels, 2)
-    cell_colors_list : list
+    cell_colors_list : :py:class:`list`
         list of values to be painted
 
     Returns
     -------
-    filled : numpy array
+    :class:`numpy.ndarray`
         the painted image array.
     """
     # matched regions are supposed to be x, y
@@ -331,16 +331,16 @@ def get_nuclei_pixels(adata, segmentation_mask_path, save_path='nuc.npy'):
 
     Parameters
     ----------
-    adata : AnnData object
+    adata : :class:`anndata.AnnData`
         Annotated data matrix with cell positions stored in `adata.obsm['spatial']`.
-    segmentation_mask_path : str
+    segmentation_mask_path : :py:class:`str`
         The path to the segmentation mask file.
-    save_path : str, optional (default: 'nuc.npy')
+    save_path : :py:class:`str`, optional (default: 'nuc.npy')
         The path to save the extracted nuclei regions.
 
     Returns
     -------
-    nuclei_region_pixels : list
+    :py:class:`list`
         A list of tuples, each containing the pixel coordinates of a "nuclei" region
         that matches with the given cell positions in `ad_cell_pos`.
         The format of the tuples is (row_coordinates, column_coordinates).
@@ -367,11 +367,11 @@ def get_nuclei_pixels_from_label(cm, ad_cell_label):
     """Get nuclei pixels from label.
 
     Args:
-        cm (np.ndarray): Cell mask.
-        ad_cell_label (np.ndarray): Adherent cell label.
+        cm (:class:`numpy.ndarray`): Cell mask.
+        ad_cell_label (:class:`numpy.ndarray`): Adherent cell label.
 
     Returns:
-        list: Nuclei region pixels.
+        :py:class:`list`: Nuclei region pixels.
 
     Note:
         Label should be from 1 to n_cells (with skips). However if a rescaled `cm` is used, there is a chance that the ad_cell_label is not
@@ -399,8 +399,8 @@ def get_nuclei_pixels_from_label(cm, ad_cell_label):
 def process_color(adata, color=None):
     """
     Returns:
-      values: 1D np.ndarray of length n_obs, where values[i] is the color for the i-th row
-      mapping: dict[int,str] or None  (only for categorical → code→category)
+      values: 1D :class:`numpy.ndarray` of length n_obs, where values[i] is the color for the i-th row
+      mapping: :py:class:`dict`[:py:class:`int`,:py:class:`str`] or :py:obj:`None`  (only for categorical → code→category)
     """
     if color is None:
         raise ValueError("`color` must be specified")
@@ -430,7 +430,7 @@ def get_painted_mask(cm, adata, color, seg_label_key='seg_label'):
 
     Returns:
       painted: same type as cm, but with .data or array values replaced by floats
-      revmap: dict[int,str] or None  (for categorical legends)
+      revmap: :py:class:`dict`[:py:class:`int`,:py:class:`str`] or :py:obj:`None`  (for categorical legends)
 
     Examples:
         filled_mask_1 = get_painted_mask(mask, ad, gene, 'seg_label')

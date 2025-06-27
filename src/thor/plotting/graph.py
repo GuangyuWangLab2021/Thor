@@ -22,33 +22,33 @@ def plot_cell_graph(
 
     Parameters
     ----------
-    adata : AnnData object
+    adata : :class:`anndata.AnnData`
         An AnnData object containing the cell graph and spatial coordinates information.
-    conn_key : str, optional
+    conn_key : :py:class:`str`, optional
         The key for accessing the cell graph connectivity data in `adata.obsp`. Default is 'snn'.
-    figsize : tuple, optional
+    figsize : :py:class:`tuple`, optional
         Figure size in inches (width, height). Default is (8, 8).
-    dpi : int, optional
+    dpi : :py:class:`int`, optional
         Dots per inch for the figure. Default is 150.
-    xlim : tuple, optional
-        Limits for the x-axis of the plot. Default is None, which uses the default axis limits.
-    ylim : tuple, optional
-        Limits for the y-axis of the plot. Default is None, which uses the default axis limits.
-    s : float, optional
+    xlim : :py:class:`tuple`, optional
+        Limits for the x-axis of the plot. Default is :py:obj:`None`, which uses the default axis limits.
+    ylim : :py:class:`tuple`, optional
+        Limits for the y-axis of the plot. Default is :py:obj:`None`, which uses the default axis limits.
+    s : :py:class:`float`, optional
         Scaling factor for the node size in the plot. Default is 1.
-    lw : float, optional
+    lw : :py:class:`float`, optional
         Scaling factor for the edge width in the plot. Default is 1.
-    return_fig : bool, optional
-        Whether to return the figure instead of displaying it. Default is False.
-    **kwds : dict, optional
+    return_fig : :py:class:`bool`, optional
+        Whether to return the figure instead of displaying it. Default is :py:obj:`False`.
+    **kwds : :py:class:`dict`, optional
         Additional keyword arguments for customizing the network plot. Some useful options include:
         - 'node_color': List of hex color codes or matplotlib colors for node coloring.
 
     Returns
     -------
-    None or matplotlib.figure.Figure
-        If `return_fig` is False (default), the function displays the plot and returns None.
-        If `return_fig` is True, the function returns the matplotlib Figure object without displaying the plot.
+    :py:obj:`None` or :class:`matplotlib.figure.Figure`
+        If `return_fig` is :py:obj:`False` (default), the function displays the plot and returns :py:obj:`None`.
+        If `return_fig` is :py:obj:`True`, the function returns the matplotlib Figure object without displaying the plot.
 
     Notes
     -----

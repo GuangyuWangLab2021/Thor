@@ -1,22 +1,19 @@
 import numpy as np
 from matplotlib import pyplot as plt
-
-
 from thor.utils import get_ROI_tuple_from_polygon
-
 
 def annotate_ROI(im, ROI_polygon=None, baseline_polygon=None, lw=3):
     """Annotate the ROI and baseline on the image.
 
     Parameters
     ----------
-    im : 2D array
+    im : :class:`numpy.ndarray`
         The image to be annotated.
-    ROI_polygon : shapely.geometry.Polygon
+    ROI_polygon : :class:`shapely.geometry.Polygon`
         The ROI polygon.
-    baseline_polygon : shapely.geometry.Polygon
+    baseline_polygon : :class:`shapely.geometry.Polygon`
         The baseline polygon.
-    lw : int
+    lw : :py:class:`float`
         The line width of the annotation.
 
     """

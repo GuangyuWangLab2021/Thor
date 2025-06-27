@@ -29,23 +29,23 @@ def spot_over(
 
     Parameters
     ----------
-    ad : :class:`~anndata.AnnData`
+    ad : :class:`anndata.AnnData`
         Annotated data matrix at the cell level.
-    ad_spot : :class:`~anndata.AnnData`
+    ad_spot : :class:`anndata.AnnData`
         Annotated data matrix at the spot level.
-    spot_scale : `float`, optional (default: 1)
+    spot_scale : :py:class:`float`, optional (default: 1)
         Scale factor for spot size.
-    figsize : `tuple`, optional (default: None)
+    figsize : :py:class:`tuple`, optional (default: :py:obj:`None`)
         Figure size in full resolution.
-    spot_cmap : `str`, optional (default: 'viridis')
+    spot_cmap : :py:class:`str`, optional (default: 'viridis')
         Colormap for spot colors.
-    spot_color_obs_key : `str`, optional (default: None)
+    spot_color_obs_key : :py:class:`str`, optional (default: :py:obj:`None`)
         Key for observation in `ad_spot` that contains spot colors.
-    spot_facecolor : `str`, optional (default: None)
+    spot_facecolor : :py:class:`str`, optional (default: :py:obj:`None`)
         Face color for spots.
-    spot_alpha : `float`, optional (default: 0.5)
+    spot_alpha : :py:class:`float`, optional (default: 0.5)
         Alpha value for spots.
-    spot_linewidth : `float`, optional (default: 0.5)
+    spot_linewidth : :py:class:`float`, optional (default: 0.5)
         Line width for spots.
     **sc_kwargs : keyword arguments
         Keyword arguments for :func:`~scanpy.pl.spatial`.
@@ -109,19 +109,19 @@ def spot_over_fig(
 
     Parameters
     ----------
-    ad_spot : :class:`~anndata.AnnData`
+    ad_spot : :class:`anndata.AnnData`
         Annotated data matrix at the spot level.
-    spot_scale : `float`, optional (default: 1)
+    spot_scale : :py:class:`float`, optional (default: 1)
         Scale factor for spot size.
-    spot_cmap : `str`, optional (default: 'viridis')
+    spot_cmap : :py:class:`str`, optional (default: 'viridis')
         Colormap for spot colors.
-    spot_color_obs_key : `str`, optional (default: None)
+    spot_color_obs_key : :py:class:`str`, optional (default: :py:obj:`None`)
         Key for observation in `ad_spot` that contains spot colors.
-    spot_facecolor : `str`, optional (default: None)
+    spot_facecolor : :py:class:`str`, optional (default: :py:obj:`None`)
         Face color for spots.
-    spot_alpha : `float`, optional (default: 0.5)
+    spot_alpha : :py:class:`float`, optional (default: 0.5)
         Alpha value for spots.
-    spot_linewidth : `float`, optional (default: 0.5)
+    spot_linewidth : :py:class:`float`, optional (default: 0.5)
         Line width for spots.
     **kwargs : keyword arguments
         Keyword arguments. 
