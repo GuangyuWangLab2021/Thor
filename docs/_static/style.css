@@ -7,7 +7,6 @@ and https://github.com/readthedocs/sphinx_rtd_theme/issues/295
     max-width: 1500px !important;
 }
 
-
 /* and fix wrap bug per https://rackerlabs.github.io/docs-rackspace/tools/rtd-tables.html */
 .wy-table-responsive table td {
     /* !important prevents the common CSS stylesheets from overriding
@@ -51,4 +50,19 @@ dl.field-list > dt {
     border-top: 3px solid #2ecc71;
     padding-top: 3px;
     padding-bottom: 3px;
+}
+
+/* Make notebook output images responsive and prevent distortion */
+.nboutput img, .output_png, .output_jpeg, .output_svg {
+    max-width: 100%;
+    height: auto !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Example: Make logo max 100px wide */
+img[src*="logo.png"] {
+    height: 64px !important;
+    width: auto !important;
 }

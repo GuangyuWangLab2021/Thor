@@ -7,7 +7,8 @@
   <title>Mouse olfactory bulb &mdash; Thor  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=793f93ba" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
 
   
@@ -17,9 +18,11 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/documentation_options.js?v=7f41d439"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,6 +44,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Thor
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -104,7 +108,6 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Mouse olfactory bulb</li>
       <li class="wy-breadcrumbs-aside">
-<!--             <a href="../_sources/notebooks/runThor_MOB.ipynb.txt" rel="nofollow"> View page source</a> -->
       </li>
   </ul>
   <hr/>
@@ -114,39 +117,8 @@
              
   <div class="admonition note">
 This page was generated from a Jupyter notebook. You can download the notebook
-<a href="javascript:void(0)" onclick="var link = document.createElement('a'); link.download = 'runThor_MOB.ipynb'; link.href = '../notebooks/runThor_MOB.ipynb'; link.click(); return false;">here</a> to run it locally in Jupyter.
-</div>
-
-<script>
-// Alternative download function in case the onclick method doesn't work
-function downloadNotebook(e) {
-    e.preventDefault();
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '../notebooks/runThor_MOB.ipynb', true);
-    xhr.responseType = 'blob';
-    xhr.onload = function() {
-        if (this.status === 200) {
-            var blob = new Blob([this.response], {type: 'application/x-ipynb+json'});
-            var link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'runThor_MOB.ipynb';
-            link.click();
-            setTimeout(function() {
-                URL.revokeObjectURL(link.href);
-            }, 1500);
-        }
-    };
-    xhr.send();
-}
-
-// Add the event listener to all download links
-document.addEventListener('DOMContentLoaded', function() {
-    var link = document.querySelector('.admonition.note a');
-    if (link) {
-        link.addEventListener('click', downloadNotebook);
-    }
-});
-</script><section id="Mouse-olfactory-bulb">
+<a href="https://github.com/GuangyuWangLab2021/Thor/raw/main/notebooks/runThor_MOB.ipynb" download>here</a> to run it locally in Jupyter.
+</div><section id="Mouse-olfactory-bulb">
 <h1>Mouse olfactory bulb<a class="headerlink" href="#Mouse-olfactory-bulb" title="Link to this heading"></a></h1>
 <p>Thor reveals cell-resolution mouse olfactory bulb structure.</p>
 <p>In this tutorial, we show inference of cell-level spatial gene expression from the Visium spot-level spatial transcriptome and a whole slide image (H&amp;E staining) using Thor.</p>
@@ -233,7 +205,9 @@ numexpr.utils - INFO - NumExpr defaulting to 8 threads.
 </pre></div>
 </div>
 </div>
-<p>Here we use Cellpose to segment the nuclei. Notice the segmentation can take a long time without GPU. The output file is a <code class="docutils literal notranslate"><span class="pre">n_pixel_row</span></code> x <code class="docutils literal notranslate"><span class="pre">n_pixel_col</span></code> matrix. We’ll skip this step and load the pre-computed segmentation results from <a class="reference external" href="https://drive.google.com/drive/folders/1CaUHMRUcKT-qGY2_lMkOcVVu_7OW50S-?usp=sharing">here</a>. In the downloaded folder, both the cell segmentation and cell features files are included.</p>
+<p>Here we use Cellpose to segment the nuclei. Notice the segmentation can take a long time without GPU. The output file is a <code class="docutils literal notranslate"><span class="pre">n_pixel_row</span></code> x <code class="docutils literal notranslate"><span class="pre">n_pixel_col</span></code> matrix.</p>
+<p>For the sake of reproducing the results in the paper, we’ll skip this step and load the pre-computed segmentation results from <a class="reference external" href="https://drive.google.com/drive/folders/1CaUHMRUcKT-qGY2_lMkOcVVu_7OW50S-?usp=sharing">here</a>.</p>
+<p>In the downloaded sub-folder (“WSI_MOB_10x”), both the cell segmentation and cell features files are included.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -255,8 +229,9 @@ Skip cell segmentation
 </section>
 <section id="Preprocessing-spatial-transcriptome.-We-used-SCANPY-to-generate-an-adata-for-the-spots-including-QC.">
 <h3>Preprocessing spatial transcriptome. We used SCANPY to generate an adata for the spots including QC.<a class="headerlink" href="#Preprocessing-spatial-transcriptome.-We-used-SCANPY-to-generate-an-adata-for-the-spots-including-QC." title="Link to this heading"></a></h3>
-<p>We follow the standarized steps used by SCANPY to create the spot adata from the space ranger output directory (<code class="docutils literal notranslate"><span class="pre">visium_dir</span></code>). The spot adata contains the expression matrix, the location of the spots as pixel positions on the WSI, and the hires, lowres images with scalefactors. - spot.h5ad</p>
-<p>You can skip this step and download the files <a class="reference external" href="https://drive.google.com/drive/folders/1CaUHMRUcKT-qGY2_lMkOcVVu_7OW50S-?usp=sharing">here</a></p>
+<p>We follow the standarized steps used by SCANPY to create the spot adata from the space ranger output directory (<code class="docutils literal notranslate"><span class="pre">st_dir</span></code>).</p>
+<p>The spot adata contains the expression matrix, the location of the spots as pixel positions on the WSI, and the hires, lowres images with scalefactors. - spot.h5ad</p>
+<p>You can skip this step and download the files <a class="reference external" href="https://drive.google.com/drive/folders/1CaUHMRUcKT-qGY2_lMkOcVVu_7OW50S-?usp=sharing">here</a>.The output is in the folder “Spatial_MOB_10x”.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -277,7 +252,7 @@ Skip cell segmentation
 ... storing &#39;genome&#39; as categorical
 </pre></div></div>
 </div>
-<p>Basic transcriptome preprocessing</p>
+<p>We can customize the transcriptome preprocessing if needed. Here we do log-normalization.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -745,7 +720,7 @@ AnnData object with n_obs × n_vars = 40543 × 17
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Wang Lab.</p>
+    <p>&#169; Copyright 2025, Wang Lab.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

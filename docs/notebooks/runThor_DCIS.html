@@ -7,7 +7,8 @@
   <title>Ductal carcinoma in situ &mdash; Thor  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=793f93ba" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
 
   
@@ -17,9 +18,11 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/documentation_options.js?v=7f41d439"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,6 +44,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Thor
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -110,7 +114,6 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Ductal carcinoma in situ</li>
       <li class="wy-breadcrumbs-aside">
-<!--             <a href="../_sources/notebooks/runThor_DCIS.ipynb.txt" rel="nofollow"> View page source</a> -->
       </li>
   </ul>
   <hr/>
@@ -120,39 +123,8 @@
              
   <div class="admonition note">
 This page was generated from a Jupyter notebook. You can download the notebook
-<a href="javascript:void(0)" onclick="var link = document.createElement('a'); link.download = 'runThor_DCIS.ipynb'; link.href = '../notebooks/runThor_DCIS.ipynb'; link.click(); return false;">here</a> to run it locally in Jupyter.
-</div>
-
-<script>
-// Alternative download function in case the onclick method doesn't work
-function downloadNotebook(e) {
-    e.preventDefault();
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '../notebooks/runThor_DCIS.ipynb', true);
-    xhr.responseType = 'blob';
-    xhr.onload = function() {
-        if (this.status === 200) {
-            var blob = new Blob([this.response], {type: 'application/x-ipynb+json'});
-            var link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'runThor_DCIS.ipynb';
-            link.click();
-            setTimeout(function() {
-                URL.revokeObjectURL(link.href);
-            }, 1500);
-        }
-    };
-    xhr.send();
-}
-
-// Add the event listener to all download links
-document.addEventListener('DOMContentLoaded', function() {
-    var link = document.querySelector('.admonition.note a');
-    if (link) {
-        link.addEventListener('click', downloadNotebook);
-    }
-});
-</script><section id="Ductal-carcinoma-in-situ">
+<a href="https://github.com/GuangyuWangLab2021/Thor/raw/main/notebooks/runThor_DCIS.ipynb" download>here</a> to run it locally in Jupyter.
+</div><section id="Ductal-carcinoma-in-situ">
 <h1>Ductal carcinoma in situ<a class="headerlink" href="#Ductal-carcinoma-in-situ" title="Link to this heading"></a></h1>
 <p>Thor performs unbiased screening of breast cancer hallmarks in Ductal Carcinoma in situ sample and reveals heterogeneity of immune response.</p>
 <section id="Run-Thor">
@@ -1316,7 +1288,7 @@ Text(0, 0.5, &#39;TLS score&#39;)
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Wang Lab.</p>
+    <p>&#169; Copyright 2025, Wang Lab.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

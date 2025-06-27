@@ -7,7 +7,8 @@
   <title>thor.fineST &mdash; Thor  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=71a31e8f" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=793f93ba" />
 
   
   <!--[if lt IE 9]>
@@ -16,9 +17,11 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/documentation_options.js?v=7f41d439"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -40,6 +43,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Thor
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -104,7 +108,6 @@
           <li class="breadcrumb-item"><a href="../API.html">Classes</a></li>
       <li class="breadcrumb-item active">thor.fineST</li>
       <li class="wy-breadcrumbs-aside">
-<!--             <a href="../_sources/_autosummary/thor.fineST.rst.txt" rel="nofollow"> View page source</a> -->
       </li>
   </ul>
   <hr/>
@@ -160,55 +163,58 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.load" title="thor.fineST.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a></p></td>
 <td><p>Load a fineST instance from a JSON file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.load_genes" title="thor.fineST.load_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_genes</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_generate_model</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.load_genes" title="thor.fineST.load_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_genes</span></code></a></p></td>
 <td><p>Load the user-input genes to be used for prediction.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.load_params" title="thor.fineST.load_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_params</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.load_params" title="thor.fineST.load_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_params</span></code></a></p></td>
 <td><p>Load parameters from a JSON file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.load_result" title="thor.fineST.load_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_result</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.load_result" title="thor.fineST.load_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_result</span></code></a></p></td>
 <td><p>Load the predicted gene expression data and create an <a class="reference external" href="https://anndata.readthedocs.io/en/stable/generated/anndata.AnnData.html#anndata.AnnData" title="(in anndata v0.11.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anndata.AnnData</span></code></a> object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.load_vae_model" title="thor.fineST.load_vae_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_vae_model</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.load_vae_model" title="thor.fineST.load_vae_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_vae_model</span></code></a></p></td>
 <td><p>Load a pre-trained VAE model.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.predict_gene_expression" title="thor.fineST.predict_gene_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_gene_expression</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.predict_gene_expression" title="thor.fineST.predict_gene_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_gene_expression</span></code></a></p></td>
 <td><p>Predict gene expression using Markov graph diffusion.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.prepare_input" title="thor.fineST.prepare_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_input</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.prepare_input" title="thor.fineST.prepare_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_input</span></code></a></p></td>
 <td><p>Prepare the input for the fineST estimation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.prepare_recipe" title="thor.fineST.prepare_recipe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_recipe</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.prepare_recipe" title="thor.fineST.prepare_recipe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_recipe</span></code></a></p></td>
 <td><p>Prepare the recipe for gene expression prediction.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.sanity_check" title="thor.fineST.sanity_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sanity_check</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.sanity_check" title="thor.fineST.sanity_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sanity_check</span></code></a></p></td>
 <td><p>Perform sanity checks on the input data and parameters.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.save" title="thor.fineST.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.save" title="thor.fineST.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a></p></td>
 <td><p>Save the current state of the instance.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.set_cell_features_csv_path" title="thor.fineST.set_cell_features_csv_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cell_features_csv_path</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.set_cell_features_csv_path" title="thor.fineST.set_cell_features_csv_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cell_features_csv_path</span></code></a></p></td>
 <td><p>Set the path to the CSV file containing cell features.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.set_cell_features_list" title="thor.fineST.set_cell_features_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cell_features_list</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.set_cell_features_list" title="thor.fineST.set_cell_features_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cell_features_list</span></code></a></p></td>
 <td><p>Set the list of cell features to be used for graph construction.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.set_genes_for_prediction" title="thor.fineST.set_genes_for_prediction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_genes_for_prediction</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.set_genes_for_prediction" title="thor.fineST.set_genes_for_prediction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_genes_for_prediction</span></code></a></p></td>
 <td><p>Set genes to be used for prediction.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.set_params" title="thor.fineST.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.set_params" title="thor.fineST.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
 <td><p>Set the parameters for the fineST estimation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.vae_training" title="thor.fineST.vae_training"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vae_training</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.vae_training" title="thor.fineST.vae_training"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vae_training</span></code></a></p></td>
 <td><p>Train a VAE model for the spot-level transcriptome data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.visualize_cell_network" title="thor.fineST.visualize_cell_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_cell_network</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.visualize_cell_network" title="thor.fineST.visualize_cell_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_cell_network</span></code></a></p></td>
 <td><p>Visualize the cell-cell network.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.write_adata" title="thor.fineST.write_adata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_adata</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.write_adata" title="thor.fineST.write_adata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_adata</span></code></a></p></td>
 <td><p>Write an AnnData object to disk in the results directory.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#thor.fineST.write_params" title="thor.fineST.write_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_params</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#thor.fineST.write_params" title="thor.fineST.write_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_params</span></code></a></p></td>
 <td><p>Write the current parameters to a JSON file.</p></td>
 </tr>
 </tbody>
@@ -707,7 +713,7 @@ for available options.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Wang Lab.</p>
+    <p>&#169; Copyright 2025, Wang Lab.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
