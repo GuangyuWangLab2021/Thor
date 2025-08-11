@@ -600,9 +600,9 @@ class fineST:
             markov_graph_diffusion_initialize(burnin.adata, **burnin.graph_params)
 
         # # set genes for prediction
-        # if genes_included == "highly_variable":
-        #     # recompute the highly variable genes based on the cell-wise gene expression
-        #     sc.pp.highly_variable_genes(burnin.adata, inplace=True)
+        if genes_included == "highly_variable":
+            # recompute the highly variable genes based on the cell-wise gene expression
+            sc.pp.highly_variable_genes(burnin.adata, inplace=True)
         # burnin.genes = genes_included
         burnin.set_genes_for_prediction(genes_selection_key=genes_included)
 
@@ -880,11 +880,11 @@ class fineST:
                 reduced_genes
             )
 
-    def load_generate_model(self):
-        if self.model_path is None:
+    def load_generate_model(self, model_path):
+        if model_path is None:
             self.generate = IdentityGenerator()
         else:
-            self.load_vae_model(self.model_path)
+            self.load_vae_model(model_path)
 
     def load_vae_model(self, model_path=None):
         """Load a pre-trained VAE model.
@@ -959,7 +959,8 @@ class fineST:
             if k != 'generate':
                 setattr(new_instance, k, copy.deepcopy(v, memo))
             else:
-                new_instance.load_generate_model(self.model_path)
+                model_path = getattr(self, "model_path", None)
+                new_instance.load_generate_model(model_path)
 
         return new_instance
 

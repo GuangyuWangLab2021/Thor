@@ -102,13 +102,15 @@ def markov_graph_diffusion_initialize(
     """
 
     obsm_key = reduced_dimension_transcriptome_obsm_key
-    adata_input.obsm[obsm_key] = adata_input.obsm[obsm_key][:, :reduced_dimension_transcriptome_obsm_dims].copy()
-    if adjust_cell_network_by_transcriptome_scale > 0 and obsm_key not in adata_input.obsm:
-        logger.error(
-            f"{obsm_key} not in adata obsm. Please generate it before running markov graphical diffusion."
-        )
-        return None
-
+    if adjust_cell_network_by_transcriptome_scale > 0:
+        if obsm_key not in adata_input.obsm:
+            logger.error(
+                f"{obsm_key} not in adata obsm. Please generate it before running markov graphical diffusion."
+            )
+            return None
+        else:
+            adata_input.obsm[obsm_key] = adata_input.obsm[obsm_key][:, :reduced_dimension_transcriptome_obsm_dims].copy()
+            
     if not set(node_features_obs_list).issubset(adata_input.obs.columns):
         logger.warning(
             f"{node_features_obs_list} not in adata.obs. Please generate it before running markov graphical diffusion."
