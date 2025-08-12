@@ -146,8 +146,8 @@ if __name__ == '__main__':
     import pandas as pd
     import scanpy as sc
 
-    spot_adata_path = '/condo/wanglab/tmhtxt85/Project/GW_bladder_spatialHD/D1_Johnson/D1_Johnson_filtered_processed_002mm.h5ad'
-    cell_feature_path = '/condo/wanglab/tmhtxt85/Project/GW_bladder_spatialHD/WSI_D1_Johnson/cell_features.csv'
+    spot_adata_path = 'path to processed_002micro.h5ad'
+    cell_feature_path = 'path to cell_features.csv'
 
     adata_spot = sc.read_h5ad(spot_adata_path)
     cell_features = pd.read_csv(cell_feature_path, index_col=0)

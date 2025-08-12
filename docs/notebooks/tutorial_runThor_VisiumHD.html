@@ -191,7 +191,7 @@ numexpr.utils - INFO - NumExpr defaulting to 8 threads.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># name = &quot;D1_Johnson&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># name = &quot;demo_visiumhd&quot;</span>
 <span class="c1"># image_path = f&quot;./{name}_Scan1.qptiff.tiff&quot;</span>
 
 <span class="c1"># wsi = WholeSlideImage(image_path, name=name)</span>
@@ -205,12 +205,12 @@ numexpr.utils - INFO - NumExpr defaulting to 8 threads.
 </div>
 <section id="Preprocessing-cell-level-spatial-transcriptome.">
 <h3>Preprocessing cell-level spatial transcriptome.<a class="headerlink" href="#Preprocessing-cell-level-spatial-transcriptome." title="Link to this heading"></a></h3>
-<p>Using the standard SCANPY pipeline, we created the VisiumHD 002um bin <code class="docutils literal notranslate"><span class="pre">adata</span></code> from the Space Ranger output directory (<code class="docutils literal notranslate"><span class="pre">D1_Johnson</span></code>). This <code class="docutils literal notranslate"><span class="pre">adata</span></code> contains the expression matrix, bin locations mapped as pixel coordinates on the whole slide image (WSI), and both high and low-resolution images with their associated scale factors.</p>
+<p>Using the standard SCANPY pipeline, we created the VisiumHD 002um bin <code class="docutils literal notranslate"><span class="pre">adata</span></code> from the Space Ranger output directory (<code class="docutils literal notranslate"><span class="pre">demo_visiumhd</span></code>). This <code class="docutils literal notranslate"><span class="pre">adata</span></code> contains the expression matrix, bin locations mapped as pixel coordinates on the whole slide image (WSI), and both high and low-resolution images with their associated scale factors.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;D1_Johnson&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;demo_visiumhd&quot;</span>
 <span class="n">outdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 <span class="n">image_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;../</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Scan1.qptiff.tiff&quot;</span>
 <span class="n">image_process_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;WSI_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
