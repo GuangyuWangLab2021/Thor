@@ -1,18 +1,19 @@
-Thor - integrated analysis platform of tissue histology and spatial transcriptomics at **cell level**
+Integrated analysis platform of tissue histology and spatial transcriptomics at the **cell level**
 ========================================================
 
+**Thor** enables cell-level spatial transcriptomics analysis by integrating histology and transcriptomic information through an anti-shrinking Markov diffusion method. 
 
-**Thor** infers single-cell resolution spatial transcriptome through an anti-shrinking Markov diffusion method. 
+Key features:
 
-- Thor leverages both histological and transcriptomic information to achieve single-cell resolution
-- Thor does not need additional single-cell data for cell deconvolution within tissue spots
+- Jointly leverages histological and transcriptomic information for accurate inference
+- Achieves single-cell resolution without requiring additional single-cell reference data
 
 .. image:: _static/workflow_part1.png
   :width: 100%
   :alt: workflow
 
 
-Thor's key modules
+Thor modules
 ========================================================
 
 .. image:: _static/Thor_advanced_analysis_illustration.png
@@ -22,69 +23,76 @@ Thor's key modules
 
 What's new
 ========================================================
-- Thor now supports Visium HD data 
-- Thor now includes COMMOT for the cell-cell communication analysis
+- 🚀 *2025-09-03*: Updated preprocessing scripts for Visium HD data and added a new tutorial in the `visiumhd/ <./visiumhd>`_ directory
+- 🧬 Added full support for **Visium HD** data
+- 🔗 Integrated **COMMOT** for cell–cell communication analysis
 
 Installation
 ========================================================
-Thor is a Python-based tool designed for data analysis. Installation requires Python version 3.9+. The installation steps below have been tested on MacOS and Linux.
+Thor is written in Python (3.9+) and tested on macOS and Linux. We recommend installing it inside a virtual environment.
 
-Step 1: Create a Virtual Environment (Optional, strongly recommended)
+Step 1. Create a virtual environment (recommended)
+--------------------------------------------------------
 
-- Using `conda <https://docs.conda.io/en/latest/>`_ , you can create a new environment named "Thor" with Python version 3.9 or later: 
+Using `conda <https://docs.conda.io/en/latest/>`__:
 
-  ``conda create -n Thor python=3.9``
+.. code-block:: bash
 
-- Activate the newly created environment: 
+   conda create -n Thor python=3.9
+   conda activate Thor
 
-  ``conda activate Thor``
+Step 2. Clone the repository
+--------------------------------------------------------
 
-Step 2: Clone Thor Repository
+.. code-block:: bash
 
-- Thor's source code is hosted on GitHub. To get started, download or clone the Thor repository to your local machine using the following command: 
+   git clone https://github.com/GuangyuWangLab2021/Thor.git
+   cd Thor
 
-  ``git clone https://github.com/GuangyuWangLab2021/Thor.git``
+Step 3. Install Thor
+--------------------------------------------------------
 
-- Navigate to the Thor directory: 
+- Base installation:
 
-  ``cd Thor``
+  .. code-block:: bash
 
-Step 3: Install Thor
+     pip install .
 
-- With your virtual environment activated, install Thor using pip. 
+- With optional visualization and advanced analysis:
 
-  ``pip install .``
+  .. code-block:: bash
 
-- If you would like to perform advanced analyses and visualization.
+     pip install ".[vis,analysis]"
 
-  ``pip install ".[vis, analysis]"``
+Cell–cell communication (COMMOT)
+--------------------------------------------------------
 
+Currently, Thor includes **COMMOT**, a state-of-the-art tool for spatial communication analysis.
+This module is under active development, and we welcome feedback and contributions.
 
-**Currently the cell-cell communication module only includes COMMOT, a SOTA model for spatial data.** The module is under active development due to the potential limitation of read coverage in single-cell spatial transcriptomics data. We are welcome for any suggestions and feedback. 
+Requirements:
 
-To install COMMOT for cell-cell communication analysis, please follow the instructions: 
-  
-  - R is required. Version 4.2.2 has been tested.
+- R (tested with version 4.2.2)
+- Python dependencies:
 
-  - For Python dependencies,
+  .. code-block:: bash
 
-  ``pip install --no-deps commot@git+https://github.com/biopzhang/COMMOT.git``
-  
-  ``pip install karateclub@git+https://github.com/benedekrozemberczki/karateclub.git POT libpysal rpy2==3.5.11 anndata2ri==1.2``
+     pip install --no-deps commot@git+https://github.com/biopzhang/COMMOT.git
+     pip install karateclub@git+https://github.com/benedekrozemberczki/karateclub.git POT libpysal rpy2==3.5.11 anndata2ri==1.2
 
 Usage
 ========================================================
-- Visit `Thor Website <https://wanglab.tech/thor>`_ for APIs and tutorials.
 
-- Launch Mjolnir web app for interactive visualization of your own WSI and data produced by Thor at https://wanglab.tech/mjolnir_launch/.
+- Visit the `Thor website <https://wanglab.tech/thor>`__ for API documentation and tutorials
+- Launch the **Mjolnir web app** for interactive visualization of WSIs and Thor outputs: `https://wanglab.tech/mjolnir_launch/ <https://wanglab.tech/mjolnir_launch/>`__
+- To reproduce the results in our paper, see the tutorials and parameters in the `parameters <./parameters/>`_ directory
 
-- To reproduce the results in our paper, please refer to the tutorials and the parameters can be found in the directory `parameters/ <./parameters_for_reproducing/>`_.
+Frequently Asked Questions
+========================================================
 
-
-Frequently asked questions
-==========================
-
+*(Coming soon – please open an issue if you have questions you’d like us to cover!)*
 
 Support
-=======
-Please send bug reports and suggestions to our GitHub issue page!
+========================================================
+
+Please report bugs, request features, or share feedback on the `GitHub Issues page <https://github.com/GuangyuWangLab2021/Thor/issues>`__.
