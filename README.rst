@@ -23,6 +23,7 @@ Thor modules
 
 What's new
 ========================================================
+- 🚀 *2025-09-16*: Added tutorial for running copy number aberration in the `notebooks/ <./notebooks>`_ directory
 - 🚀 *2025-09-03*: Updated preprocessing scripts for Visium HD data and added a new tutorial in the `visiumhd/ <./visiumhd>`_ directory
 - 🧬 Added full support for **Visium HD** data
 - 🔗 Integrated **COMMOT** for cell–cell communication analysis
